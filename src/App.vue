@@ -1,13 +1,25 @@
 <template>
   <div id="app">
+    <Header/>
     <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+      <router-link to="/skateboards">Skateboards</router-link>  |
+      <router-link to="/clothes">Clothes</router-link> |
+      <router-link to="/shoes">Shoes</router-link>   |
+      <router-link to="/accessories">Accessories</router-link>
     </div>
     <router-view/>
+    <Footer/>
   </div>
 </template>
 
+<script>
+import Header from './components/Header.vue'
+import Footer from './components/Footer.vue'
+export default {
+  components:{Header, Footer}
+  
+}
+</script>
 <style lang="scss">
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
