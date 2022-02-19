@@ -18,14 +18,17 @@ export default new Vuex.Store({
   },
   actions: {
     async [Actions.AUTHENTICATE](context, credentials){
-      console.log("authenticate working")
-      const response = await API.login(
-        credentials.email, credentials.password
-      )
-      API.saveToken(response.data.token)
-      context.commit(Mutations.AUTHENTICATE_LOGIN, response.data)
+      // console.log("authenticate working")
+      // const response = await API.login(
+      //   credentials.email, credentials.password
+      // )
+      // API.saveToken(response.data.token)
+      // context.commit(Mutations.AUTHENTICATE_LOGIN, response.data)
+      console.log(context,credentials,API)
     },
     async [Actions.REGISTER_USER](context, newUserDetails){
+      const response = await API.register(newUserDetails)
+      context.commit(Mutations.AUTHENTICATE_LOGIN, response.data)      
       console.log("Register working!!",context,newUserDetails)
     }
   },
