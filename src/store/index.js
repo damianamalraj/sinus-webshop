@@ -24,6 +24,7 @@ export default new Vuex.Store({
       // )
       // API.saveToken(response.data.token)
       // context.commit(Mutations.AUTHENTICATE_LOGIN, response.data)
+      
       console.log(context,credentials,API)
     },
     async [Actions.REGISTER_USER](context, newUserDetails){

@@ -2,22 +2,12 @@
   <div>
     <form @submit.prevent="register" class="form-styling">
       <span>
-        <label for="firstname">FIRSTNAME</label>
+        <label for="username">NAME</label>
         <input
           type="text"
-          name="firstname"
-          id="firstname"
-          v-model="firstname"
-          required
-        />
-      </span>
-      <span>
-        <label for="lastname">LASTNAME</label>
-        <input
-          type="text"
-          name="lastname"
-          id="lastname"
-          v-model="lastname"
+          name="username"
+          id="username"
+          v-model="username"
           required
         />
       </span>
@@ -38,16 +28,6 @@
           name="newpassword"
           id="newpassword"
           v-model="newpassword"
-          required
-        />
-      </span>
-      <span>
-        <label for="rptpassword">Repeat Password</label>
-        <input
-          type="password"
-          name="rptpassword"
-          id="rptpassword"
-          v-model="rptpassword"
           required
         />
       </span>
@@ -84,12 +64,10 @@ export default {
     return {
       newemail: "",
       newpassword: "",
-      firstname: "",
-      lastname: "",
+      username: "",
       street: "",
       city: "",
       zip: "",
-      rptpassword: "",
       validatedLogin: false,
       errorsList: [],
       noError: true,
@@ -102,8 +80,7 @@ export default {
         this.$store.dispatch(Actions.REGISTER_USER, {
           email: this.newemail,
           password: this.newpassword,
-          firstname: this.firstname,
-          lastname: this.lastname,
+          name: this.username,
           street: this.street,
           city: this.city,
           zip: this.zip,
@@ -114,17 +91,14 @@ export default {
       this.errorsList = [];
       if (
         !/^[a-zA-Z]+$/.test(
-          this.firstname || this.lastname || this.street || this.city
+          this.username ||  this.street || this.city
         )
       ) {
         this.errorsList.push(
           "Name, Street, City should contain only characters"
         );
         this.noError = false;
-      } else if (this.newpassword != this.rptpassword) {
-        this.errorsList.push("Password is not matching");
-        this.noError = false;
-      }
+      } 
       if (this.noError) {
         this.validatedLogin = true;
         console.log("validate function");
