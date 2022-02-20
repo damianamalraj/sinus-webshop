@@ -11,6 +11,7 @@ import ShoesView from '../views/ShoesView.vue'
 import SingleProductView from '../views/SingleProductView.vue'
 import SkateboardsView from '../views/SkateboardsView.vue'
 import WishListView from '../views/WishListView.vue'
+import SignUpView from '../views/SignUpView.vue'
 
 Vue.use(VueRouter)
 
@@ -69,7 +70,12 @@ const routes = [
     path: '/wishList',
     name: 'WishList',
     component: WishListView
-  } 
+  },
+  {
+    path: '/signup',
+    name: 'SignUp',
+    component: SignUpView
+  }
 ]
 
 const router = new VueRouter({
