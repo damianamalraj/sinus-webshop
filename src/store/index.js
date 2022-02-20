@@ -1,15 +1,113 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
+import Vue from "vue";
+import Vuex from "vuex";
 
-Vue.use(Vuex)
+Vue.use(Vuex);
 
 export default new Vuex.Store({
-  state: {
-  },
-  mutations: {
-  },
-  actions: {
-  },
-  modules: {
-  }
-})
+    state: {
+        products: [
+            {
+                id: 1337,
+                title: "Gretas Fury",
+                price: 999,
+                specialEdition: true,
+                shortDesc: "Unisex",
+                longDesc: "Skate ipsum dolor sit amet...",
+                imgFile: "skateboard-greta.png",
+            },
+            {
+                id: 1332,
+                title: "Gretas Fury",
+                price: 999,
+                specialEdition: true,
+                shortDesc: "Unisex",
+                longDesc: "Skate ipsum dolor sit amet...",
+                imgFile: "skateboard-greta.png",
+            },
+            {
+                id: 1437,
+                title: "Gretas Fury",
+                price: 999,
+                specialEdition: true,
+                shortDesc: "Unisex",
+                longDesc: "Skate ipsum dolor sit amet...",
+                imgFile: "skateboard-greta.png",
+            },
+            {
+                id: 2337,
+                title: "Gretas Fury",
+                price: 999,
+                specialEdition: true,
+                shortDesc: "Unisex",
+                longDesc: "Skate ipsum dolor sit amet...",
+                imgFile: "skateboard-greta.png",
+            },
+            {
+                id: 1397,
+                title: "Gretas Fury",
+                price: 999,
+                specialEdition: true,
+                shortDesc: "Unisex",
+                longDesc: "Skate ipsum dolor sit amet...",
+                imgFile: "skateboard-greta.png",
+            },
+            {
+                id: 1330,
+                title: "Gretas Fury",
+                price: 999,
+                specialEdition: true,
+                shortDesc: "Unisex",
+                longDesc: "Skate ipsum dolor sit amet...",
+                imgFile: "skateboard-greta.png",
+            },
+            {
+                id: 1637,
+                title: "Gretas Fury",
+                price: 999,
+                specialEdition: true,
+                shortDesc: "Unisex",
+                longDesc: "Skate ipsum dolor sit amet...",
+                imgFile: "skateboard-greta.png",
+            },
+            {
+                id: 1387,
+                title: "Gretas Fury",
+                price: 999,
+                specialEdition: true,
+                shortDesc: "Unisex",
+                longDesc: "Skate ipsum dolor sit amet...",
+                imgFile: "skateboard-greta.png",
+            },
+            {
+                id: 13337,
+                title: "Gretas Fury",
+                price: 999,
+                specialEdition: true,
+                shortDesc: "Unisex",
+                longDesc: "Skate ipsum dolor sit amet...",
+                imgFile: "skateboard-greta.png",
+            },
+            {
+                id: 13237,
+                title: "Gretas Fury",
+                price: 999,
+                specialEdition: true,
+                shortDesc: "Unisex",
+                longDesc: "Skate ipsum dolor sit amet...",
+                imgFile: "skateboard-greta.png",
+            },
+            {
+                id: 133700,
+                title: "Gretas Fury",
+                price: 999,
+                specialEdition: true,
+                shortDesc: "Unisex",
+                longDesc: "Skate ipsum dolor sit amet...",
+                imgFile: "skateboard-greta.png",
+            },
+        ],
+    },
+    mutations: {},
+    actions: {},
+    modules: {},
+});
