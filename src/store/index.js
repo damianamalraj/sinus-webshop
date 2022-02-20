@@ -9,21 +9,32 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    user:{}
+    user:{//name:"hjnkjk"
+    },
+    loginError:false
   },
   mutations: {
     [Mutations.AUTHENTICATE_LOGIN](state,credentials){
       state.user = credentials
+    },
+    [Mutations.LOGIN_FAILED](state){
+      state.loginError = true
     }
   },
   actions: {
     async [Actions.AUTHENTICATE](context, credentials){
-      // console.log("authenticate working")
-      // const response = await API.login(
-      //   credentials.email, credentials.password
-      // )
-      // API.saveToken(response.data.token)
-      // context.commit(Mutations.AUTHENTICATE_LOGIN, response.data)
+      try{
+        // console.log("authenticate working")
+        // const response = await API.login(
+        //   credentials.email, credentials.password
+        // )
+        // API.saveToken(response.data.token)
+        // context.commit(Mutations.AUTHENTICATE_LOGIN, response.data)
+        // context.commit(Mutations.AUTHENTICATE_LOGIN,{name:"jgjkgjg"})
+      }
+      catch{
+        context.commit(Mutations.LOGIN_FAILED)
+      }
       
       console.log(context,credentials,API)
     },

@@ -32,6 +32,12 @@
           </router-link> 
         </div>
 
+       <div>
+          <router-link to="/wishList">
+            <img src="../assets/profile.svg" alt="">
+          </router-link> 
+        </div>
+
       <div>
           <router-link to="/cart">
             <img src="../assets/cart.svg" alt="">
@@ -42,9 +48,15 @@
 </template>
 
 <script>
-
 export default {
+  data(){return{
 
+  }},
+  computed:{
+    user(){
+      return this.$store.state.user
+    }
+  }
 }
 </script>
 
@@ -83,9 +95,5 @@ export default {
     gap: 1rem;
     
   }
-
-  
-
-
 
 </style>
