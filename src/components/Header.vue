@@ -1,43 +1,73 @@
 <template>
   <div class="header">
       <div class="headerLeft">
-        <div>
-          LOGO
+        <div >
+          <router-link to="/" class="logo">
+             Sinus
+          </router-link> 
         </div>
         
         <div>
-          <router-link to="/"> <Home/> </router-link> 
+          <router-link to="/">
+            <img src="../assets/home.svg" alt="">
+          </router-link> 
         </div>
-
       </div>
 
       <div class="headerRight">
-        <div> Search </div>
+        <div>
+          <input placeholder="SEARCH YOUR PRODUCT" type="text">
+        </div>
         <div> Contact us </div>
-        <div> Log in</div>
-        <div> Heart</div>
-        <div> Cart</div>
+
+        <div >
+          <router-link to="/login" class="login">
+             Login
+          </router-link> 
+        </div>
+
+       <div>
+          <router-link to="/wishList">
+            <img src="../assets/heart.svg" alt="">
+          </router-link> 
+        </div>
+
+      <div>
+          <router-link to="/cart">
+            <img src="../assets/cart.svg" alt="">
+          </router-link> 
+        </div>
       </div>
   </div>
 </template>
 
 <script>
-import Home from '../views/Home'
+
 export default {
-  components: {
-    Home
-  }
+
 }
 </script>
 
-<style>
+<style >
+
+  .logo, .login{
+    text-decoration: none;
+    
+  }
+
+  input{
+    width: 15rem;
+    text-align: center;
+  }
 
   .header{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     background-color:lightgray;
+    padding: 1rem;
     height: 2rem;
+    align-items: center;
   }
 
   .headerLeft{
