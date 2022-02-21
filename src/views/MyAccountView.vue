@@ -1,7 +1,7 @@
 <template>
   <div>
+      <h1>My account view</h1>
       
-      <h4>Search</h4>
   </div>
 </template>
 
