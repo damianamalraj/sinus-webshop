@@ -5,7 +5,8 @@
       <router-link to="/skateboards">Skateboards</router-link>  |
       <router-link to="/clothes">Clothes</router-link> |
       <router-link to="/shoes">Shoes</router-link>   |
-      <router-link to="/accessories">Accessories</router-link>
+      <router-link to="/accessories">Accessories</router-link> |
+      <router-link to="/singleProduct">Single product view</router-link>
     </div>
     <router-view/>
     <Footer/>
