@@ -5,18 +5,122 @@ import Mutations from './mutation.types'
 import * as API from '@/api'
 
 
-Vue.use(Vuex)
+
+Vue.use(Vuex);
 
 export default new Vuex.Store({
-  state: {
-    user:{}
-  },
-  mutations: {
+
+    state: {
+        user:{},
+        products: [
+            {
+                id: 1337,
+                title: "Gretas Fury",
+                price: 999,
+                specialEdition: true,
+                shortDesc: "Unisex",
+                longDesc: "Skate ipsum dolor sit amet...",
+                imgFile: "skateboard-greta.png",
+            },
+            {
+                id: 1332,
+                title: "Gretas Fury",
+                price: 999,
+                specialEdition: true,
+                shortDesc: "Unisex",
+                longDesc: "Skate ipsum dolor sit amet...",
+                imgFile: "skateboard-greta.png",
+            },
+            {
+                id: 1437,
+                title: "Gretas Fury",
+                price: 999,
+                specialEdition: true,
+                shortDesc: "Unisex",
+                longDesc: "Skate ipsum dolor sit amet...",
+                imgFile: "skateboard-greta.png",
+            },
+            {
+                id: 2337,
+                title: "Gretas Fury",
+                price: 999,
+                specialEdition: true,
+                shortDesc: "Unisex",
+                longDesc: "Skate ipsum dolor sit amet...",
+                imgFile: "skateboard-greta.png",
+            },
+            {
+                id: 1397,
+                title: "Gretas Fury",
+                price: 999,
+                specialEdition: true,
+                shortDesc: "Unisex",
+                longDesc: "Skate ipsum dolor sit amet...",
+                imgFile: "skateboard-greta.png",
+            },
+            {
+                id: 1330,
+                title: "Gretas Fury",
+                price: 999,
+                specialEdition: true,
+                shortDesc: "Unisex",
+                longDesc: "Skate ipsum dolor sit amet...",
+                imgFile: "skateboard-greta.png",
+            },
+            {
+                id: 1637,
+                title: "Gretas Fury",
+                price: 999,
+                specialEdition: true,
+                shortDesc: "Unisex",
+                longDesc: "Skate ipsum dolor sit amet...",
+                imgFile: "skateboard-greta.png",
+            },
+            {
+                id: 1387,
+                title: "Gretas Fury",
+                price: 999,
+                specialEdition: true,
+                shortDesc: "Unisex",
+                longDesc: "Skate ipsum dolor sit amet...",
+                imgFile: "skateboard-greta.png",
+            },
+            {
+                id: 13337,
+                title: "Gretas Fury",
+                price: 999,
+                specialEdition: true,
+                shortDesc: "Unisex",
+                longDesc: "Skate ipsum dolor sit amet...",
+                imgFile: "skateboard-greta.png",
+            },
+            {
+                id: 13237,
+                title: "Gretas Fury",
+                price: 999,
+                specialEdition: true,
+                shortDesc: "Unisex",
+                longDesc: "Skate ipsum dolor sit amet...",
+                imgFile: "skateboard-greta.png",
+            },
+            {
+                id: 133700,
+                title: "Gretas Fury",
+                price: 999,
+                specialEdition: true,
+                shortDesc: "Unisex",
+                longDesc: "Skate ipsum dolor sit amet...",
+                imgFile: "skateboard-greta.png",
+            },
+        ],
+                              
+    },
+    mutations: {
     [Mutations.AUTHENTICATE_LOGIN](state,credentials){
       state.user = credentials
     }
   },
-  actions: {
+    actions: {
     async [Actions.AUTHENTICATE](context, credentials){
       // console.log("authenticate working")
       // const response = await API.login(
@@ -33,6 +137,6 @@ export default new Vuex.Store({
       console.log("Register working!!",context,newUserDetails)
     }
   },
-  modules: {
-  }
-})
+    modules: {},
+});
+
