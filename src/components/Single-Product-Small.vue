@@ -4,7 +4,7 @@
             <div class="bild">
                 <img src="../assets/fake-img.png" alt="product image" />
             </div>
-            <section>
+            <section class="title-container">
                 <h3>
                     {{ product.title }}
                 </h3>
@@ -17,7 +17,7 @@
                 {{ product.longDesc }}
             </p>
         </router-link>
-        <section>
+        <section class="button-container">
             <select>
                 <option value="1">1</option>
                 <option value="2">2</option>
@@ -46,10 +46,13 @@ export default {
 .single-product {
     border: 1px solid black;
     border-radius: 8px;
-    width: 200px;
-    max-height: 350px;
+    width: 250px;
+    height: 400px;
     padding: 0.5rem;
     text-align: start;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 
     span {
         font-size: 0.7rem;
@@ -68,7 +71,12 @@ export default {
         display: flex;
         justify-content: space-between;
     }
-    section:nth-of-type(2) {
+
+    .title-container {
+        display: flex;
+        justify-content: space-between;
+    }
+    .button-container {
         display: flex;
         justify-content: space-between;
 
