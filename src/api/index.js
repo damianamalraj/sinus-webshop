@@ -1,6 +1,6 @@
 import axios from "axios";
 
-axios.defaults.baseURL = 'http://sinus/api'
+axios.defaults.baseURL = 'http://localhost:5001'
 
 export function saveToken(token) {
     axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
@@ -14,3 +14,19 @@ export async function register(newUserDetails){
     return await axios.post('/register',newUserDetails//need to send details separately?
     )
 }
+
+export async function getSingleData(newUserDetails){
+    return await axios.post('/register',newUserDetails//need to send details separately?
+    )
+}
+
+export async function getData() {
+    return await axios.get('/api/items')
+}
+
+export async function fetchData(id) {
+    return await axios.get(`/api/items/${id}`)
+}
+
+
+

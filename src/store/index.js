@@ -5,18 +5,37 @@ import Mutations from './mutation.types'
 import * as API from '@/api'
 
 
-Vue.use(Vuex)
+Vue.use(Vuex);
 
 export default new Vuex.Store({
-  state: {
-    user:{}
-  },
-  mutations: {
+
+    state: {
+        user:{},
+        products: [],
+        singleProduct:[],
+        cartData: []
+
+                              
+    },
+    mutations: {
     [Mutations.AUTHENTICATE_LOGIN](state,credentials){
       state.user = credentials
+    },
+
+    getAllItems(state, res){
+        state.products = res.data.products
+    },
+    saveSingleData(state, data){
+      state.singleProduct = data
+
+    },
+    singleProduct(state, data){
+      state.cartData.push(data)
+
     }
   },
-  actions: {
+
+    actions: {
     async [Actions.AUTHENTICATE](context, credentials){
       // console.log("authenticate working")
       // const response = await API.login(
@@ -31,8 +50,21 @@ export default new Vuex.Store({
       const response = await API.register(newUserDetails)
       context.commit(Mutations.AUTHENTICATE_LOGIN, response.data)      
       console.log("Register working!!",context,newUserDetails)
+    },
+
+    async getItems(context){
+        const response = await API.getData()
+        context.commit('getAllItems', response)
+        console.log(response);
+    },
+    async getItem(context, id){
+      const res = await API.fetchData(id)
+      context.commit("saveSingleData", res.data.post)
+      console.log(res);
+
     }
+    
   },
-  modules: {
-  }
-})
+    modules: {},
+});
+

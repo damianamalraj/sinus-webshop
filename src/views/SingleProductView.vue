@@ -1,66 +1,98 @@
 <template>
-  <div class="product">
-        <div class="card">
-            <img class="img" src="../assets/1.jpeg" alt="Denim Jeans">
+    <div>
+      <div class="product">
+          <div>
+            <div class="bild">
+                <img src="../assets/fake-img.png" alt="product image" />
+            </div>
+           
         </div>
-        <div class="description">
-            <h1>Sinus T-Shirt</h1>
-            <p>Some text about the skateboard..</p>
-            <p>Some text about the skateboard..</p>
-            <p>Some text about the skateboard..</p>
-            <p>Some text about the skateboard..</p>
-            <p class="price">$19.99</p>
-            <p><button>Add to Cart</button></p>
+        <div>
+           <section>
+                <h3>
+                    {{ product.title }}
+                </h3>
+                <p>{{ product.price }} kr</p>
+            </section>
+            <p>
+                {{ product.longDesc }}
+            </p>
+            <button @click="saveToCart">
+                ADD TO CART
+            </button>
         </div>
-  </div>
+
+      </div>
+      <div class="product-list-view">
+            <SingleProductSmall :product="product" />
+            <SingleProductSmall :product="product" />
+            <SingleProductSmall :product="product" />
+            <SingleProductSmall :product="product" />
+            <SingleProductSmall :product="product" />
+      </div>
+      
+     
+    </div>
 </template>
 
 <script>
-export default {
 
-}
+import SingleProductSmall from "../components/Single-Product-Small";
+
+
+export default {
+    name: 'SingleProductView',
+    computed: {
+        product() {
+            return this.$store.state.singleProduct},
+    },
+
+    mounted(){
+      this.$store.dispatch("getItem", this.$route.params.id)
+
+    },
+
+    components: {
+        SingleProductSmall,
+    },
+
+    methods:{
+      saveToCart(){
+        this.$store.commit("singleProduct", this.product)
+      }
+    }
+
+    
+};
 </script>
 
 <style scoped>
-  .product {
-   display: flex;
-}
-  .card {
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  width: 300px;
-  margin: auto;
-  font-family: arial;
-  
-}
 
-.description{
-    margin-right: 4rem;
-}
+  .product{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+  }
 
-.img{
+  .productPicture{
     width: 300px;
     height: 250px;
-}
+    background-color: green;
+  }
 
-.price {
-  color: grey;
-  font-size: 22px;
-}
+  .product-list-view{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+  }
 
-.card button {
-  border: none;
-  outline: 0;
-  padding: 12px;
-  color: white;
-  background-color: #000;
-  text-align: center;
-  cursor: pointer;
-  width: 100%;
-  font-size: 18px;
-}
 
-.card button:hover {
-  opacity: 0.7;
-}
+
+
+
+
+
 
 </style>
