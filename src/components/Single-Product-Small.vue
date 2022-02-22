@@ -2,7 +2,10 @@
     <div class="single-product">
         <router-link :to="'/singleproduct/' + product.id">
             <div class="bild">
-                <img src="../assets/fake-img.png" alt="product image" />
+                <img
+                    :src="'http://localhost:5001/images/' + product.imgFile"
+                    alt="product image"
+                />
             </div>
             <section class="title-container">
                 <h3>
@@ -61,10 +64,14 @@ export default {
     p {
         margin: 0;
     }
+
+    .bild {
+        height: 230px;
+    }
     .bild img {
         width: 100%;
         height: 100%;
-        object-fit: cover;
+        object-fit: contain;
         overflow: hidden;
     }
     section:nth-of-type(1) {
