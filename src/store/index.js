@@ -4,121 +4,40 @@ import Actions from "./action.types";
 import Mutations from "./mutation.types";
 import * as API from "@/api";
 
+
 Vue.use(Vuex);
 
 export default new Vuex.Store({
     state: {
-        user: {},
-        products: [
-            // {
-            //     id: 1337,
-            //     title: "Gretas Fury",
-            //     price: 999,
-            //     specialEdition: true,
-            //     shortDesc: "Unisex",
-            //     longDesc: "Skate ipsum dolor sit amet...",
-            //     imgFile: "skateboard-greta.png",
-            // },
-            // {
-            //     id: 1332,
-            //     title: "Gretas Fury",
-            //     price: 999,
-            //     specialEdition: true,
-            //     shortDesc: "Unisex",
-            //     longDesc: "Skate ipsum dolor sit amet...",
-            //     imgFile: "skateboard-greta.png",
-            // },
-            // {
-            //     id: 1437,
-            //     title: "Gretas Fury",
-            //     price: 999,
-            //     specialEdition: true,
-            //     shortDesc: "Unisex",
-            //     longDesc: "Skate ipsum dolor sit amet...",
-            //     imgFile: "skateboard-greta.png",
-            // },
-            // {
-            //     id: 2337,
-            //     title: "Gretas Fury",
-            //     price: 999,
-            //     specialEdition: true,
-            //     shortDesc: "Unisex",
-            //     longDesc: "Skate ipsum dolor sit amet...",
-            //     imgFile: "skateboard-greta.png",
-            // },
-            // {
-            //     id: 1397,
-            //     title: "Gretas Fury",
-            //     price: 999,
-            //     specialEdition: true,
-            //     shortDesc: "Unisex",
-            //     longDesc: "Skate ipsum dolor sit amet...",
-            //     imgFile: "skateboard-greta.png",
-            // },
-            // {
-            //     id: 1330,
-            //     title: "Gretas Fury",
-            //     price: 999,
-            //     specialEdition: true,
-            //     shortDesc: "Unisex",
-            //     longDesc: "Skate ipsum dolor sit amet...",
-            //     imgFile: "skateboard-greta.png",
-            // },
-            // {
-            //     id: 1637,
-            //     title: "Gretas Fury",
-            //     price: 999,
-            //     specialEdition: true,
-            //     shortDesc: "Unisex",
-            //     longDesc: "Skate ipsum dolor sit amet...",
-            //     imgFile: "skateboard-greta.png",
-            // },
-            // {
-            //     id: 1387,
-            //     title: "Gretas Fury",
-            //     price: 999,
-            //     specialEdition: true,
-            //     shortDesc: "Unisex",
-            //     longDesc: "Skate ipsum dolor sit amet...",
-            //     imgFile: "skateboard-greta.png",
-            // },
-            // {
-            //     id: 13337,
-            //     title: "Gretas Fury",
-            //     price: 999,
-            //     specialEdition: true,
-            //     shortDesc: "Unisex",
-            //     longDesc: "Skate ipsum dolor sit amet...",
-            //     imgFile: "skateboard-greta.png",
-            // },
-            // {
-            //     id: 13237,
-            //     title: "Gretas Fury",
-            //     price: 999,
-            //     specialEdition: true,
-            //     shortDesc: "Unisex",
-            //     longDesc: "Skate ipsum dolor sit amet...",
-            //     imgFile: "skateboard-greta.png",
-            // },
-            // {
-            //     id: 133700,
-            //     title: "Gretas Fury",
-            //     price: 999,
-            //     specialEdition: true,
-            //     shortDesc: "Unisex",
-            //     longDesc: "Skate ipsum dolor sit amet...",
-            //     imgFile: "skateboard-greta.png",
-            // },
-        ],
+
+        user:{},
+        products: [],
+        singleProduct:[],
+        cartData: []
+
+                              
     },
     mutations: {
-        [Mutations.AUTHENTICATE_LOGIN](state, credentials) {
-            state.user = credentials;
-        },
-        saveProducts(state, response) {
+    [Mutations.AUTHENTICATE_LOGIN](state,credentials){
+      state.user = credentials
+    },
+
+    getAllItems(state, res){
+        state.products = res.data.products
+    },
+    saveSingleData(state, data){
+      state.singleProduct = data
+
+    },
+    singleProduct(state, data){
+      state.cartData.push(data)
+
+    }
+    saveProducts(state, response) {
             state.products = response;
         },
-    },
+  },
+    
     actions: {
         async [Actions.AUTHENTICATE](context, credentials) {
             // console.log("authenticate working")
@@ -141,6 +60,27 @@ export default new Vuex.Store({
             console.log(response.data.products);
         },
     },
+      
+    async [Actions.REGISTER_USER](context, newUserDetails){
+      const response = await API.register(newUserDetails)
+      context.commit(Mutations.AUTHENTICATE_LOGIN, response.data)      
+      console.log("Register working!!",context,newUserDetails)
+    },
+
+    async getItems(context){
+        const response = await API.getData()
+        context.commit('getAllItems', response)
+        console.log(response);
+    },
+    async getItem(context, id){
+      const res = await API.fetchData(id)
+      context.commit("saveSingleData", res.data.post)
+      console.log(res);
+
+    }
+    
+  },
+
     modules: {},
     getters: {
         skateboards(state) {
