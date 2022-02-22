@@ -4,8 +4,6 @@ import Actions from './action.types'
 import Mutations from './mutation.types'
 import * as API from '@/api'
 
-
-
 Vue.use(Vuex);
 
 export default new Vuex.Store({
