@@ -23,6 +23,8 @@ export default {
     components: {
         SingleProductSmall,
     },
+   
+    
 };
 </script>
 

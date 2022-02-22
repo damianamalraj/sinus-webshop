@@ -1,5 +1,6 @@
 <template>
   <div>
+  
    <div class="small-container cart-page">
      <table>
        <tr> 
@@ -72,12 +73,18 @@
       </table>
     </div>
     </div>
+    
   </div>
 </template>
 
 <script>
   
 export default {
+  computed:{
+    getData(){
+      return this.$store.state.cartData
+    }
+  }
 
 }
 </script>
