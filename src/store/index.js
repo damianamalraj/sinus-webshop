@@ -13,111 +13,15 @@ export default new Vuex.Store({
     state: {
         user:{},
         products: [
-            {
-                id: 1337,
-                title: "Gretas Fury",
-                price: 999,
-                specialEdition: true,
-                shortDesc: "Unisex",
-                longDesc: "Skate ipsum dolor sit amet...",
-                imgFile: "skateboard-greta.png",
-            },
-            {
-                id: 1332,
-                title: "Gretas Fury",
-                price: 999,
-                specialEdition: true,
-                shortDesc: "Unisex",
-                longDesc: "Skate ipsum dolor sit amet...",
-                imgFile: "skateboard-greta.png",
-            },
-            {
-                id: 1437,
-                title: "Gretas Fury",
-                price: 999,
-                specialEdition: true,
-                shortDesc: "Unisex",
-                longDesc: "Skate ipsum dolor sit amet...",
-                imgFile: "skateboard-greta.png",
-            },
-            {
-                id: 2337,
-                title: "Gretas Fury",
-                price: 999,
-                specialEdition: true,
-                shortDesc: "Unisex",
-                longDesc: "Skate ipsum dolor sit amet...",
-                imgFile: "skateboard-greta.png",
-            },
-            {
-                id: 1397,
-                title: "Gretas Fury",
-                price: 999,
-                specialEdition: true,
-                shortDesc: "Unisex",
-                longDesc: "Skate ipsum dolor sit amet...",
-                imgFile: "skateboard-greta.png",
-            },
-            {
-                id: 1330,
-                title: "Gretas Fury",
-                price: 999,
-                specialEdition: true,
-                shortDesc: "Unisex",
-                longDesc: "Skate ipsum dolor sit amet...",
-                imgFile: "skateboard-greta.png",
-            },
-            {
-                id: 1637,
-                title: "Gretas Fury",
-                price: 999,
-                specialEdition: true,
-                shortDesc: "Unisex",
-                longDesc: "Skate ipsum dolor sit amet...",
-                imgFile: "skateboard-greta.png",
-            },
-            {
-                id: 1387,
-                title: "Gretas Fury",
-                price: 999,
-                specialEdition: true,
-                shortDesc: "Unisex",
-                longDesc: "Skate ipsum dolor sit amet...",
-                imgFile: "skateboard-greta.png",
-            },
-            {
-                id: 13337,
-                title: "Gretas Fury",
-                price: 999,
-                specialEdition: true,
-                shortDesc: "Unisex",
-                longDesc: "Skate ipsum dolor sit amet...",
-                imgFile: "skateboard-greta.png",
-            },
-            {
-                id: 13237,
-                title: "Gretas Fury",
-                price: 999,
-                specialEdition: true,
-                shortDesc: "Unisex",
-                longDesc: "Skate ipsum dolor sit amet...",
-                imgFile: "skateboard-greta.png",
-            },
-            {
-                id: 133700,
-                title: "Gretas Fury",
-                price: 999,
-                specialEdition: true,
-                shortDesc: "Unisex",
-                longDesc: "Skate ipsum dolor sit amet...",
-                imgFile: "skateboard-greta.png",
-            },
-        ],
-                              
+        ],  
+        cartListItems: []                       
     },
     mutations: {
     [Mutations.AUTHENTICATE_LOGIN](state,credentials){
       state.user = credentials
+    },
+    sendCartData(state,data){  
+        state.cartListItems.push(data)
     }
   },
     actions: {
@@ -135,6 +39,10 @@ export default new Vuex.Store({
       const response = await API.register(newUserDetails)
       context.commit(Mutations.AUTHENTICATE_LOGIN, response.data)      
       console.log("Register working!!",context,newUserDetails)
+    },
+
+    addToCart(context, data){  
+        context.commit('sendCartData', data)
     }
   },
     modules: {},
