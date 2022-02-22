@@ -1,28 +1,31 @@
-import Vue from "vue";
-import Vuex from "vuex";
-import Actions from "./action.types";
-import Mutations from "./mutation.types";
-import * as API from "@/api";
+import Vue from 'vue'
+import Vuex from 'vuex'
+import Actions from './action.types'
+import Mutations from './mutation.types'
+import * as API from '@/api'
 
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-    state: {
 
+    state: {
         user:{},
         products: [],
         singleProduct:[],
-        cartData: []
+        cartData: [],
+        cartListItems: [] 
 
-                              
     },
     mutations: {
     [Mutations.AUTHENTICATE_LOGIN](state,credentials){
       state.user = credentials
     },
-
-    getAllItems(state, res){
+      
+    sendCartData(state,data){  
+        state.cartListItems.push(data)
+    },
+       getAllItems(state, res){
         state.products = res.data.products
     },
     saveSingleData(state, data){
@@ -39,28 +42,17 @@ export default new Vuex.Store({
   },
     
     actions: {
-        async [Actions.AUTHENTICATE](context, credentials) {
-            // console.log("authenticate working")
-            // const response = await API.login(
-            //   credentials.email, credentials.password
-            // )
-            // API.saveToken(response.data.token)
-            // context.commit(Mutations.AUTHENTICATE_LOGIN, response.data)
-
-            console.log(context, credentials, API);
-        },
-        async [Actions.REGISTER_USER](context, newUserDetails) {
-            const response = await API.register(newUserDetails);
-            context.commit(Mutations.AUTHENTICATE_LOGIN, response.data);
-            console.log("Register working!!", context, newUserDetails);
-        },
-        async fetchProducts(context) {
-            const response = await API.getProducts();
-            context.commit("saveProducts", response.data.products);
-            console.log(response.data.products);
-        },
-    },
+    async [Actions.AUTHENTICATE](context, credentials){
+      // console.log("authenticate working")
+      // const response = await API.login(
+      //   credentials.email, credentials.password
+      // )
+      // API.saveToken(response.data.token)
+      // context.commit(Mutations.AUTHENTICATE_LOGIN, response.data)
       
+      console.log(context,credentials,API)
+    },
+
     async [Actions.REGISTER_USER](context, newUserDetails){
       const response = await API.register(newUserDetails)
       context.commit(Mutations.AUTHENTICATE_LOGIN, response.data)      
@@ -98,5 +90,11 @@ export default new Vuex.Store({
                 return product.category == "cap";
             });
         },
-    },
-});
+
+        addToCart(context, data){  
+        context.commit('sendCartData', data)
+    }
+  },
+   
+}
+

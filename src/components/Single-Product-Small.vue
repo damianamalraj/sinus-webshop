@@ -30,7 +30,7 @@
                 <option value="4">4</option>
                 <option value="5">5</option>
             </select>
-            <button>
+            <button @click="addToCart">
                 <img src="../assets/add_shopping_cart.svg" alt="" />
             </button>
         </section>
@@ -40,6 +40,13 @@
 <script>
 export default {
     props: ["product"],
+
+    methods: {  
+        addToCart(){  
+            this.$store.dispatch("addToCart", {title: this.product.title, price: this.product.price})
+        }
+    }
+
 };
 </script>
 
