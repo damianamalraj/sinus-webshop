@@ -9,7 +9,7 @@
             <router-link to="/accessories">Accessories</router-link>
         </div>
         <router-view />
-        <Footer class="footer" />
+        <Footer/>
     </div>
 </template>
 
@@ -25,6 +25,7 @@ export default {
 body {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 #app {
     font-family: Avenir, Helvetica, Arial, sans-serif;
@@ -32,11 +33,14 @@ body {
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
     color: #2c3e50;
+    padding: 0.1rem;
+    // display:flex;
+    // flex-direction: column;
+    // align-items:space-around;
 }
 
 #nav {
     padding: 30px;
-
     a {
         font-weight: bold;
         color: #2c3e50;

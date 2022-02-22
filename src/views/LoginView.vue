@@ -24,15 +24,15 @@
           />
         </span>
         <a href="#">Forgot Password?</a>
-        <button>LOG IN</button>
+        <button class="button-bg">LOG IN</button>
       </form>
       <h1>I'm new here!</h1>
-      <router-link to="/signup">Sign UP!!</router-link>
+      <router-link class="button-bg" to="/signup">Sign UP!!</router-link>
     </div>
     <div class="modal" v-if="error">
       <h2>Login Failed!!!</h2>
       <h3>Please try again</h3>
-      <button @click="error=false">Close</button>
+      <button @click="error=false" class="button-bg">Close</button>
     </div>
   </div>
 </template>
@@ -49,22 +49,25 @@ export default {
     };
   },
   methods: {
-    authenticate() {
-      console.log("Authenticate function");
-      this.$store.dispatch(Actions.AUTHENTICATE, {
+    async authenticate() {
+      await this.$store.dispatch(Actions.AUTHENTICATE, {
         email: this.email,
         password: this.password,
       });
-      if (this.loginError) {
+      console.log("Login error from computed",this.loginError)
+      console.log("condition: ", Object.keys(this.userDetails).length)
+      console.log("user details",this.userDetails.name, this.userDetails)
+      console.log(this.$store.state.user)
+      if (Object.keys(this.userDetails).length != 0) {
         this.$router.push({ name: "Home" });
-      } else {
+      } else if(this.userDetails=={}) {
         this.error = true;
       }
     },
   },
   computed: {
     userDetails() {
-      return this.$store.state.user;
+      return this.$store.state.user.name;
     },
     loginError() {
       return this.$store.state.loginError;
@@ -100,7 +103,7 @@ a {
   text-decoration: none;
   color: rgb(102, 68, 5);
 }
-button {
+.button-bg {
   padding: 15px 60px;
   margin: 10px;
   background-color: black;

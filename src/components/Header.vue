@@ -33,8 +33,9 @@
         </div>
 
        <div>
-          <router-link to="/wishList">
-            <img src="../assets/profile.svg" alt="">
+          <router-link to="/myaccount">
+          <p v-if="userName">{{userName.name}}</p>
+            <img v-else src="../assets/profile.svg" alt="">
           </router-link> 
         </div>
 
@@ -50,10 +51,9 @@
 <script>
 export default {
   data(){return{
-
   }},
   computed:{
-    user(){
+    userName(){
       return this.$store.state.user
     }
   }
