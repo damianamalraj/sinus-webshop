@@ -12,9 +12,10 @@ export default {
     data() {
         return {};
     },
-    created() {
-        this.$store.dispatch("fetchProducts");
+    mounted() {
+        this.$store.dispatch("getItems");
     },
+
     computed: {
         products() {
             return this.$store.state.products;
@@ -23,8 +24,6 @@ export default {
     components: {
         SingleProductSmall,
     },
-   
-    
 };
 </script>
 
