@@ -5,7 +5,6 @@
             <router-link to="/productList">All</router-link> |
             <router-link to="/skateboards">Skateboards</router-link> |
             <router-link to="/clothes">Clothes</router-link> |
-            <router-link to="/shoes">Shoes</router-link> |
             <router-link to="/accessories">Accessories</router-link>
         </div>
         <router-view />
@@ -25,10 +24,9 @@ export default {
 };
 </script>
 <style lang="scss">
-
 body {
-  margin: 0;
-  padding: 0;
+    margin: 0;
+    padding: 0;
 }
 #app {
     font-family: Avenir, Helvetica, Arial, sans-serif;

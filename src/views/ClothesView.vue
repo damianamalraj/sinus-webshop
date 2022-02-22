@@ -1,15 +1,36 @@
 <template>
-  <div>
-      <h1>Clothes View</h1>
-  </div>
+    <div class="clothes-view">
+        <div class="list" v-for="product in products" :key="product.id">
+            <SingleProductSmall :product="product" />
+        </div>
+    </div>
 </template>
 
 <script>
-export default {
+import SingleProductSmall from "../components/Single-Product-Small";
 
-}
+export default {
+    computed: {
+        products() {
+            return this.$store.getters.clothes;
+        },
+    },
+
+    components: {
+        SingleProductSmall,
+    },
+};
 </script>
 
-<style>
+<style lang="scss" scoped>
+.clothes-view {
+    display: grid;
 
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1rem;
+
+    .list {
+        margin: auto;
+    }
+}
 </style>
