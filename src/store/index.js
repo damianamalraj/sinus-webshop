@@ -4,38 +4,40 @@ import Actions from "./action.types";
 import Mutations from "./mutation.types";
 import * as API from "@/api";
 
+
 Vue.use(Vuex);
 
 export default new Vuex.Store({
     state: {
-        user: {},
+
+        user:{},
         products: [],
-        singleProduct: [],
-        cartData: [],
-        cartListItems: [],
+        singleProduct:[],
+        cartData: []
+
+                              
     },
     mutations: {
-        [Mutations.AUTHENTICATE_LOGIN](state, credentials) {
-            state.user = credentials;
-        },
-
-        sendCartData(state, data) {
-            state.cartListItems.push(data);
-        },
-        getAllItems(state, res) {
-            state.products = res.data.products;
-        },
-        saveSingleData(state, data) {
-            state.singleProduct = data;
-        },
-        singleProduct(state, data) {
-            state.cartData.push(data);
-        },
-        saveProducts(state, response) {
-            state.products = response;
-        },
+    [Mutations.AUTHENTICATE_LOGIN](state,credentials){
+      state.user = credentials
     },
 
+    getAllItems(state, res){
+        state.products = res.data.products
+    },
+    saveSingleData(state, data){
+      state.singleProduct = data
+
+    },
+    singleProduct(state, data){
+      state.cartData.push(data)
+
+    },
+    saveProducts(state, response) {
+            state.products = response;
+        },
+  },
+    
     actions: {
         async [Actions.AUTHENTICATE](context, credentials) {
             // console.log("authenticate working")
@@ -47,23 +49,33 @@ export default new Vuex.Store({
 
             console.log(context, credentials, API);
         },
-
         async [Actions.REGISTER_USER](context, newUserDetails) {
             const response = await API.register(newUserDetails);
             context.commit(Mutations.AUTHENTICATE_LOGIN, response.data);
             console.log("Register working!!", context, newUserDetails);
         },
-
-        async getItems(context) {
-            const response = await API.getData();
-            context.commit("getAllItems", response);
-            console.log(response);
+        async fetchProducts(context) {
+            const response = await API.getProducts();
+            context.commit("saveProducts", response.data.products);
+            console.log(response.data.products);
         },
-        async getItem(context, id) {
-            const res = await API.fetchData(id);
-            context.commit("saveSingleData", res.data.post);
+        async [Actions.REGISTER_USER](context, newUserDetails){
+            const response = await API.register(newUserDetails)
+            context.commit(Mutations.AUTHENTICATE_LOGIN, response.data)      
+            console.log("Register working!!",context,newUserDetails)
+          },
+      
+          async getItems(context){
+              const response = await API.getData()
+              context.commit('getAllItems', response)
+              console.log(response);
+          },
+          async getItem(context, id){
+            const res = await API.fetchData(id)
+            context.commit("saveSingleData", res.data.post)
             console.log(res);
-        },
+      
+          }
     },
 
     modules: {},
@@ -83,9 +95,6 @@ export default new Vuex.Store({
                 return product.category == "cap";
             });
         },
-
-        addToCart(context, data) {
-            context.commit("sendCartData", data);
-        },
     },
 });
+

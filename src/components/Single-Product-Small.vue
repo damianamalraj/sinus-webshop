@@ -65,6 +65,7 @@ export default {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    
 
     span {
         font-size: 0.7rem;
