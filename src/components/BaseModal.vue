@@ -4,7 +4,7 @@
       <slot name="content"></slot>
       <button class="button-bg">
       <slot name="close_Button"></slot>
-       button(@click="$emit(cancelEvent)") {{cancelButtonText}}
+       <!-- button(@click="$emit(cancelEvent)") {{cancelButtonText}} -->
       </button>
   </div>
 </template>
