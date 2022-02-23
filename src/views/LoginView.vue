@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div :class="{'fade':error}">
+    <div :class="{ fade: showErrorModal }">
       <h1>Welcome Back!</h1>
       <form @submit.prevent="authenticate" class="form-styling">
         <span>
@@ -27,48 +27,54 @@
         <button class="button-bg">LOG IN</button>
       </form>
       <h1>I'm new here!</h1>
-      <router-link class="button-bg" to="/signup">Sign UP!!</router-link>
+      <router-link class="button-bg" to="/signup">Sign Up!!</router-link>
     </div>
-    <div class="modal" v-if="error">
+    <!-- <BaseModal v-if="showErrorModal">
+    <template slot="header">
+      <h2>Login Failed!!!</h2>
+    </template>
+    <template slot="content">
+      <h3>Please try again</h3>
+    </template>
+    <template slot="close_Button" @click="showErrorModal = false">
+      <h3>Close</h3>
+    </template>
+    </BaseModal> -->
+    <div class="modal" v-if="showErrorModal">
       <h2>Login Failed!!!</h2>
       <h3>Please try again</h3>
-      <button @click="error=false" class="button-bg">Close</button>
+      <button @click="showErrorModal = false" class="button-bg">Close</button>
     </div>
   </div>
 </template>
 
 <script>
 import Actions from "@/store/action.types";
+// import BaseModal from "@/components/BaseModal.vue"
 
 export default {
   data() {
     return {
       email: "",
       password: "",
-      error: false,
+      showErrorModal: false,
     };
   },
+  // components:{BaseModal},
   methods: {
     async authenticate() {
       await this.$store.dispatch(Actions.AUTHENTICATE, {
         email: this.email,
         password: this.password,
       });
-      console.log("Login error from computed",this.loginError)
-      console.log("condition: ", Object.keys(this.userDetails).length)
-      console.log("user details",this.userDetails.name, this.userDetails)
-      console.log(this.$store.state.user)
-      if (Object.keys(this.userDetails).length != 0) {
+      if (!this.loginError) {
         this.$router.push({ name: "Home" });
-      } else if(this.userDetails=={}) {
-        this.error = true;
+      } else {
+        this.showErrorModal = true;
       }
     },
   },
   computed: {
-    userDetails() {
-      return this.$store.state.user.name;
-    },
     loginError() {
       return this.$store.state.loginError;
     },
@@ -128,9 +134,8 @@ a {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  
 }
-.fade{
+.fade {
   opacity: 30%;
 }
 </style>

@@ -12,6 +12,7 @@ import SingleProductView from '../views/SingleProductView.vue'
 import SkateboardsView from '../views/SkateboardsView.vue'
 import WishListView from '../views/WishListView.vue'
 import SignUpView from '../views/SignUpView.vue'
+import MyAccountView from '../views/MyAccountView.vue'
 
 Vue.use(VueRouter)
 
@@ -75,6 +76,11 @@ const routes = [
     path: '/signup',
     name: 'SignUp',
     component: SignUpView
+  },
+  {
+    path: '/myaccount',
+    name: 'MyAccount',
+    component: MyAccountView
   }
 ]
 

@@ -7,7 +7,7 @@
           type="text"
           name="username"
           id="username"
-          v-model="username"
+          v-model="newUserDetails.name"
           required
         />
       </span>
@@ -17,7 +17,7 @@
           type="email"
           name="newemail"
           id="newemail"
-          v-model="newemail"
+          v-model="newUserDetails.email"
           required
         />
       </span>
@@ -27,7 +27,7 @@
           type="password"
           name="newpassword"
           id="newpassword"
-          v-model="newpassword"
+          v-model="newUserDetails.password"
           required
         />
       </span>
@@ -38,20 +38,21 @@
           type="text"
           name="street"
           id="street"
-          v-model="street"
+          v-model="newUserDetails.address.street"
           required
         />
       </span>
       <span>
         <label for="city">City</label>
-        <input type="text" name="city" id="city" v-model="city" required />
+        <input type="text" name="city" id="city" v-model="newUserDetails.address.city" required />
       </span>
       <span>
         <label for="zip">Zipcode</label>
-        <input type="number" name="zip" id="zip" v-model="zip" required />
+        <input type="number" name="zip" id="zip" v-model="newUserDetails.address.zip" required />
       </span>
       <p v-if="!noError">{{ errorsList }}</p>
       <button>SIGN UP!</button>
+      <!-- <p>{{registeredUser}}</p> -->
     </form>
   </div>
 </template>
@@ -62,29 +63,31 @@ import Actions from "@/store/action.types";
 export default {
   data() {
     return {
-      newemail: "",
-      newpassword: "",
-      username: "",
-      street: "",
-      city: "",
-      zip: "",
+      newUserDetails:{
+        email: "",
+        password: "",
+        name: "",
+        address:{
+          city: "",
+          street: "",
+          zip: ""
+        }
+      },
       validatedLogin: false,
       errorsList: [],
       noError: true,
     };
   },
+  computed:{
+    // registeredUser(){
+    //   return this.$store.state.user
+    // }
+  },
   methods: {
     register() {
       this.validate();
       if (this.validatedLogin) {
-        this.$store.dispatch(Actions.REGISTER_USER, {
-          email: this.newemail,
-          password: this.newpassword,
-          name: this.username,
-          street: this.street,
-          city: this.city,
-          zip: this.zip,
-        });
+        this.$store.dispatch(Actions.REGISTER_USER, this.newUserDetails);
       }
     },
     validate() {
@@ -101,7 +104,6 @@ export default {
       } 
       if (this.noError) {
         this.validatedLogin = true;
-        console.log("validate function");
       }
     },
   },
