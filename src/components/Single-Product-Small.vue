@@ -22,6 +22,7 @@
                 {{ product.longDesc }}
             </p>
         </router-link>
+
         <section class="button-container">
             <select>
                 <option value="1">1</option>
@@ -30,7 +31,8 @@
                 <option value="4">4</option>
                 <option value="5">5</option>
             </select>
-            <button @click="addToCart">
+
+           <button @click="addToCart">
                 <img src="../assets/add_shopping_cart.svg" alt="" />
             </button>
         </section>
@@ -40,7 +42,6 @@
 <script>
 export default {
     props: ["product"],
-
     methods: {  
         addToCart(){  
             this.$store.dispatch("addToCart", {title: this.product.title, price: this.product.price})
@@ -95,7 +96,6 @@ export default {
     .button-container {
         display: flex;
         justify-content: space-between;
-
         select,
         button {
             width: 2.5rem;

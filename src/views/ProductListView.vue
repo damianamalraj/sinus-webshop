@@ -1,5 +1,6 @@
 <template>
     <div class="product-list-view">
+
         <div class="list" v-for="product in products" :key="product.id">
             <SingleProductSmall :product="product" />
         </div>
@@ -15,7 +16,6 @@ export default {
     mounted() {
         this.$store.dispatch("getItems");
     },
-
     computed: {
         products() {
             return this.$store.state.products;
@@ -30,7 +30,6 @@ export default {
 <style lang="scss" scoped>
 .product-list-view {
     display: grid;
-
     grid-template-columns: repeat(5, 1fr);
     gap: 1rem;
 
