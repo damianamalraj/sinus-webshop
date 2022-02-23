@@ -21,8 +21,9 @@ export default {
 </script>
 <style lang="scss">
 body {
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 #app {
     font-family: Avenir, Helvetica, Arial, sans-serif;
@@ -34,7 +35,6 @@ body {
 
 #nav {
     padding: 30px;
-
     a {
         font-weight: bold;
         color: #2c3e50;

@@ -67,12 +67,34 @@ export default {
     },
 
     methods:{
+       addToCart(){  
+            this.$store.dispatch("addToCart", {title: this.product.title, price: this.product.price})
+        },
       saveToCart(){
-        const products = window.localStorage.getItem('products')
+        let products = window.localStorage.getItem('products')
         if(products){
-          const productsArray = JSON.parse(products)
-          productsArray.push({...this.product, quantity: 1})
+          let productsArray = JSON.parse(products)
+          let matchedProduct = productsArray.find(item => item.id == this.product.id)
+          if(matchedProduct){
+            productsArray = productsArray.map(item => {
+              if(item.id == this.product.id){
+                return{
+                  ...item,
+                  quantity: item.quantity + 1
+
+                }
+              }else{
+                return item
+              }
+            })
+            
+          }else{
+            productsArray.push({...this.product, quantity: 1})
+
+          }
+
           window.localStorage.setItem('products', JSON.stringify(productsArray))
+
         }else{
           const productsArray = []
           productsArray.push({...this.product, quantity: 1})
@@ -82,7 +104,6 @@ export default {
       }
     }
 
-    
 };
 </script>
 

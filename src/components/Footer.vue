@@ -14,6 +14,7 @@
 export default {};
 </script>
 
+
 <style lang="scss" scoped>
 .footer {
     padding-right: 1rem;

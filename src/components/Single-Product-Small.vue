@@ -22,6 +22,7 @@
                 {{ product.longDesc }}
             </p>
         </router-link>
+
         <section class="button-container">
             <select>
                 <option value="1">1</option>
@@ -30,7 +31,8 @@
                 <option value="4">4</option>
                 <option value="5">5</option>
             </select>
-            <button @click="addToCart">
+
+           <button @click="saveToCart">
                 <img src="../assets/add_shopping_cart.svg" alt="" />
             </button>
         </section>
@@ -40,11 +42,36 @@
 <script>
 export default {
     props: ["product"],
-
+    computed: {
+        Product() {
+            return this.$store.state.singleProduct},
+    },
     methods: {  
-        addToCart(){  
-            this.$store.dispatch("addToCart", {title: this.product.title, price: this.product.price})
+        /* addToCart(){  
+            this.$store.dispatch("addToCart", {title: this.Product.title, price: this.Product.price})
+        }, */
+        saveToCart(){
+        let products = window.localStorage.getItem('products')
+        if(products){
+          let productsArray = JSON.parse(products)
+          let matchedProduct = productsArray.find(item => item.id == this.product.id)
+          if(matchedProduct){
+            matchedProduct.quantity++
+            console.log(matchedProduct);
+            
+          }else{
+            productsArray.push({...this.product, quantity: 1})
+
+          }
+
+          window.localStorage.setItem('products', JSON.stringify(productsArray))
+        }else{
+          const productsArray = []
+          productsArray.push({...this.product, quantity: 1})
+          window.localStorage.setItem('products', JSON.stringify(productsArray))
         }
+       
+      }
     }
 
 };
@@ -96,7 +123,6 @@ export default {
     .button-container {
         display: flex;
         justify-content: space-between;
-
         select,
         button {
             width: 2.5rem;

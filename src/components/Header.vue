@@ -18,17 +18,27 @@
         <div>
           <input placeholder="SEARCH YOUR PRODUCT" type="text">
         </div>
-        <div> Contact us </div>
+        <div>Contact us</div>
 
         <div >
-          <router-link to="/login" class="login">
+          <router-link v-if="userInfo!=null" to="/login" class="login">
              Login
           </router-link> 
+          <button v-else @click="logout" class="login">
+             Logout
+          </button> 
         </div>
 
        <div>
           <router-link to="/wishList">
             <img src="../assets/heart.svg" alt="">
+          </router-link> 
+        </div>
+
+       <div>
+          <router-link to="/myaccount">
+          <p v-if="userInfo">{{userInfo.name}}</p>
+          <img v-else src="../assets/profile.svg" alt="prpic">
           </router-link> 
         </div>
 
@@ -42,9 +52,19 @@
 </template>
 
 <script>
-
 export default {
-
+  data(){return{
+  }},
+  computed:{
+    userInfo(){
+      return this.$store.state.user
+    }
+  },
+  methods:{
+    logout(){
+      this.$store.commit('clearUserData')
+    }
+  }
 }
 </script>
 
@@ -83,9 +103,5 @@ export default {
     gap: 1rem;
     
   }
-
-  
-
-
 
 </style>
