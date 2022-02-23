@@ -7,14 +7,14 @@ import CheckoutView from '../views/CheckoutView.vue'
 import ClothesView from '../views/ClothesView.vue'
 import LoginView from '../views/LoginView.vue'
 import ProductListView from '../views/ProductListView.vue'
-import ShoesView from '../views/ShoesView.vue'
 import SingleProductView from '../views/SingleProductView.vue'
 import SkateboardsView from '../views/SkateboardsView.vue'
 import WishListView from '../views/WishListView.vue'
 import SignUpView from '../views/SignUpView.vue'
 import MyAccountView from '../views/MyAccountView.vue'
 
-Vue.use(VueRouter)
+
+Vue.use(VueRouter);
 
 const routes = [
   {
@@ -84,10 +84,11 @@ const routes = [
   }
 ]
 
-const router = new VueRouter({
-  mode: 'history',
-  base: process.env.BASE_URL,
-  routes
-})
 
-export default router
+const router = new VueRouter({
+    mode: "history",
+    base: process.env.BASE_URL,
+    routes,
+});
+
+export default router;

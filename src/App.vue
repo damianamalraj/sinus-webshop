@@ -5,11 +5,10 @@
             <router-link to="/productList">All</router-link> |
             <router-link to="/skateboards">Skateboards</router-link> |
             <router-link to="/clothes">Clothes</router-link> |
-            <router-link to="/shoes">Shoes</router-link> |
             <router-link to="/accessories">Accessories</router-link>
         </div>
         <router-view />
-        <Footer/>
+        <Footer class="footer" />
     </div>
 </template>
 
@@ -21,7 +20,6 @@ export default {
 };
 </script>
 <style lang="scss">
-
 body {
   margin: 0;
   padding: 0;
@@ -33,10 +31,6 @@ body {
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
     color: #2c3e50;
-    padding: 0.1rem;
-    // display:flex;
-    // flex-direction: column;
-    // align-items:space-around;
 }
 
 #nav {
