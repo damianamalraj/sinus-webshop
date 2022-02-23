@@ -9,7 +9,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    user: {},
+    userDetails: {},
     products: [],
     singleProduct: [],
     cartData: [],
@@ -19,13 +19,13 @@ export default new Vuex.Store({
 
   mutations: {
     [Mutations.AUTHENTICATE_LOGIN](state, userData) {
-      state.user = userData
+      state.userDetails = userData
     },
     [Mutations.LOGIN_FAILED](state) {
       state.loginError = true
     },
     clearUserData(state) {
-      state.user = {}
+      state.userDetails = {}
     },
     sendCartData(state, data) {
       state.cartListItems.push(data);
@@ -119,6 +119,9 @@ export default new Vuex.Store({
         });
       else
         return state.products
+    },
+    getUserDetails(state){
+      return state.userDetails
     }
   },
 });
