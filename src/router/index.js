@@ -52,11 +52,7 @@ const routes = [
     name: 'ProductList',
     component: ProductListView
   },
-  {
-    path: '/shoes',
-    name: 'Shoes',
-    component: ShoesView
-  },
+ 
   {
     path: '/singleproduct/:id',
     name: 'SingleProduct',

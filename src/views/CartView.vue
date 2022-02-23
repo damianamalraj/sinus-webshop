@@ -1,6 +1,5 @@
 <template>
   <div>
-  
    <div class="small-container cart-page">
      <table>
        <tr> 
@@ -8,63 +7,27 @@
           <th>QUANTITY</th>
           <th>SUBTOTAL</th>
        </tr>
-       <tr>
+       <tr v-for="product in getCartData()" :key="product.id">
         <td>
           <div class="cart-info">
-            <img src="../assets/1.png" alt="">
+            <img :src="'http://localhost:5001/images/' + product.imgFile" alt="">
             <div>
-              <p>Red skateboard </p>
-              <small>Price: 98 kr </small>
+              <p> {{ product.title}} </p>
+              <small> {{ product.price}} </small>
               <br>
               <a href="">Remove</a>
             </div>
           </div>
         </td>
         <td><input type="number" value="1"></td>
-        <td>Price: 459 kr</td>
+        <td> {{ product.price * product.quantity }} </td>
       </tr>
-      <tr>
-        <td>
-          <div class="cart-info">
-            <img src="../assets/2.png" alt="">
-            <div>
-              <p>Black skateboard </p>
-              <small>Price: 988 kr </small>
-              <br>
-              <a href="">Remove</a>
-            </div>
-          </div>
-        </td>
-        <td><input type="number" value="1"></td>
-        <td>Price: 159 kr</td>
-      </tr>
-      <tr>
-        <td>
-          <div class="cart-info">
-            <img src="../assets/3.png" alt="">
-            <div>
-              <p>Red skateboard </p>
-              <small>Price: 188 kr </small>
-              <br>
-              <a href="">Remove</a>
-            </div>
-          </div>
-        </td>
-        <td><input type="number" value="1"></td>
-        <td>Price: 659 kr</td>
-      </tr>
+     
     </table>
 
     <div class="total-price">
       <table>
-        <tr>
-          <td>Subtotal</td>
-          <td>Sek 765</td>
-        </tr>
-        <tr>
-          <td>Tax</td>
-          <td>Sek 210</td>
-        </tr>
+       
         <tr>
           <td>Total</td>
           <td>Sek 980</td>
@@ -83,6 +46,13 @@ export default {
   computed:{
     getData(){
       return this.$store.state.cartData
+    },
+  },
+
+  methods:{
+    getCartData(){
+      let products = window.localStorage.getItem('products')
+      return JSON.parse(products)
     }
   }
 

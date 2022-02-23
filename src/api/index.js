@@ -30,10 +30,10 @@ export async function authenticate(email, password){
     return userDetailsResponse.data
 }
 
-export async function getSingleData(newUserDetails){
+/* export async function getSingleData(newUserDetails){
     return await axios.post('/register',newUserDetails//need to send details separately?
     )
-}
+} */
 
 export async function getData() {
     return await axios.get('/items')

@@ -4,6 +4,7 @@ import Actions from "./action.types";
 import Mutations from "./mutation.types";
 import * as API from "@/api";
 
+
 Vue.use(Vuex);
 
 export default new Vuex.Store({
@@ -12,7 +13,7 @@ export default new Vuex.Store({
         products: [],
         singleProduct: [],
         cartData: [],
-          loginError: false,
+        loginError: false,
         cartListItems: [],
     },
   
@@ -65,11 +66,38 @@ export default new Vuex.Store({
             context.commit("getAllItems", response);
             console.log(response);
         },
-        async getItem(context, id) {
-            const res = await API.fetchData(id);
-            context.commit("saveSingleData", res.data.post);
+        async [Actions.REGISTER_USER](context, newUserDetails){
+            const response = await API.register(newUserDetails)
+            context.commit(Mutations.AUTHENTICATE_LOGIN, response.data)      
+            console.log("Register working!!",context,newUserDetails)
+          },
+          async getItem(context, id){
+            const res = await API.fetchData(id)
+            context.commit("saveSingleData", res.data.post)
             console.log(res);
-        }
+        },
+       /*  addToCart(){
+          let products = window.localStorage.getItem('products')
+          if(products){
+            let productsArray = JSON.parse(products)
+            let matchedProduct = productsArray.find(item => item.id == this.product.id)
+            if(matchedProduct){
+              matchedProduct.quantity++
+              console.log(matchedProduct);
+              
+            }else{
+              productsArray.push({...this.product, quantity: 1})
+  
+            }
+  
+            window.localStorage.setItem('products', JSON.stringify(productsArray))
+          }else{
+            const productsArray = []
+            productsArray.push({...this.product, quantity: 1})
+            window.localStorage.setItem('products', JSON.stringify(productsArray))
+          }
+         
+        } */
   },
     
      modules: {},
@@ -89,11 +117,6 @@ export default new Vuex.Store({
                 return product.category == "cap";
             });
         },
-
-        addToCart(context, data) {
-            context.commit("sendCartData", data);
-        },
     },
 });
-
 
