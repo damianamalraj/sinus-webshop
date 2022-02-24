@@ -7,6 +7,10 @@
           <th>QUANTITY</th>
           <th>SUBTOTAL</th>
        </tr>
+       <!-- <div>
+         <h1> There is no product here </h1>
+       </div> -->
+      
        <tr v-for="product in getCartData()" :key="product.id">
         <td>
           <div class="cart-info">
@@ -19,7 +23,7 @@
             </div>
           </div>
         </td>
-        <td><input type="number" value="1"></td>
+        <td><input type="number" :value="product.quantity"></td>
         <td> {{ product.price * product.quantity }} </td>
       </tr>
      
@@ -30,7 +34,7 @@
        
         <tr>
           <td>Total</td>
-          <td>Sek 980</td>
+          <td> SEK {{ getTotalPrice()}} </td>
         </tr>
         <Button> To Checkout</Button>
       </table>
@@ -43,17 +47,40 @@
 <script>
   
 export default {
+  data(){
+    return{
+      products: []
+      
+    }
+
+  },
   computed:{
     getData(){
       return this.$store.state.cartData
     },
+    
   },
 
   methods:{
     getCartData(){
+      /* let cartProducts = this.$store.state.cartData
+      return cartProducts */
       let products = window.localStorage.getItem('products')
-      return JSON.parse(products)
+      products = JSON.parse(products)
+      this.products = products
+      return products
+    },
+
+    getTotalPrice(){
+      let total = 0
+      this.products.forEach(product => {
+        total = total + (product.price * product.quantity)
+      })
+      return total
     }
+
+
+
   }
 
 }

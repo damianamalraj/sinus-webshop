@@ -43,6 +43,6 @@ export async function fetchData(id) {
     return await axios.get(`/items/${id}`)
 }
 
-export const getProducts = async () => {
+/* export const getProducts = async () => {
     return await axios.get("/items", {});
-};
+}; */

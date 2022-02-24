@@ -63,15 +63,19 @@ export default {
     },
 
     components: {
-        SingleProductSmall,
+        SingleProductSmall
     },
 
     methods:{
-       addToCart(){  
+       /* addToCart(){  
             this.$store.dispatch("addToCart", {title: this.product.title, price: this.product.price})
-        },
+        }, */
       saveToCart(){
-        let products = window.localStorage.getItem('products')
+        /* this.$store.dispatch('sendToCart', this.product) */
+         this.savedProducts = this.product
+        
+        console.log(this.savedProducts); 
+         let products = window.localStorage.getItem('products')
         if(products){
           let productsArray = JSON.parse(products)
           let matchedProduct = productsArray.find(item => item.id == this.product.id)
@@ -101,10 +105,10 @@ export default {
           window.localStorage.setItem('products', JSON.stringify(productsArray))
         }
        
-      }
+      } 
     }
 
-};
+}
 </script>
 
 <style scoped>

@@ -36,8 +36,8 @@ export default new Vuex.Store({
         saveSingleData(state, data) {
             state.singleProduct = data;
         },
-        singleProduct(state, data) {
-            state.cartData.push(data);
+        addToCart(state, product) {
+            state.cartData.push(product);
         },
         saveProducts(state, response) {
             state.products = response;
@@ -76,7 +76,13 @@ export default new Vuex.Store({
             context.commit("saveSingleData", res.data.post)
             console.log(res);
         },
-       /*  addToCart(){
+
+        sendToCart(context, product){
+          context.commit('addToCart', product)
+
+        },
+        
+        addToCart(){
           let products = window.localStorage.getItem('products')
           if(products){
             let productsArray = JSON.parse(products)
@@ -97,7 +103,7 @@ export default new Vuex.Store({
             window.localStorage.setItem('products', JSON.stringify(productsArray))
           }
          
-        } */
+        }
   },
     
      modules: {},
