@@ -1,8 +1,11 @@
 <template>
     <div class="product-list-view">
-        <div class="list" v-for="product in products" :key="product.id">
-            <SingleProductSmall :product="product" />
+        <div class="product-list">
+            <div class="list" v-for="product in products" :key="product.id">
+                <SingleProductSmall :product="product" />
+            </div>
         </div>
+        <button @click="fetchMore">Load more</button>
     </div>
 </template>
 
@@ -12,8 +15,10 @@ export default {
     data() {
         return {};
     },
-    mounted() {
-        this.$store.dispatch("getItems");
+    methods: {
+        fetchMore() {
+            this.$store.dispatch("getMoreData");
+        },
     },
 
     computed: {
@@ -29,11 +34,13 @@ export default {
 
 <style lang="scss" scoped>
 .product-list-view {
-    display: grid;
+    width: 100%;
 
-    grid-template-columns: repeat(5, 1fr);
-    gap: 1rem;
-
+    .product-list {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 1rem;
+    }
     .list {
         margin: auto;
     }

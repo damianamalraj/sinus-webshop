@@ -13,6 +13,7 @@ export default new Vuex.Store({
         singleProduct: [],
         cartData: [],
         cartListItems: [],
+        page: 2,
     },
     mutations: {
         [Mutations.AUTHENTICATE_LOGIN](state, credentials) {
@@ -22,9 +23,7 @@ export default new Vuex.Store({
         sendCartData(state, data) {
             state.cartListItems.push(data);
         },
-        getAllItems(state, res) {
-            state.products = res.data.products;
-        },
+
         saveSingleData(state, data) {
             state.singleProduct = data;
         },
@@ -33,6 +32,17 @@ export default new Vuex.Store({
         },
         saveProducts(state, response) {
             state.products = response;
+        },
+        saveMoreData(state, res) {
+            res.forEach((product) => {
+                state.products.push(product);
+            });
+        },
+        loadMore(state) {
+            state.page++;
+        },
+        resetPageNumber(state) {
+            state.page = 2;
         },
     },
 
@@ -55,14 +65,24 @@ export default new Vuex.Store({
         },
 
         async getItems(context) {
-            const response = await API.getData();
-            context.commit("getAllItems", response);
-            console.log(response);
+            const res = await API.getData();
+            context.commit("saveProducts", res.data.products);
+            console.log(res);
         },
         async getItem(context, id) {
             const res = await API.fetchData(id);
             context.commit("saveSingleData", res.data.post);
             console.log(res);
+        },
+        async getMoreData(context) {
+            const res = await API.fetchMore(context.state.page);
+
+            if (context.state.page <= 4) {
+                context.commit("loadMore");
+                context.commit("saveMoreData", res.data.products);
+                console.log(res.data.products);
+                console.log(context.state.page);
+            }
         },
     },
 
