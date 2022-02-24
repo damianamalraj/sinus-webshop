@@ -21,7 +21,7 @@
         <div>Contact us</div>
 
         <div >
-          <router-link v-if="userInfo!=null" to="/login" class="login">
+          <router-link v-if="!userInfo" to="/login" class="login">
              Login
           </router-link> 
           <button v-else @click="logout" class="login">

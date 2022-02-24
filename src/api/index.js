@@ -42,3 +42,7 @@ export async function fetchData(id) {
 export const getProducts = async () => {
     return await axios.get("/items", {});
 };
+
+export async function OrderHistoryData(){
+    return await axios.get('/orders')
+}
