@@ -1,12 +1,11 @@
 <template>
     <div class="product-list-view">
-
         <div class="product-list">
             <div class="list" v-for="product in products" :key="product.id">
                 <SingleProductSmall :product="product" />
             </div>
-        <button @click="fetchMore">Load more</button>
         </div>
+        <button @click="fetchMore">Load more</button>
     </div>
 </template>
 
@@ -34,21 +33,20 @@ export default {
 
 <style lang="scss" scoped>
 .product-list-view {
-
     width: 100%;
-
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 1rem;
-
-
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     .product-list {
         display: grid;
         grid-template-columns: repeat(5, 1fr);
+        margin: auto;
         gap: 1rem;
     }
-    .list {
-        margin: auto;
+    button {
+        margin: 1rem 0;
+        width: fit-content;
     }
 }
 </style>
