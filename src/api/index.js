@@ -10,18 +10,22 @@ export async function login(email, password) {
     return await axios.post("/auth", { email, password });
 }
 
-export async function register(newUserDetails) {
-    return await axios.post(
-        "/register",
-        newUserDetails //need to send details separately?
-    );
+export async function register(newUserDetails){
+    const response = await axios.post('/register',newUserDetails)
+    saveToken(response.data.token)
+    return response
 }
 
-export async function getSingleData(newUserDetails) {
-    return await axios.post(
-        "/register",
-        newUserDetails //need to send details separately?
-    );
+export async function getUserData(){
+    return await axios.get('/me')
+}
+
+export async function authenticate(email, password){
+    const tokenResponse = await axios.post('/auth', { email, password })
+    saveToken(tokenResponse.data.token)
+
+    const userDetailsResponse = await axios.get('/me')
+    return userDetailsResponse.data
 }
 
 export async function getData() {
