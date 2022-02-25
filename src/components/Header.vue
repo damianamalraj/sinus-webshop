@@ -63,6 +63,7 @@ export default {
   methods:{
     logout(){
       this.$store.commit('clearUserData')
+      this.$router.push({ name: "Home" });
     }
   }
 }

@@ -29,6 +29,7 @@ export default new Vuex.Store({
 
         clearUserData(state) {
             state.userDetails = {}
+            API.clearToken
         },
         sendCartData(state, data) {
             state.cartListItems.push(data);
@@ -76,6 +77,7 @@ export default new Vuex.Store({
             await API.register(newUserDetails)
                 .then(response => {
                     context.commit(Mutations.AUTHENTICATE_LOGIN, response.data.user)
+                    console.log(response.data.user)
                 })
         },
 
@@ -85,11 +87,11 @@ export default new Vuex.Store({
             console.log(res);
 
         },
-        async [Actions.REGISTER_USER](context, newUserDetails) {
-            const response = await API.register(newUserDetails)
-            context.commit(Mutations.AUTHENTICATE_LOGIN, response.data)
-            console.log("Register working!!", context, newUserDetails)
-        },
+        // async [Actions.REGISTER_USER](context, newUserDetails) {
+        //     const response = await API.register(newUserDetails)
+        //     context.commit(Mutations.AUTHENTICATE_LOGIN, response.data)
+        //     console.log("Register working!!", response.data.user)
+        // },
         async getItem(context, id) {
             const res = await API.fetchData(id)
             context.commit("saveSingleData", res.data.post)

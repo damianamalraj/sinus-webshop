@@ -46,3 +46,7 @@ export const getProducts = async () => {
 export async function OrderHistoryData(){
     return await axios.get('/orders')
 }
+
+export function clearToken() {
+    axios.defaults.headers.common["Authorization"] = ""
+}

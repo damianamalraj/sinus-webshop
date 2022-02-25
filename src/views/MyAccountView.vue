@@ -13,10 +13,15 @@
       </span>
     </section>
     <button @click="getAllOrders">Show Order History</button>
-    <section class="orders-section">
+    <section class="orders-section" v-if="showOrders" >
       <h2>MY ORDERS</h2>
+      <span v-if="allOrders.length">
       <span v-for="order in allOrders" :key="order.id">
         <p> {{order.items}} <br> Shipping status:{{order.status}} <br> Shipping Address:{{order.shippingStreet}},<br>{{order.shippingCity}},<br>{{order.shippingZip}}</p>
+      </span>
+      </span>
+      <span v-else>
+        <h3>Currently, there is no order history in your account.</h3>
       </span>
     </section>
     </div>
@@ -28,6 +33,9 @@
 
 <script>
 export default {
+  data(){return{
+    showOrders : false
+  }},
   computed:{
     userInfo(){
       return this.$store.getters.getUserDetails
@@ -38,7 +46,8 @@ export default {
   },
   methods:{
     getAllOrders(){
-      return this.$store.dispatch("fetchAllOrders")
+       this.$store.dispatch("fetchAllOrders");
+       this.showOrders = true
     }
   }
    
