@@ -31,7 +31,7 @@ export default new Vuex.Store({
             state.cartListItems.push(data);
         },
         getAllItems(state, res) {
-            state.products = res.data.products;
+            state.products = res.data;
         },
         saveSingleData(state, data) {
             state.singleProduct = data;

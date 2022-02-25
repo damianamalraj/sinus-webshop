@@ -46,6 +46,9 @@ import SingleProductSmall from "../components/Single-Product-Small";
 
 export default {
     name: 'SingleProductView',
+     components: {
+        SingleProductSmall,
+    },
     data(){
       return{
         savedProducts: []
@@ -60,10 +63,6 @@ export default {
     mounted(){
       this.$store.dispatch("getItem", this.$route.params.id)
 
-    },
-
-    components: {
-        SingleProductSmall,
     },
 
     methods:{
@@ -142,12 +141,4 @@ export default {
     align-items: center;
     margin: 1rem;
   }
-
-
-
-
-
-
-
-
 </style>
