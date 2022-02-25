@@ -1,12 +1,14 @@
 <template>
     <div class="footer">
-        <p>Logo</p>
-        <p>Om Oss</p>
-        <p>Hjälp</p>
-        <p>Faq</p>
-        <img src="../assets/deliver.svg" alt="" />
-        <img src="../assets/thumb.svg" alt="" />
-        <img src="../assets/whatsapp.svg" alt="" />
+        <div>
+            <p>Logo</p>
+            <p>Om Oss</p>
+            <p>Hjälp</p>
+            <p>Faq</p>
+            <img src="../assets/deliver.svg" alt="" />
+            <img src="../assets/thumb.svg" alt="" />
+            <img src="../assets/whatsapp.svg" alt="" />
+        </div>
     </div>
 </template>
 
@@ -14,14 +16,14 @@
 export default {};
 </script>
 
-
 <style lang="scss" scoped>
 .footer {
     padding-right: 1rem;
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
     background-color: gray;
+}
+.footer div {
+    display: flex;
+    justify-content: flex-end;
     gap: 2rem;
     color: white;
     width: 100%;
