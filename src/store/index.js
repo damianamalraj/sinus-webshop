@@ -106,7 +106,7 @@ export default new Vuex.Store({
                 // console.log(context.state.page);
             }
         },
-        async getAllOrders(context) {
+        async fetchAllOrders(context) {
             const response = await API.OrderHistoryData();
             console.log("Api orderhistory info:", response)
             context.commit('updateOrderHistory', response.data)

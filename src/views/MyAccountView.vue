@@ -38,7 +38,7 @@ export default {
   },
   methods:{
     getAllOrders(){
-      return this.$store.dispatch("getAllOrders")
+      return this.$store.dispatch("fetchAllOrders")
     }
   }
    
