@@ -8,13 +8,13 @@
                     alt="product image"
                 />
             </div>
-           
         </div>
+
         <div>
            <section>
-                <h3>
+                <h2>
                     {{ product.title }}
-                </h3>
+                </h2>
                 <p>
                   {{ product.price }} kr
                 </p>
@@ -28,6 +28,7 @@
         </div>
 
       </div>
+
       <div class="product-list-view" >
             <SingleProductSmall :product="product" />
             <SingleProductSmall :product="product" />
@@ -42,7 +43,6 @@
 <script>
 
 import SingleProductSmall from "../components/Single-Product-Small";
-
 
 export default {
     name: 'SingleProductView',
@@ -67,33 +67,25 @@ export default {
     },
 
     methods:{
-       /* addToCart(){  
-            this.$store.dispatch("addToCart", {title: this.product.title, price: this.product.price})
-        }, */
+
       saveToCart(){
-        /* this.$store.dispatch('sendToCart', this.product) */
-         this.savedProducts = this.product
-        
-        console.log(this.savedProducts); 
-         let products = window.localStorage.getItem('products')
+        let products = window.localStorage.getItem('products')
+
         if(products){
           let productsArray = JSON.parse(products)
-          let matchedProduct = productsArray.find(item => item.id == this.product.id)
-          if(matchedProduct){
-            productsArray = productsArray.map(item => {
-              if(item.id == this.product.id){
-                return{
-                  ...item,
-                  quantity: item.quantity + 1
 
-                }
-              }else{
-                return item
+          let matchedProduct = productsArray.find(item => item.id == this.product.id)
+
+          if(matchedProduct){
+            productsArray.forEach(item => {
+              if(item.id == this.product.id){
+                this.product.quantity++
               }
-            })
+             
+            }) 
             
           }else{
-            productsArray.push({...this.product, quantity: 1})
+            productsArray.push({ ...this.product, quantity: 1 })
 
           }
 
@@ -145,6 +137,10 @@ export default {
     justify-content: space-around;
     align-items: center;
     margin: 1rem;
+  }
+
+  p, button{
+    font-weight: bold;
   }
 
 

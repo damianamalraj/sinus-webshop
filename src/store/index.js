@@ -53,6 +53,11 @@ export default new Vuex.Store({
         resetPageNumber(state) {
             state.page = 2;
         },
+
+         sendToCart(state, product){
+           state.cartData.push(product)
+        
+        },
     },
 
     actions: {
@@ -65,36 +70,33 @@ export default new Vuex.Store({
           console.log('There has been a problem while logging in: ' + e.message)
           context.commit(Mutations.LOGIN_FAILED)
         });
-    },
+        },
 
          async[Actions.REGISTER_USER](context, newUserDetails) {
-      await API.register(newUserDetails)
+          await API.register(newUserDetails)
         .then(response => {
           context.commit(Mutations.AUTHENTICATE_LOGIN, response.data.user)
           console.log("after registering:", response.data.user)
         })
-    },
+        },
 
         async getItems(context) {
             const res = await API.getData();
-            context.commit("saveProducts", res.data.products);
+            context.commit("saveProducts", res.data);
             console.log(res);
 
         },
+
         async [Actions.REGISTER_USER](context, newUserDetails){
             const response = await API.register(newUserDetails)
             context.commit(Mutations.AUTHENTICATE_LOGIN, response.data)      
             console.log("Register working!!",context,newUserDetails)
           },
+
           async getItem(context, id){
             const res = await API.fetchData(id)
             context.commit("saveSingleData", res.data.post)
             console.log(res);
-        },
-
-        sendToCart(context, product){
-          context.commit('addToCart', product)
-
         },
         
         addToCart(){
@@ -124,8 +126,8 @@ export default new Vuex.Store({
 
             if (context.state.page <= 4) {
                 context.commit("loadMore");
-                context.commit("saveMoreData", res.data.products);
-                console.log(res.data.products);
+                context.commit("saveMoreData", res.data);
+                console.log(res.data);
                 console.log(context.state.page);
             }
         },

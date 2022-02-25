@@ -2,14 +2,12 @@
   <div>
    <div class="small-container cart-page">
      <table>
+
        <tr> 
           <th>PRODUCT</th>
           <th>QUANTITY</th>
           <th>SUBTOTAL</th>
        </tr>
-       <!-- <div>
-         <h1> There is no product here </h1>
-       </div> -->
       
        <tr v-for="product in getCartData()" :key="product.id">
         <td>
@@ -19,22 +17,22 @@
               <p> {{ product.title}} </p>
               <small> {{ product.price}} </small>
               <br>
-              <a href="">Remove</a>
+              <a href="" @click="deleteItem(product.id)">Remove</a>
             </div>
           </div>
         </td>
-        <td><input type="number" :value="product.quantity"></td>
-        <td> {{ product.price * product.quantity }} </td>
+        <td><input class="total" type="number" min="0" :value="product.quantity" @input="(e) => {changeQuantity(e, product.id)} "
+         >  </td>
+        <td class="total"> {{ product.price * product.quantity }} KR </td>
       </tr>
      
     </table>
 
     <div class="total-price">
       <table>
-       
         <tr>
-          <td>Total</td>
-          <td> SEK {{ getTotalPrice()}} </td>
+          <td class="total" >Total</td>
+          <td class="total" > SEK {{ getTotalPrice()}} </td>
         </tr>
         <Button> To Checkout</Button>
       </table>
@@ -47,13 +45,14 @@
 <script>
   
 export default {
+
   data(){
     return{
       products: []
       
     }
-
   },
+
   computed:{
     getData(){
       return this.$store.state.cartData
@@ -62,12 +61,12 @@ export default {
   },
 
   methods:{
+
     getCartData(){
-      /* let cartProducts = this.$store.state.cartData
-      return cartProducts */
       let products = window.localStorage.getItem('products')
       products = JSON.parse(products)
       this.products = products
+      console.log(products);
       return products
     },
 
@@ -77,8 +76,35 @@ export default {
         total = total + (product.price * product.quantity)
       })
       return total
-    }
+    },
 
+    changeQuantity(e, id){
+      let products = JSON.parse(window.localStorage.getItem('products'))
+      products.forEach(product => {
+        if(product.id == id){
+            product.quantity = e.target.value
+        }
+      })
+      this.products = products
+      window.localStorage.setItem('products', JSON.stringify(products))
+    },
+
+    deleteItem(id){
+       const matchedProduct = this.products.filter(product => product.id == id )
+       console.log('matchedProduct', matchedProduct);
+        if(matchedProduct){
+          
+          let spara = this.products.filter(product => product != matchedProduct)
+          console.log('spara', spara);
+          window.localStorage.removeItem(matchedProduct) 
+
+        }
+      
+      /* if(JSON.parse(window.localStorage.getItem('products')).id == id){
+      console.log('delete');
+    } */
+
+  }
 
 
   }
@@ -130,8 +156,8 @@ td a {
   
 }
 td img {
-  width: 80px;
-  height: 80px;
+  width: 90px;
+  height: 90px;
   margin-right: 10px;
 }
 .total-price {
@@ -152,10 +178,16 @@ th:last-child {
 button {
   background: gray;
   color: white;
-  padding: 1rem;
-  width: 350px;
+  padding: 0.5rem;
+  width: 250px;
   font-size: 20px;
   font-weight: bold;
   margin-bottom: 1rem;
+  cursor: pointer;
+}
+
+.total{
+  font-size: 1.2rem;
+  font-weight: bold;
 }
 </style>
