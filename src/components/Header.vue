@@ -21,11 +21,11 @@
         <div>Contact us</div>
 
         <div >
-          <router-link v-if="userInfo!=null" to="/login" class="login">
-             Login
+          <router-link ref="login-element" v-if="!userInfo" to="/login" class="login">
+             {{loginStatus}}
           </router-link> 
-          <button v-else @click="logout" class="login">
-             Logout
+          <button ref="login-element" v-else @click="logout" class="login">
+             {{loginStatus}}
           </button> 
         </div>
 
@@ -57,12 +57,20 @@ export default {
   }},
   computed:{
     userInfo(){
-      return this.$store.state.user
+      return this.$store.getters.getUserDetails
+    },
+    loginStatus(){
+      if(this.userInfo){
+        return "Logout"
+      }
+      return "Login"
     }
   },
+  
   methods:{
     logout(){
       this.$store.commit('clearUserData')
+      this.$router.push({ name: "Home" });
     }
   }
 }

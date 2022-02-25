@@ -30,7 +30,7 @@
        
         <tr>
           <td>Total</td>
-          <td>Sek 980</td>
+          <td>{{totalPrice}}</td>
         </tr>
         <Button> To Checkout</Button>
       </table>
@@ -44,9 +44,13 @@
   
 export default {
   computed:{
-    getData(){
-      return this.$store.state.cartData
-    },
+    totalPrice() {
+      let total = 0;
+      for (let item of Object.values(this.getCartData())) {
+        total += item.price * item.quantity
+      }
+      return total
+    }
   },
 
   methods:{
