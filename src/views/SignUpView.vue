@@ -1,59 +1,76 @@
 <template>
   <div>
-    <form @submit.prevent="register" class="form-styling">
-      <span>
-        <label for="username">NAME</label>
-        <input
-          type="text"
-          name="username"
-          id="username"
-          v-model="newUserDetails.name"
-          required
-        />
-      </span>
-      <span>
-        <label for="newemail">E-mail</label>
-        <input
-          type="email"
-          name="newemail"
-          id="newemail"
-          v-model="newUserDetails.email"
-          required
-        />
-      </span>
-      <span>
-        <label for="newpassword">Password</label>
-        <input
-          type="password"
-          name="newpassword"
-          id="newpassword"
-          v-model="newUserDetails.password"
-          required
-        />
-      </span>
-      <h3>Shipping Address</h3>
-      <span>
-        <label for="street">Street</label>
-        <input
-          type="text"
-          name="street"
-          id="street"
-          v-model="newUserDetails.address.street"
-          required
-        />
-      </span>
-      <span>
-        <label for="city">City</label>
-        <input type="text" name="city" id="city" v-model="newUserDetails.address.city" required />
-      </span>
-      <span>
-        <label for="zip">Zipcode</label>
-        <input type="number" name="zip" id="zip" v-model="newUserDetails.address.zip" required />
-      </span>
-      <p v-if="!noError">{{ errorsList }}</p>
-      <button>SIGN UP!</button>
-      <!-- <p>{{registeredUser}}</p> -->
-    </form>
+    <div v-if="!userInfo">
+      <form @submit.prevent="register" class="form-styling">
+        <span>
+          <label for="username">NAME</label>
+          <input
+            type="text"
+            name="username"
+            id="username"
+            v-model="newUserDetails.name"
+            required
+          />
+        </span>
+        <span>
+          <label for="newemail">E-mail</label>
+          <input
+            type="email"
+            name="newemail"
+            id="newemail"
+            v-model="newUserDetails.email"
+            required
+          />
+        </span>
+        <span>
+          <label for="newpassword">Password</label>
+          <input
+            type="password"
+            name="newpassword"
+            id="newpassword"
+            v-model="newUserDetails.password"
+            required
+          />
+        </span>
+        <h3>Shipping Address</h3>
+        <span>
+          <label for="street">Street</label>
+          <input
+            type="text"
+            name="street"
+            id="street"
+            v-model="newUserDetails.address.street"
+            required
+          />
+        </span>
+        <span>
+          <label for="city">City</label>
+          <input
+            type="text"
+            name="city"
+            id="city"
+            v-model="newUserDetails.address.city"
+            required
+          />
+        </span>
+        <span>
+          <label for="zip">Zipcode</label>
+          <input
+            type="number"
+            name="zip"
+            id="zip"
+            v-model="newUserDetails.address.zip"
+            required
+          />
+        </span>
+        <p v-if="!noError">{{ errorsList }}</p>
+        <button>SIGN UP!</button>
+        <!-- <p>{{registeredUser}}</p> -->
+      </form>
+    </div>
+    <div v-else>
+      <h3> You are logged in!! Happy Shopping!!!</h3>
+    </div>
   </div>
 </template>
 
@@ -63,25 +80,25 @@ import Actions from "@/store/action.types";
 export default {
   data() {
     return {
-      newUserDetails:{
+      newUserDetails: {
         email: "",
         password: "",
         name: "",
-        address:{
+        address: {
           city: "",
           street: "",
-          zip: ""
-        }
+          zip: "",
+        },
       },
       validatedLogin: false,
       errorsList: [],
       noError: true,
     };
   },
-  computed:{
-    // registeredUser(){
-    //   return this.$store.state.user
-    // }
+  computed: {
+    userInfo() {
+      return this.$store.getters.getUserDetails;
+    },
   },
   methods: {
     register() {
@@ -92,16 +109,12 @@ export default {
     },
     validate() {
       this.errorsList = [];
-      if (
-        !/^[a-zA-Z]+$/.test(
-          this.username ||  this.street || this.city
-        )
-      ) {
+      if (!/^[a-zA-Z]+$/.test(this.username || this.street || this.city)) {
         this.errorsList.push(
           "Name, Street, City should contain only characters"
         );
         this.noError = false;
-      } 
+      }
       if (this.noError) {
         this.validatedLogin = true;
       }

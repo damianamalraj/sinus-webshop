@@ -33,6 +33,8 @@
         <tr>
           <td class="total" >Total</td>
           <td class="total" > SEK {{ getTotalPrice()}} </td>
+
+       
         </tr>
         <Button> To Checkout</Button>
       </table>
@@ -54,10 +56,12 @@ export default {
   },
 
   computed:{
+
     getData(){
       return this.$store.state.cartData
     },
     
+
   },
 
   methods:{
