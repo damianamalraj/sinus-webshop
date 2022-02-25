@@ -10,22 +10,22 @@ export async function login(email, password) {
     return await axios.post("/auth", { email, password });
 }
 
-export async function register(newUserDetails){
-    const response = await axios.post('/register',newUserDetails)
-    saveToken(response.data.token)
-    return response
+export async function register(newUserDetails) {
+    const response = await axios.post("/register", newUserDetails);
+    saveToken(response.data.token);
+    return response;
 }
 
-export async function getUserData(){
-    return await axios.get('/me')
+export async function getUserData() {
+    return await axios.get("/me");
 }
 
-export async function authenticate(email, password){
-    const tokenResponse = await axios.post('/auth', { email, password })
-    saveToken(tokenResponse.data.token)
+export async function authenticate(email, password) {
+    const tokenResponse = await axios.post("/auth", { email, password });
+    saveToken(tokenResponse.data.token);
 
-    const userDetailsResponse = await axios.get('/me')
-    return userDetailsResponse.data
+    const userDetailsResponse = await axios.get("/me");
+    return userDetailsResponse.data;
 }
 
 export async function getData() {
@@ -34,11 +34,29 @@ export async function getData() {
 export async function fetchMore(page) {
     return await axios.get(`/items?page=${page}`, {});
 }
+export async function getClothesData() {
+    return await axios.get(
+        "/items?items?category=socks&category=skateboard",
+        {}
+    );
+}
+export async function fetchMoreClothesData(page) {
+    return await axios.get(
+        `/items?items?category=socks&category=skateboard&page=${page}`,
+        {}
+    );
+}
 
 export async function fetchData(id) {
     return await axios.get(`/items/${id}`);
 }
 
-export const getProducts = async () => {
-    return await axios.get("/items", {});
-};
+
+export async function OrderHistoryData(){
+    return await axios.get('/orders')
+}
+
+export function clearToken() {
+    axios.defaults.headers.common["Authorization"] = ""
+}
+

@@ -8,39 +8,59 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
     state: {
-        user: {},
+        userDetails: null,
         products: [],
         singleProduct: [],
         cartData: [],
         loginError: false,
         cartListItems: [],
         page: 2,
+        userOrderHistory: []
     },
 
     mutations: {
         [Mutations.AUTHENTICATE_LOGIN](state, userData) {
-            state.user = userData;
+            state.userDetails = userData
         },
         [Mutations.LOGIN_FAILED](state) {
             state.loginError = true;
         },
         clearUserData(state) {
-            state.user = {};
+            state.userDetails = {};
+            API.clearToken
         },
         sendCartData(state, data) {
             state.cartListItems.push(data);
         },
 
+        getAllItems(state, res) {
+            state.products = res.data;
+},
+
+        [Mutations.LOGIN_FAILED](state) {
+            state.loginError = true
+        },
+
+        clearUserData(state) {
+            state.userDetails = {}
+            API.clearToken
+        },
+        sendCartData(state, data) {
+            state.cartListItems.push(data);
+
+        },
         saveSingleData(state, data) {
             state.singleProduct = data;
         },
-        singleProduct(state, data) {
-            state.cartData.push(data);
+        addToCart(state, product) {
+            state.cartData.push(product);
         },
         saveProducts(state, response) {
             state.products = response;
         },
-
+        getAllItems(state, res) {
+            state.products = res.data;
+        },
         saveMoreData(state, res) {
             res.forEach((product) => {
                 state.products.push(product);
@@ -52,31 +72,37 @@ export default new Vuex.Store({
         resetPageNumber(state) {
             state.page = 2;
         },
-    },
 
+         sendToCart(state, product){
+           state.cartData.push(product)
+        
+        },
+
+        updateOrderHistory(state, data) {
+            state.userOrderHistory = data
+        }
+
+    },
     actions: {
+
         async [Actions.AUTHENTICATE](context, credentials) {
             await API.authenticate(credentials.email, credentials.password)
-                .then((response) => {
-                    context.commit(Mutations.AUTHENTICATE_LOGIN, response);
+                .then(response => {
+                    context.commit(Mutations.AUTHENTICATE_LOGIN, response)
                 })
-                .catch((e) => {
-                    console.log(
-                        "There has been a problem while logging in: " +
-                            e.message
-                    );
-                    context.commit(Mutations.LOGIN_FAILED);
+                .catch(e => {
+                    console.log('There has been a problem while logging in: ' + e.message)
+                    context.commit(Mutations.LOGIN_FAILED)
                 });
         },
 
-        async [Actions.REGISTER_USER](context, newUserDetails) {
-            await API.register(newUserDetails).then((response) => {
-                context.commit(
-                    Mutations.AUTHENTICATE_LOGIN,
-                    response.data.user
-                );
-                console.log("after registering:", response.data.user);
-            });
+        async[Actions.REGISTER_USER](context, newUserDetails) {
+            await API.register(newUserDetails)
+                .then(response => {
+                    context.commit(Mutations.AUTHENTICATE_LOGIN, response.data.user)
+                    console.log(response.data.user)
+                })
+
         },
 
         async getItems(context) {
@@ -84,18 +110,44 @@ export default new Vuex.Store({
             context.commit("saveProducts", res.data);
             console.log(res);
         },
-        async [Actions.REGISTER_USER](context, newUserDetails) {
-            const response = await API.register(newUserDetails);
-            context.commit(Mutations.AUTHENTICATE_LOGIN, response.data);
-            console.log("Register working!!", context, newUserDetails);
-        },
-        async getItem(context, id) {
-            const res = await API.fetchData(id);
-            context.commit("saveSingleData", res.data.post);
+        
+
+        async getClothes(context) {
+            const res = await API.getClothesData();
+            context.commit("saveClothes", res.data);
             console.log(res);
         },
 
+        async getItem(context, id) {
+            const res = await API.fetchData(id)
+            context.commit("saveSingleData", res.data.post)
+            console.log(res);
+        },
+        
+        addToCart(){
+          let products = window.localStorage.getItem('products')
+          if(products){
+            let productsArray = JSON.parse(products)
+            let matchedProduct = productsArray.find(item => item.id == this.product.id)
+            if(matchedProduct){
+              matchedProduct.quantity++
+              console.log(matchedProduct);
+              
+            }else{
+              productsArray.push({...this.product, quantity: 1})
+  
+            }
+  
+            window.localStorage.setItem('products', JSON.stringify(productsArray))
+          }else{
+            const productsArray = []
+            productsArray.push({...this.product, quantity: 1})
+            window.localStorage.setItem('products', JSON.stringify(productsArray))
+          }
+         
+        },
         async getMoreData(context) {
+
             const res = await API.fetchMore(context.state.page);
 
             if (context.state.page <= 4) {
@@ -103,25 +155,23 @@ export default new Vuex.Store({
                 context.commit("saveMoreData", res.data);
                 console.log(res.data);
                 console.log(context.state.page);
+
             }
         },
+
+        async fetchAllOrders(context) {
+            const response = await API.OrderHistoryData();
+            console.log("Api orderhistory info:", response)
+            context.commit('updateOrderHistory', response.data)
+        }
     },
 
     getters: {
-        skateboards(state) {
-            return state.products.filter((product) => {
-                return product.category == "skateboard";
-            });
+        getUserDetails(state) {
+            return state.userDetails
         },
-        clothes(state) {
-            return state.products.filter((product) => {
-                return product.category == "hoodie";
-            });
-        },
-        accessories(state) {
-            return state.products.filter((product) => {
-                return product.category == "cap";
-            });
-        },
+        getOrderHistory(state) {
+            return state.userOrderHistory
+        }
     },
 });
