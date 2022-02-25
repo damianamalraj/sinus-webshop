@@ -21,6 +21,7 @@ export default {};
     padding-right: 1rem;
     background-color: gray;
 }
+
 .footer div {
     display: flex;
     justify-content: flex-end;
