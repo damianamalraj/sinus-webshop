@@ -20,8 +20,7 @@ export default new Vuex.Store({
 
     mutations: {
         [Mutations.AUTHENTICATE_LOGIN](state, userData) {
-
-          state.userDetails = userData
+            state.userDetails = userData
         },
         [Mutations.LOGIN_FAILED](state) {
             state.loginError = true;
@@ -104,7 +103,6 @@ export default new Vuex.Store({
                     console.log(response.data.user)
                 })
 
-
         },
 
         async getItems(context) {
@@ -120,10 +118,7 @@ export default new Vuex.Store({
             console.log(res);
         },
 
-
-
         async getItem(context, id) {
-
             const res = await API.fetchData(id)
             context.commit("saveSingleData", res.data.post)
             console.log(res);
@@ -171,9 +166,6 @@ export default new Vuex.Store({
         }
     },
 
-
-    
- 
     getters: {
         getUserDetails(state) {
             return state.userDetails
@@ -182,6 +174,4 @@ export default new Vuex.Store({
             return state.userOrderHistory
         }
     },
-
-
 });
