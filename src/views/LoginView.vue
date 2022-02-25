@@ -43,7 +43,7 @@
     <div class="modal" v-if="showErrorModal">
       <h2>Login Failed!!!</h2>
       <h3>Please try again</h3>
-      <button @click="showErrorModal = false" class="button-bg">Close</button>
+      <button @click="reset" class="button-bg">Close</button>
     </div>
   </div>
 </template>
@@ -73,6 +73,11 @@ export default {
         this.showErrorModal = true;
       }
     },
+    reset(){
+       this.email = "",
+      this.password = "",
+      this.showErrorModal = false
+    }
   },
   computed: {
     loginError() {

@@ -17,6 +17,10 @@ import Header from "./components/Header.vue";
 import Footer from "./components/Footer.vue";
 export default {
     components: { Header, Footer },
+    created() {
+        this.$store.dispatch("getItems");
+        this.$store.commit("resetPageNumber");
+    },
 };
 </script>
 <style lang="scss">
