@@ -9,7 +9,7 @@
         
         <div>
           <router-link to="/">
-            <img src="../assets/home.svg" alt="">
+            <img class="contact" src="../assets/home.svg" alt="">
           </router-link> 
         </div>
       </div>
@@ -18,7 +18,10 @@
         <div>
           <input placeholder="SEARCH YOUR PRODUCT" type="text">
         </div>
-        <div>Contact us</div>
+
+        <div class="contact">
+          Contact us
+        </div>
 
         <div >
           <router-link ref="login-element" v-if="!userInfo" to="/login" class="login">
@@ -31,32 +34,38 @@
 
        <div>
           <router-link to="/wishList">
-            <img src="../assets/heart.svg" alt="">
+            <img class="contact" src="../assets/heart.svg" alt="">
           </router-link> 
         </div>
 
        <div>
           <router-link to="/myaccount">
           <p v-if="userInfo">{{userInfo.name}}</p>
-          <img v-else src="../assets/profile.svg" alt="prpic">
+          <img  v-else src="../assets/profile.svg" alt="prpic">
           </router-link> 
         </div>
 
       <div>
           <router-link to="/cart">
             <img src="../assets/cart.svg" alt="">
+            <span class="quantity"> {{ total }} </span>
           </router-link> 
-        </div>
       </div>
+
+    </div>
   </div>
 </template>
 
 <script>
 export default {
+
   data(){return{
+    total: 0
   }},
+
   computed:{
     userInfo(){
+    
       return this.$store.getters.getUserDetails
     },
     loginStatus(){
@@ -72,19 +81,27 @@ export default {
       this.$store.commit('clearUserData')
       this.$router.push({ name: "Home" });
     }
+
   }
 }
 </script>
 
 <style >
 
-  .logo, .login{
+  img{
+    font-size: 1.5rem;
+  }
+
+  .logo, .login, .contact{
     text-decoration: none;
+    font-size: 1.2rem;
+    font-weight: bold;
     
   }
 
   input{
-    width: 15rem;
+    width: 17rem;
+    height: 1rem;
     text-align: center;
   }
 
@@ -92,10 +109,10 @@ export default {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    background-color:lightgray;
+    background-color:lightgreen;
     padding: 1rem;
-    height: 2rem;
-    align-items: center;
+    height: 3rem;
+    padding: 1.2rem;
   }
 
   .headerLeft{
@@ -110,6 +127,13 @@ export default {
     flex-direction: row;
     gap: 1rem;
     
+  }
+
+  .quantity{
+    position: absolute;
+    top: 8px;
+    color: red;
+    font-weight: bold;
   }
 
 </style>

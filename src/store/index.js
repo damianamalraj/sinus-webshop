@@ -37,8 +37,8 @@ export default new Vuex.Store({
         saveSingleData(state, data) {
             state.singleProduct = data;
         },
-        singleProduct(state, data) {
-            state.cartData.push(data);
+        addToCart(state, product) {
+            state.cartData.push(product);
         },
         saveProducts(state, response) {
             state.products = response;
@@ -57,11 +57,20 @@ export default new Vuex.Store({
         resetPageNumber(state) {
             state.page = 2;
         },
+
+
+         sendToCart(state, product){
+           state.cartData.push(product)
+        
+        },
+
         updateOrderHistory(state, data) {
             state.userOrderHistory = data
         }
+
     },
     actions: {
+
         async [Actions.AUTHENTICATE](context, credentials) {
             await API.authenticate(credentials.email, credentials.password)
                 .then(response => {
@@ -79,6 +88,7 @@ export default new Vuex.Store({
                     context.commit(Mutations.AUTHENTICATE_LOGIN, response.data.user)
                     console.log(response.data.user)
                 })
+
         },
 
         async getItems(context) {
@@ -87,25 +97,46 @@ export default new Vuex.Store({
             console.log(res);
 
         },
-        // async [Actions.REGISTER_USER](context, newUserDetails) {
-        //     const response = await API.register(newUserDetails)
-        //     context.commit(Mutations.AUTHENTICATE_LOGIN, response.data)
-        //     console.log("Register working!!", response.data.user)
-        // },
+
         async getItem(context, id) {
+
             const res = await API.fetchData(id)
             context.commit("saveSingleData", res.data.post)
             console.log(res);
         },
-
+        
+        addToCart(){
+          let products = window.localStorage.getItem('products')
+          if(products){
+            let productsArray = JSON.parse(products)
+            let matchedProduct = productsArray.find(item => item.id == this.product.id)
+            if(matchedProduct){
+              matchedProduct.quantity++
+              console.log(matchedProduct);
+              
+            }else{
+              productsArray.push({...this.product, quantity: 1})
+  
+            }
+  
+            window.localStorage.setItem('products', JSON.stringify(productsArray))
+          }else{
+            const productsArray = []
+            productsArray.push({...this.product, quantity: 1})
+            window.localStorage.setItem('products', JSON.stringify(productsArray))
+          }
+         
+        },
         async getMoreData(context) {
             const res = await API.fetchMore(context.state.page);
 
             if (context.state.page <= 4) {
                 context.commit("loadMore");
-                context.commit("saveMoreData", res.data.products);
-                // console.log(res.data.products);
-                // console.log(context.state.page);
+
+                context.commit("saveMoreData", res.data);
+                console.log(res.data);
+                console.log(context.state.page);
+
             }
         },
         async fetchAllOrders(context) {
@@ -114,7 +145,12 @@ export default new Vuex.Store({
             context.commit('updateOrderHistory', response.data)
         }
     },
+
+
+    
+ 
     getters: {
+
         skateboards(state) {
             return state.products.filter((product) => {
                 return product.category == "skateboard";
@@ -137,7 +173,6 @@ export default new Vuex.Store({
             return state.userOrderHistory
         }
     },
-
 
 });
 
