@@ -15,19 +15,19 @@ export default new Vuex.Store({
         loginError: false,
         cartListItems: [],
         page: 2,
-        userOrderHistory: []
+        userOrderHistory: [],
     },
 
     mutations: {
         [Mutations.AUTHENTICATE_LOGIN](state, userData) {
-            state.userDetails = userData
+            state.userDetails = userData;
         },
         [Mutations.LOGIN_FAILED](state) {
             state.loginError = true;
         },
         clearUserData(state) {
             state.userDetails = {};
-            API.clearToken
+            API.clearToken;
         },
         sendCartData(state, data) {
             state.cartListItems.push(data);
@@ -35,20 +35,12 @@ export default new Vuex.Store({
 
         getAllItems(state, res) {
             state.products = res.data;
-},
+        },
 
         [Mutations.LOGIN_FAILED](state) {
-            state.loginError = true
+            state.loginError = true;
         },
 
-        clearUserData(state) {
-            state.userDetails = {}
-            API.clearToken
-        },
-        sendCartData(state, data) {
-            state.cartListItems.push(data);
-
-        },
         saveSingleData(state, data) {
             state.singleProduct = data;
         },
@@ -57,9 +49,6 @@ export default new Vuex.Store({
         },
         saveProducts(state, response) {
             state.products = response;
-        },
-        getAllItems(state, res) {
-            state.products = res.data;
         },
         saveMoreData(state, res) {
             res.forEach((product) => {
@@ -73,36 +62,37 @@ export default new Vuex.Store({
             state.page = 2;
         },
 
-         sendToCart(state, product){
-           state.cartData.push(product)
-        
+        sendToCart(state, product) {
+            state.cartData.push(product);
         },
 
         updateOrderHistory(state, data) {
-            state.userOrderHistory = data
-        }
-
+            state.userOrderHistory = data;
+        },
     },
     actions: {
-
         async [Actions.AUTHENTICATE](context, credentials) {
             await API.authenticate(credentials.email, credentials.password)
-                .then(response => {
-                    context.commit(Mutations.AUTHENTICATE_LOGIN, response)
+                .then((response) => {
+                    context.commit(Mutations.AUTHENTICATE_LOGIN, response);
                 })
-                .catch(e => {
-                    console.log('There has been a problem while logging in: ' + e.message)
-                    context.commit(Mutations.LOGIN_FAILED)
+                .catch((e) => {
+                    console.log(
+                        "There has been a problem while logging in: " +
+                            e.message
+                    );
+                    context.commit(Mutations.LOGIN_FAILED);
                 });
         },
 
-        async[Actions.REGISTER_USER](context, newUserDetails) {
-            await API.register(newUserDetails)
-                .then(response => {
-                    context.commit(Mutations.AUTHENTICATE_LOGIN, response.data.user)
-                    console.log(response.data.user)
-                })
-
+        async [Actions.REGISTER_USER](context, newUserDetails) {
+            await API.register(newUserDetails).then((response) => {
+                context.commit(
+                    Mutations.AUTHENTICATE_LOGIN,
+                    response.data.user
+                );
+                console.log(response.data.user);
+            });
         },
 
         async getItems(context) {
@@ -110,7 +100,6 @@ export default new Vuex.Store({
             context.commit("saveProducts", res.data);
             console.log(res);
         },
-        
 
         async getClothes(context) {
             const res = await API.getClothesData();
@@ -119,35 +108,39 @@ export default new Vuex.Store({
         },
 
         async getItem(context, id) {
-            const res = await API.fetchData(id)
-            context.commit("saveSingleData", res.data.post)
+            const res = await API.fetchData(id);
+            context.commit("saveSingleData", res.data.post);
             console.log(res);
         },
-        
-        addToCart(){
-          let products = window.localStorage.getItem('products')
-          if(products){
-            let productsArray = JSON.parse(products)
-            let matchedProduct = productsArray.find(item => item.id == this.product.id)
-            if(matchedProduct){
-              matchedProduct.quantity++
-              console.log(matchedProduct);
-              
-            }else{
-              productsArray.push({...this.product, quantity: 1})
-  
+
+        addToCart() {
+            let products = window.localStorage.getItem("products");
+            if (products) {
+                let productsArray = JSON.parse(products);
+                let matchedProduct = productsArray.find(
+                    (item) => item.id == this.product.id
+                );
+                if (matchedProduct) {
+                    matchedProduct.quantity++;
+                    console.log(matchedProduct);
+                } else {
+                    productsArray.push({ ...this.product, quantity: 1 });
+                }
+
+                window.localStorage.setItem(
+                    "products",
+                    JSON.stringify(productsArray)
+                );
+            } else {
+                const productsArray = [];
+                productsArray.push({ ...this.product, quantity: 1 });
+                window.localStorage.setItem(
+                    "products",
+                    JSON.stringify(productsArray)
+                );
             }
-  
-            window.localStorage.setItem('products', JSON.stringify(productsArray))
-          }else{
-            const productsArray = []
-            productsArray.push({...this.product, quantity: 1})
-            window.localStorage.setItem('products', JSON.stringify(productsArray))
-          }
-         
         },
         async getMoreData(context) {
-
             const res = await API.fetchMore(context.state.page);
 
             if (context.state.page <= 4) {
@@ -155,23 +148,22 @@ export default new Vuex.Store({
                 context.commit("saveMoreData", res.data);
                 console.log(res.data);
                 console.log(context.state.page);
-
             }
         },
 
         async fetchAllOrders(context) {
             const response = await API.OrderHistoryData();
-            console.log("Api orderhistory info:", response)
-            context.commit('updateOrderHistory', response.data)
-        }
+            console.log("Api orderhistory info:", response);
+            context.commit("updateOrderHistory", response.data);
+        },
     },
 
     getters: {
         getUserDetails(state) {
-            return state.userDetails
+            return state.userDetails;
         },
         getOrderHistory(state) {
-            return state.userOrderHistory
-        }
+            return state.userOrderHistory;
+        },
     },
 });
