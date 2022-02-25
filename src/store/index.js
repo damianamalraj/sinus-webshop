@@ -4,7 +4,6 @@ import Actions from "./action.types";
 import Mutations from "./mutation.types";
 import * as API from "@/api";
 
-
 Vue.use(Vuex);
 
 export default new Vuex.Store({
@@ -21,7 +20,18 @@ export default new Vuex.Store({
 
     mutations: {
         [Mutations.AUTHENTICATE_LOGIN](state, userData) {
-            state.userDetails = userData
+
+          state.userDetails = userData
+        },
+        [Mutations.LOGIN_FAILED](state) {
+            state.loginError = true;
+        },
+        clearUserData(state) {
+            state.userDetails = {};
+            API.clearToken
+        },
+        sendCartData(state, data) {
+            state.cartListItems.push(data);
         },
 
         getAllItems(state, res) {
@@ -64,7 +74,6 @@ export default new Vuex.Store({
             state.page = 2;
         },
 
-
          sendToCart(state, product){
            state.cartData.push(product)
         
@@ -95,14 +104,23 @@ export default new Vuex.Store({
                     console.log(response.data.user)
                 })
 
+
         },
 
         async getItems(context) {
             const res = await API.getData();
             context.commit("saveProducts", res.data);
             console.log(res);
-
         },
+        
+
+        async getClothes(context) {
+            const res = await API.getClothesData();
+            context.commit("saveClothes", res.data);
+            console.log(res);
+        },
+
+
 
         async getItem(context, id) {
 
@@ -134,17 +152,18 @@ export default new Vuex.Store({
          
         },
         async getMoreData(context) {
+
             const res = await API.fetchMore(context.state.page);
 
             if (context.state.page <= 4) {
                 context.commit("loadMore");
-
                 context.commit("saveMoreData", res.data);
                 console.log(res.data);
                 console.log(context.state.page);
 
             }
         },
+
         async fetchAllOrders(context) {
             const response = await API.OrderHistoryData();
             console.log("Api orderhistory info:", response)
@@ -156,22 +175,6 @@ export default new Vuex.Store({
     
  
     getters: {
-
-        skateboards(state) {
-            return state.products.filter((product) => {
-                return product.category == "skateboard";
-            });
-        },
-        clothes(state) {
-            return state.products.filter((product) => {
-                return product.category == "hoodie";
-            });
-        },
-        accessories(state) {
-            return state.products.filter((product) => {
-                return product.category == "cap";
-            });
-        },
         getUserDetails(state) {
             return state.userDetails
         },
@@ -180,5 +183,5 @@ export default new Vuex.Store({
         }
     },
 
-});
 
+});
