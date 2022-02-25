@@ -25,7 +25,6 @@ export default {
 <style lang="scss" scoped>
 .accessories-view {
     display: grid;
-
     grid-template-columns: repeat(5, 1fr);
     gap: 1rem;
 

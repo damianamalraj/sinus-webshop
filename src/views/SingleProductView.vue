@@ -46,6 +46,9 @@ import SingleProductSmall from "../components/Single-Product-Small";
 
 export default {
     name: 'SingleProductView',
+     components: {
+        SingleProductSmall,
+    },
     data(){
       return{
         savedProducts: []
@@ -62,9 +65,11 @@ export default {
 
     },
 
+
     components: {
         SingleProductSmall
     },
+
 
     methods:{
 
@@ -139,15 +144,8 @@ export default {
     margin: 1rem;
   }
 
+
   p, button{
     font-weight: bold;
   }
-
-
-
-
-
-
-
-
 </style>

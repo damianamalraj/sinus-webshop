@@ -23,6 +23,11 @@ export default new Vuex.Store({
         [Mutations.AUTHENTICATE_LOGIN](state, userData) {
             state.userDetails = userData
         },
+
+        getAllItems(state, res) {
+            state.products = res.data;
+},
+
         [Mutations.LOGIN_FAILED](state) {
             state.loginError = true
         },
@@ -33,6 +38,7 @@ export default new Vuex.Store({
         },
         sendCartData(state, data) {
             state.cartListItems.push(data);
+
         },
         saveSingleData(state, data) {
             state.singleProduct = data;
