@@ -24,11 +24,11 @@
         </div>
 
         <div >
-          <router-link v-if="userInfo!=null" to="/login" class="login">
-             Login
+          <router-link ref="login-element" v-if="!userInfo" to="/login" class="login">
+             {{loginStatus}}
           </router-link> 
-          <button v-else @click="logout" class="login">
-             Logout
+          <button ref="login-element" v-else @click="logout" class="login">
+             {{loginStatus}}
           </button> 
         </div>
 
@@ -65,6 +65,7 @@ export default {
 
   computed:{
     userInfo(){
+<<<<<<< HEAD
       return this.$store.state.user
     },
   },
@@ -78,6 +79,23 @@ export default {
   mounted(){
     this.total = JSON.parse( window.localStorage.getItem('products')).length
     
+=======
+      return this.$store.getters.getUserDetails
+    },
+    loginStatus(){
+      if(this.userInfo){
+        return "Logout"
+      }
+      return "Login"
+    }
+  },
+  
+  methods:{
+    logout(){
+      this.$store.commit('clearUserData')
+      this.$router.push({ name: "Home" });
+    }
+>>>>>>> e4d5d0ea0d3bb3a3ba1792226fce81b738471acc
   }
 }
 </script>

@@ -41,4 +41,16 @@ export async function fetchData(id) {
 
 /* export const getProducts = async () => {
     return await axios.get("/items", {});
+<<<<<<< HEAD
 }; */
+=======
+};
+
+export async function OrderHistoryData(){
+    return await axios.get('/orders')
+}
+
+export function clearToken() {
+    axios.defaults.headers.common["Authorization"] = ""
+}
+>>>>>>> e4d5d0ea0d3bb3a3ba1792226fce81b738471acc

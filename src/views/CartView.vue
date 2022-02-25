@@ -31,8 +31,13 @@
     <div class="total-price">
       <table>
         <tr>
+<<<<<<< HEAD
           <td class="total" >Total</td>
           <td class="total" > SEK {{ getTotalPrice()}} </td>
+=======
+          <td>Total</td>
+          <td>{{totalPrice}}</td>
+>>>>>>> e4d5d0ea0d3bb3a3ba1792226fce81b738471acc
         </tr>
         <Button> To Checkout</Button>
       </table>
@@ -58,6 +63,13 @@ export default {
       return this.$store.state.cartData
     },
     
+   /*  totalPrice() {
+      let total = 0;
+      for (let item of Object.values(this.getCartData())) {
+        total += item.price * item.quantity
+      }
+      return total
+    } */
   },
 
   methods:{
