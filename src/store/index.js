@@ -16,6 +16,9 @@ export default new Vuex.Store({
         cartListItems: [],
         page: 2,
         userOrderHistory: [],
+        skateboards: [],
+        clothes: [],
+        accessories: [],
     },
 
     mutations: {
@@ -53,6 +56,30 @@ export default new Vuex.Store({
         saveMoreData(state, res) {
             res.forEach((product) => {
                 state.products.push(product);
+            });
+        },
+        saveSkateboards(state, res) {
+            state.skateboards = res;
+        },
+        saveMoreSkateboards(state, res) {
+            res.forEach((product) => {
+                state.skateboards.push(product);
+            });
+        },
+        saveClothes(state, res) {
+            state.clothes = res;
+        },
+        saveMoreClothes(state, res) {
+            res.forEach((product) => {
+                state.clothes.push(product);
+            });
+        },
+        saveAccessories(state, res) {
+            state.accessories = res;
+        },
+        saveMoreAccessories(state, res) {
+            res.forEach((product) => {
+                state.accessories.push(product);
             });
         },
         loadMore(state) {
@@ -101,9 +128,39 @@ export default new Vuex.Store({
             console.log(res);
         },
 
+        async getSkateboards(context) {
+            const res = await API.getSkateboards();
+            context.commit("saveSkateboards", res.data);
+            console.log(res);
+        },
+        async getMoreSkateboards(context) {
+            const res = await API.getMoreSkateboards(context.state.page);
+
+            if (context.state.page <= 3) {
+                context.commit("loadMore");
+                context.commit("saveMoreSkateboards", res.data);
+                console.log(res.data);
+                console.log(context.state.page);
+            }
+        },
         async getClothes(context) {
-            const res = await API.getClothesData();
+            const res = await API.getClothes();
             context.commit("saveClothes", res.data);
+            console.log(res);
+        },
+        async getMoreClothes(context) {
+            const res = await API.getMoreClothes(context.state.page);
+
+            if (context.state.page <= 3) {
+                context.commit("loadMore");
+                context.commit("saveMoreClothes", res.data);
+                console.log(res.data);
+                console.log(context.state.page);
+            }
+        },
+        async getAccessories(context) {
+            const res = await API.getAccessories();
+            context.commit("saveAccessories", res.data);
             console.log(res);
         },
 
@@ -165,8 +222,8 @@ export default new Vuex.Store({
         getOrderHistory(state) {
             return state.userOrderHistory;
         },
-        allProducts(state){
+        allProducts(state) {
             return state.products;
-        }
+        },
     },
 });

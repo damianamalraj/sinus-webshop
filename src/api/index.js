@@ -34,15 +34,30 @@ export async function getData() {
 export async function fetchMore(page) {
     return await axios.get(`/items?page=${page}`, {});
 }
-export async function getClothesData() {
+export async function getSkateboards() {
+    return await axios.get("/items?category=skateboard", {});
+}
+export async function getMoreSkateboards(page) {
+    return await axios.get(`/items?category=skateboard&page=${page}`, {});
+}
+export async function getClothes() {
     return await axios.get(
-        "/items?items?category=socks&category=skateboard",
+        "items?category=hoodie&category=tshirt&category=socks",
         {}
     );
 }
-export async function fetchMoreClothesData(page) {
+export async function getMoreClothes(page) {
     return await axios.get(
-        `/items?items?category=socks&category=skateboard&page=${page}`,
+        `items?category=hoodie&category=tshirt&category=socks&page=${page}`,
+        {}
+    );
+}
+export async function getAccessories() {
+    return await axios.get("items?category=totebag&category=wheel", {});
+}
+export async function getMoreAccessories(page) {
+    return await axios.get(
+        `items?category=totebag&category=wheel&page=${page}`,
         {}
     );
 }
