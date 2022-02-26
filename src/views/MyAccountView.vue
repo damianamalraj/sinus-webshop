@@ -17,11 +17,13 @@
         <h2>MY ORDERS</h2>
         <span v-if="allOrders.length">
           <span v-for="order in allOrders" :key="order.id" class="single-order">
-            <p>
-              Shipping status:{{ order.status }} <br />
-              Shipping Address:{{ order.shippingStreet }},<br />
-              {{ order.shippingCity }},<br />{{ order.shippingZip }}
-            </p>
+            <h3>Shipping status:</h3> 
+            <h5> {{ order.status }} </h5> <br />
+            <h3>Shipping Address:</h3> 
+            <h5> {{ order.shippingStreet }} </h5> <br />
+            <h5>{{ order.shippingCity }},</h5>
+            <br />{{ order.shippingZip }}
+            
             <table class="order-items-list">
               <tr>
                 <th>Preview</th>
@@ -103,5 +105,8 @@ table {
 }
 .order-items-list{
   margin: auto;
+}
+.details-section{
+  background-color: rgb(160, 145, 145);
 }
 </style>

@@ -35,6 +35,9 @@ body {
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
     color: #2c3e50;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 #nav {
@@ -52,18 +55,16 @@ body {
 }
 
 button {
-    padding: 1rem;
-     font-size: 1.5rem;
-     font-weight: bold;
+    padding: 0.5rem 1.7rem;
+     font-size: 1rem;
+     border-radius: 5px;
      cursor: pointer;
-     border: 3px solid rgb(46, 94, 142);
+     border: 1px solid rgb(22, 23, 24);
     
 }
 button:hover {
-    
          background-color: black;
-         color:white
-     
+         color:white;
 }
 
 </style>
