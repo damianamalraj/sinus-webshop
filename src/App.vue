@@ -57,14 +57,17 @@ body {
 button {
     padding: 0.5rem 1.7rem;
      font-size: 1rem;
-     border-radius: 5px;
+     border-radius: 3px;
      cursor: pointer;
-     border: 1px solid rgb(22, 23, 24);
+     border: 2px solid rgb(22, 23, 24);
+     margin : 10px 0px;
+     background-color: #333;
+     color:white; 
     
 }
 button:hover {
-         background-color: black;
-         color:white;
+         background-color: #7cc5a4;
+         color: #222;
 }
 
 </style>

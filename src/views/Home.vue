@@ -28,13 +28,13 @@
             Vår skateboardavdelning uppdateras varje vecka med nya brädor, hjul, truckar & tillbehör. Vi handplockar vårt sortiment för 
             att alltid ha ett brett utbud för alla typ av åkarning street, park, transition & bowl!
              Målet är att vi ska tillhandahålla allt du behöver för att köpa skateboard oavsett om du är nybörjare eller en duktig åkare.</p>
-        <div class="homepage">
+        <!-- <div class="homepage">
             <SingleProductSmall :product='product'/>
             <SingleProductSmall :product='product'/>
             <SingleProductSmall :product='product'/>
             <SingleProductSmall :product='product'/>
             <SingleProductSmall :product='product'/>
-        </div>
+        </div> -->
 
         <div class="images">
             <img src="../assets/bild1.jpeg" alt="">
@@ -55,11 +55,11 @@
 </template>
 
 <script>
-import SingleProductSmall from '../components/Single-Product-Small.vue';
+// import SingleProductSmall from '../components/Single-Product-Small.vue';
 
 export default {
     name: "Home",
-    components: {SingleProductSmall},
+    // components: {SingleProductSmall},
 
     computed: {
         product() {
