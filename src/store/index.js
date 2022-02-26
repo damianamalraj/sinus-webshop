@@ -165,5 +165,8 @@ export default new Vuex.Store({
         getOrderHistory(state) {
             return state.userOrderHistory;
         },
+        allProducts(state){
+            return state.products;
+        }
     },
 });

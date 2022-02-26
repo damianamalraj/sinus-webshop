@@ -80,9 +80,10 @@ export default {
     logout(){
       this.$store.commit('clearUserData')
       this.$router.push({ name: "Home" });
+      this.loginStatus = "Login"
     }
 
-  }
+  },
 }
 </script>
 
@@ -109,7 +110,7 @@ export default {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    background-color:lightgreen;
+    background-color:rgb(106, 221, 106);
     padding: 1rem;
     height: 3rem;
     padding: 1.2rem;
@@ -132,7 +133,7 @@ export default {
   .quantity{
     position: absolute;
     top: 8px;
-    color: red;
+    color: rgb(158, 35, 35);
     font-weight: bold;
   }
 
