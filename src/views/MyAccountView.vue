@@ -2,28 +2,37 @@
   <div>
     <div v-if="userInfo">
       <section class="details-section">
-        <button>EDIT</button>
-        <span>
-          <h2>MY DETAILS</h2>
-          <p>Name: {{ userInfo.name }}</p>
-          <p>Address:</p>
-          <p>Street: {{ userInfo.address.street }}</p>
-          <p>City: {{ userInfo.address.city }}</p>
-          <p>Zip: {{ userInfo.address.zip }}</p>
-        </span>
+        <button @click="showForm=true">EDIT</button>
+        <section v-if="!showForm">
+          <h3>MY DETAILS</h3>
+          <p>{{ userInfo.name }}</p>
+          <p>{{ userInfo.email }}</p>
+          <h3>Shipping Address:</h3>
+          <p>{{ userInfo.address.street }}</p>
+          <p>{{ userInfo.address.city }}</p>
+          <p>{{ userInfo.address.zip }}</p>
+        </section>
+        <section v-else>
+          
+        </section>
       </section>
       <button @click="getAllOrders">Show Order History</button>
       <section class="orders-section" v-if="showOrders">
         <h2>MY ORDERS</h2>
-        <span v-if="allOrders.length">
-          <span v-for="order in allOrders" :key="order.id" class="single-order">
-            <h3>Shipping status:</h3> 
-            <h5> {{ order.status }} </h5> <br />
-            <h3>Shipping Address:</h3> 
-            <h5> {{ order.shippingStreet }} </h5> <br />
-            <h5>{{ order.shippingCity }},</h5>
-            <br />{{ order.shippingZip }}
-            
+        <section v-if="allOrders.length">
+          <section
+            v-for="order in allOrders"
+            :key="order.id"
+            class="single-order"
+          >
+            <h3>Shipping status:</h3>
+            <p>{{ order.status }}</p>
+            <h3>Shipping Address:</h3>
+            <p>{{ order.shippingStreet }},</p>
+            <p>{{ order.shippingCity }},</p>
+            <p>{{ order.shippingZip }}</p>
+
+            <h3>Order Details :</h3>
             <table class="order-items-list">
               <tr>
                 <th>Preview</th>
@@ -51,8 +60,8 @@
               </tr>
             </table>
             <!-- <li>  Quantity : {{ orderedProduct(item.ProductId) }} <br /> </li> -->
-          </span>
-        </span>
+          </section>
+        </section>
         <span v-else>
           <h3>Currently, there is no order history in your account.</h3>
         </span>
@@ -69,6 +78,7 @@ export default {
   data() {
     return {
       showOrders: false,
+      showForm:false
     };
   },
   computed: {
@@ -103,10 +113,41 @@ img {
 table {
   place-items: center;
 }
-.order-items-list{
+.order-items-list {
   margin: auto;
 }
-.details-section{
-  background-color: rgb(160, 145, 145);
+.details-section {
+  background-color: rgb(228, 219, 219);
+  width: 70%;
+  margin: auto;
+  padding: 30px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  button {
+    align-self: flex-end;
+    width: fit-content;
+    margin: auto 10px;
+  }
+}
+.orders-section,
+.single-order,
+.details-section, .order-items-list {
+  text-align: left;
+  h3 {
+    margin: 8px 40px;
+  }
+  p {
+    margin: 5px 50px;
+  }
+}
+.orders-section h2{
+  text-align:center;
+}
+.order-items-list{
+  text-align:center;
+    margin: 8px 40px;
+
 }
 </style>

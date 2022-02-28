@@ -1,6 +1,6 @@
 <template>
   <div>
-      <h1>Login Component</h1>
+    <h1>Signup form</h1>
   </div>
 </template>
 
