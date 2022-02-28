@@ -98,8 +98,16 @@ export default new Vuex.Store({
             state.userOrderHistory = data;
         },
 
-        updateOrderHistory(state, data) {
-            state.userOrderHistory = data
+        replaceCartData(state, data){
+            state.cartData = data
+        },
+
+        pushToCart(state, data){
+            state.cartData.push(data)
+        },
+
+        removeFromCart(state, id){
+            state.cartData = state.cartData.filter(item => item.id != id)
         }
 
     },
@@ -180,33 +188,6 @@ export default new Vuex.Store({
             console.log(res);
         },
 
-        addToCart() {
-            let products = window.localStorage.getItem("products");
-            if (products) {
-                let productsArray = JSON.parse(products);
-                let matchedProduct = productsArray.find(
-                    (item) => item.id == this.product.id
-                );
-                if (matchedProduct) {
-                    matchedProduct.quantity++;
-                    console.log(matchedProduct);
-                } else {
-                    productsArray.push({ ...this.product, quantity: 1 });
-                }
-
-                window.localStorage.setItem(
-                    "products",
-                    JSON.stringify(productsArray)
-                );
-            } else {
-                const productsArray = [];
-                productsArray.push({ ...this.product, quantity: 1 });
-                window.localStorage.setItem(
-                    "products",
-                    JSON.stringify(productsArray)
-                );
-            }
-        },
         async getMoreData(context) {
             const res = await API.fetchMore(context.state.page);
 

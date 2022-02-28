@@ -99,20 +99,6 @@ export default {
     font-size: 1.5rem;
   }
 
-  methods: {
-    logout() {
-      this.$store.commit("clearUserData");
-      this.$router.push({ name: "Home" });
-    },
-  }
-};
-</script>
-
-<style>
-img {
-  font-size: 1.5rem;
-}
-
 .logo,
 .login,
 .contact {

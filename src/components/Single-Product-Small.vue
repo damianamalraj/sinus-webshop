@@ -32,7 +32,7 @@
                 <option value="5">5</option>
             </select>
 
-           <button @click="saveToCart">
+           <button @click="addToCart">
                 <img src="../assets/add_shopping_cart.svg" alt="" />
             </button>
         </section>
@@ -47,29 +47,29 @@ export default {
             return this.$store.state.singleProduct},
     },
     methods: {  
-        /* addToCart(){  
-            this.$store.dispatch("addToCart", {title: this.Product.title, price: this.Product.price})
-        }, */
-        saveToCart(){
-        let products = window.localStorage.getItem('products')
-        if(products){
-          let productsArray = JSON.parse(products)
-          let matchedProduct = productsArray.find(item => item.id == this.product.id)
-          if(matchedProduct){
-            matchedProduct.quantity++
-            console.log(matchedProduct);
-            
-          }else{
-            productsArray.push({...this.product, quantity: 1})
+        
+        addToCart(){
+            let cartProducts = this.$store.state.cartData
 
-          }
+            let foundProduct = cartProducts.find(item => item.id == this.product.id)
 
-          window.localStorage.setItem('products', JSON.stringify(productsArray))
-        }else{
-          const productsArray = []
-          productsArray.push({...this.product, quantity: 1})
-          window.localStorage.setItem('products', JSON.stringify(productsArray))
-        }
+            if(foundProduct){
+                cartProducts = cartProducts.map(item => {
+                    if(item.id == this.product.id){
+                        return { ...item, quantity: item.quantity + 1 }
+                    }else{
+                        return item
+                    }
+                })
+                this.$store.commit("replaceCartData", cartProducts)
+
+            }else{
+                let product = {
+                    ...this.product,
+                    quantity: 1
+                }
+                this.$store.commit("pushToCart", product)
+            }
        
       }
     }
