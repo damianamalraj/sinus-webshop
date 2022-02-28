@@ -13,7 +13,11 @@
           <p>{{ userInfo.address.zip }}</p>
         </section>
         <section v-else>
-          <BaseForm @sendFormInfo="updateUserDetails" :userCurrentDetails="userInfo"/>
+          <BaseForm @sendFormInfo="updateUserDetails" :userCurrentDetails="userInfo">
+          <template slot="action-name">
+          <p>Update</p>
+        </template>
+      </BaseForm>
         </section>
       </section>
       <button @click="getAllOrders">Show Order History</button>

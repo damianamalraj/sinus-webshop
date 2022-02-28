@@ -1,7 +1,11 @@
 <template>
   <div>
     <div v-if="!userInfo">
-      <BaseForm @sendFormInfo="register" />
+      <BaseForm @sendFormInfo="register">
+        <template slot="action-name">
+          <p>Sign Up</p>
+        </template>
+      </BaseForm>
     </div>
     <div v-else>
       <h3>You are logged in!! Happy Shopping!!!</h3>

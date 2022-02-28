@@ -68,7 +68,9 @@
           />
         </span>
         <p v-if="!noError">{{ errorsList }}</p>
-        <button>SIGN UP!</button>
+        <button>
+          <slot name="action-name">Done</slot>
+        </button>
         <p>{{userCurrentDetails}}</p>
         <!-- <p>{{registeredUser}}</p> -->
       </form>
