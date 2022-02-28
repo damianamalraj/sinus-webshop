@@ -20,7 +20,7 @@
                 <p>
                     {{ product.longDesc }}
                 </p>
-                <button @click="saveToCart">ADD TO CART</button>
+                <button @click="addToCart">ADD TO CART</button>
             </div>
         </div>
 
@@ -58,39 +58,30 @@ export default {
     },
 
     methods: {
-        saveToCart() {
-            let products = window.localStorage.getItem("products");
+        addToCart(){
+            let cartProducts = this.$store.state.cartData
 
-            if (products) {
-                let productsArray = JSON.parse(products);
+            let foundProduct = cartProducts.find(item => item.id == this.product.id)
 
-                let matchedProduct = productsArray.find(
-                    (item) => item.id == this.product.id
-                );
+            if(foundProduct){
+                cartProducts = cartProducts.map(item => {
+                    if(item.id == this.product.id){
+                        return { ...item, quantity: item.quantity + 1 }
+                    }else{
+                        return item
+                    }
+                })
+                this.$store.commit("replaceCartData", cartProducts)
 
-                if (matchedProduct) {
-                    productsArray.forEach((item) => {
-                        if (item.id == this.product.id) {
-                            this.product.quantity++;
-                        }
-                    });
-                } else {
-                    productsArray.push({ ...this.product, quantity: 1 });
+            }else{
+                let product = {
+                    ...this.product,
+                    quantity: 1
                 }
-
-                window.localStorage.setItem(
-                    "products",
-                    JSON.stringify(productsArray)
-                );
-            } else {
-                const productsArray = [];
-                productsArray.push({ ...this.product, quantity: 1 });
-                window.localStorage.setItem(
-                    "products",
-                    JSON.stringify(productsArray)
-                );
+                this.$store.commit("pushToCart", product)
             }
-        },
+       
+      }
     },
 };
 </script>

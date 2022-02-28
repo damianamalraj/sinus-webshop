@@ -9,7 +9,7 @@
           <th>SUBTOTAL</th>
        </tr>
       
-       <tr v-for="product in getCartData()" :key="product.id">
+       <tr v-for="product in getProducts" :key="product.id">
         <td>
           <div class="cart-info">
             <img :src="'http://localhost:5001/images/' + product.imgFile" alt="">
@@ -17,7 +17,7 @@
               <p> {{ product.title}} </p>
               <small> {{ product.price}} </small>
               <br>
-              <a href="" @click="deleteItem(product.id)">Remove</a>
+              <a href="#" @click="()=>{removeItem(product.id)}">Remove</a>
             </div>
           </div>
         </td>
@@ -60,8 +60,11 @@ export default {
     getData(){
       return this.$store.state.cartData
     },
-    
 
+    getProducts(){
+      return this.$store.state.cartData
+    }
+    
   },
 
   methods:{
@@ -83,7 +86,7 @@ export default {
     },
 
     changeQuantity(e, id){
-      let products = JSON.parse(window.localStorage.getItem('products'))
+      let products = this.$store.state.cartData
       products.forEach(product => {
         if(product.id == id){
             product.quantity = e.target.value
@@ -93,22 +96,10 @@ export default {
       window.localStorage.setItem('products', JSON.stringify(products))
     },
 
-    deleteItem(id){
-       const matchedProduct = this.products.filter(product => product.id == id )
-       console.log('matchedProduct', matchedProduct);
-        if(matchedProduct){
-          
-          let spara = this.products.filter(product => product != matchedProduct)
-          console.log('spara', spara);
-          window.localStorage.removeItem(matchedProduct) 
+   removeItem(id){
+     this.$store.commit("removeFromCart", id)
 
-        }
-      
-      /* if(JSON.parse(window.localStorage.getItem('products')).id == id){
-      console.log('delete');
-    } */
-
-  }
+   }
 
 
   }
