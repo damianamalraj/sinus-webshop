@@ -2,10 +2,10 @@
     <div id="app">
         <Header />
         <div id="nav">
-            <router-link to="/productList">All</router-link> |
-            <router-link to="/skateboards">Skateboards</router-link> |
-            <router-link to="/clothes">Clothes</router-link> |
-            <router-link to="/accessories">Accessories</router-link>
+            <router-link  to="/productList"><button>All Products</button></router-link> 
+            <router-link to="/skateboards"><button>Skateboards</button></router-link> 
+            <router-link to="/clothes"><button>Clothes</button></router-link> 
+            <router-link to="/accessories"><button>Accessories</button></router-link>
         </div>
         <router-view />
         <Footer class="footer" />
@@ -35,6 +35,9 @@ body {
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
     color: #2c3e50;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 #nav {
@@ -42,10 +45,26 @@ body {
     a {
         font-weight: bold;
         color: #2c3e50;
+        padding: 2rem;
+       
 
         &.router-link-exact-active {
             color: #42b983;
         }
     }
 }
+
+button {
+    padding: 0.5rem 1.7rem;
+     font-size: 1rem;
+     border-radius: 5px;
+     cursor: pointer;
+     border: 1px solid rgb(22, 23, 24);
+    
+}
+button:hover {
+         background-color: black;
+         color:white;
+}
+
 </style>

@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <div :class="{ fade: showErrorModal }">
+  <div class="wrapper">
+    <div :class="{ fade: showErrorModal }" class="main-div">
       <h1>Welcome Back!</h1>
       <form @submit.prevent="authenticate" class="form-styling">
         <span>
@@ -45,6 +45,7 @@
       <h3>Please try again</h3>
       <button @click="reset" class="button-bg">Close</button>
     </div>
+    <p></p>
   </div>
 </template>
 
@@ -117,6 +118,7 @@ a {
 .button-bg {
   padding: 15px 60px;
   margin: 10px;
+  margin-bottom: 20px;
   background-color: black;
   border: 2px solid white;
   border-radius: 5px;
@@ -142,5 +144,11 @@ a {
 }
 .fade {
   opacity: 30%;
+}
+.main-div{
+  height: fit-content;
+}
+.wrapper{
+  margin-bottom: 50px;
 }
 </style>
