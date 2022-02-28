@@ -65,16 +65,17 @@ export default {
 
   computed:{
     userInfo(){
-    
-      return this.$store.getters.getUserDetails
+      return this.$store.state.user
     },
-    loginStatus(){
-      if(this.userInfo){
-        return "Logout"
-      }
-      return "Login"
-    }
   },
+
+ 
+
+  mounted(){
+    this.total = JSON.parse( window.localStorage.getItem('products')).length
+    
+    return this.$store.getters.getUserDetails
+    },
   
   methods:{
     logout(){
@@ -83,7 +84,9 @@ export default {
       this.loginStatus = "Login"
     }
 
-  },
+
+  }
+
 }
 </script>
 

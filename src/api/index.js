@@ -66,10 +66,12 @@ export async function fetchData(id) {
     return await axios.get(`/items/${id}`);
 }
 
-export async function OrderHistoryData() {
-    return await axios.get("/orders");
+
+export async function OrderHistoryData(){
+    return await axios.get('/orders')
 }
 
 export function clearToken() {
     axios.defaults.headers.common["Authorization"] = "";
 }
+

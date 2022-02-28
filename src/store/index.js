@@ -89,6 +89,7 @@ export default new Vuex.Store({
             state.page = 2;
         },
 
+
         sendToCart(state, product) {
             state.cartData.push(product);
         },
@@ -96,7 +97,13 @@ export default new Vuex.Store({
         updateOrderHistory(state, data) {
             state.userOrderHistory = data;
         },
+
+        updateOrderHistory(state, data) {
+            state.userOrderHistory = data
+        }
+
     },
+
     actions: {
         async [Actions.AUTHENTICATE](context, credentials) {
             await API.authenticate(credentials.email, credentials.password)
@@ -120,6 +127,7 @@ export default new Vuex.Store({
                 );
                 console.log(response.data.user);
             });
+
         },
 
         async getItems(context) {
@@ -164,6 +172,8 @@ export default new Vuex.Store({
             console.log(res);
         },
 
+    
+
         async getItem(context, id) {
             const res = await API.fetchData(id);
             context.commit("saveSingleData", res.data.post);
@@ -202,9 +212,12 @@ export default new Vuex.Store({
 
             if (context.state.page <= 4) {
                 context.commit("loadMore");
+
                 context.commit("saveMoreData", res.data);
                 console.log(res.data);
                 console.log(context.state.page);
+
+
             }
         },
 
@@ -214,6 +227,7 @@ export default new Vuex.Store({
             context.commit("updateOrderHistory", response.data);
         },
     },
+
 
     getters: {
         getUserDetails(state) {
@@ -226,4 +240,5 @@ export default new Vuex.Store({
             return state.products;
         },
     },
-});
+})
+
