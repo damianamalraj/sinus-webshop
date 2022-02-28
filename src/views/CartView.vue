@@ -31,6 +31,7 @@
     <div class="total-price">
       <table>
         <tr>
+
           <td class="total" >Total</td>
           <td class="total" > SEK {{ getTotalPrice()}} </td>
 

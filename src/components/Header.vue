@@ -74,6 +74,31 @@ export default {
     },
   },
 
+  mounted(){
+    this.total = JSON.parse( window.localStorage.getItem('products')).length
+    
+    return this.$store.getters.getUserDetails
+    },
+  
+  methods:{
+    logout(){
+      this.$store.commit('clearUserData')
+      this.$router.push({ name: "Home" });
+      this.loginStatus = "Login"
+    }
+
+
+  }
+
+}
+</script>
+
+<style >
+
+  img{
+    font-size: 1.5rem;
+  }
+
   methods: {
     logout() {
       this.$store.commit("clearUserData");

@@ -28,6 +28,9 @@ export default {
     components: {
         SingleProductSmall,
     },
+    created() {
+        this.$store.commit("resetPageNumber");
+    },
 };
 </script>
 

@@ -16,6 +16,9 @@ export default new Vuex.Store({
         cartListItems: [],
         page: 2,
         userOrderHistory: [],
+        skateboards: [],
+        clothes: [],
+        accessories: [],
     },
 
     mutations: {
@@ -55,12 +58,37 @@ export default new Vuex.Store({
                 state.products.push(product);
             });
         },
+        saveSkateboards(state, res) {
+            state.skateboards = res;
+        },
+        saveMoreSkateboards(state, res) {
+            res.forEach((product) => {
+                state.skateboards.push(product);
+            });
+        },
+        saveClothes(state, res) {
+            state.clothes = res;
+        },
+        saveMoreClothes(state, res) {
+            res.forEach((product) => {
+                state.clothes.push(product);
+            });
+        },
+        saveAccessories(state, res) {
+            state.accessories = res;
+        },
+        saveMoreAccessories(state, res) {
+            res.forEach((product) => {
+                state.accessories.push(product);
+            });
+        },
         loadMore(state) {
             state.page++;
         },
         resetPageNumber(state) {
             state.page = 2;
         },
+
 
         sendToCart(state, product) {
             state.cartData.push(product);
@@ -69,7 +97,13 @@ export default new Vuex.Store({
         updateOrderHistory(state, data) {
             state.userOrderHistory = data;
         },
+
+        updateOrderHistory(state, data) {
+            state.userOrderHistory = data
+        }
+
     },
+
     actions: {
         async [Actions.AUTHENTICATE](context, credentials) {
             await API.authenticate(credentials.email, credentials.password)
@@ -93,6 +127,7 @@ export default new Vuex.Store({
                 );
                 console.log(response.data.user);
             });
+
         },
 
         async getItems(context) {
@@ -101,11 +136,43 @@ export default new Vuex.Store({
             console.log(res);
         },
 
+        async getSkateboards(context) {
+            const res = await API.getSkateboards();
+            context.commit("saveSkateboards", res.data);
+            console.log(res);
+        },
+        async getMoreSkateboards(context) {
+            const res = await API.getMoreSkateboards(context.state.page);
+
+            if (context.state.page <= 3) {
+                context.commit("loadMore");
+                context.commit("saveMoreSkateboards", res.data);
+                console.log(res.data);
+                console.log(context.state.page);
+            }
+        },
         async getClothes(context) {
-            const res = await API.getClothesData();
+            const res = await API.getClothes();
             context.commit("saveClothes", res.data);
             console.log(res);
         },
+        async getMoreClothes(context) {
+            const res = await API.getMoreClothes(context.state.page);
+
+            if (context.state.page <= 3) {
+                context.commit("loadMore");
+                context.commit("saveMoreClothes", res.data);
+                console.log(res.data);
+                console.log(context.state.page);
+            }
+        },
+        async getAccessories(context) {
+            const res = await API.getAccessories();
+            context.commit("saveAccessories", res.data);
+            console.log(res);
+        },
+
+    
 
         async getItem(context, id) {
             const res = await API.fetchData(id);
@@ -145,9 +212,12 @@ export default new Vuex.Store({
 
             if (context.state.page <= 4) {
                 context.commit("loadMore");
+
                 context.commit("saveMoreData", res.data);
                 console.log(res.data);
                 console.log(context.state.page);
+
+
             }
         },
 
@@ -158,6 +228,7 @@ export default new Vuex.Store({
         },
     },
 
+
     getters: {
         getUserDetails(state) {
             return state.userDetails;
@@ -165,8 +236,9 @@ export default new Vuex.Store({
         getOrderHistory(state) {
             return state.userOrderHistory;
         },
-        allProducts(state){
+        allProducts(state) {
             return state.products;
-        }
+        },
     },
-});
+})
+
