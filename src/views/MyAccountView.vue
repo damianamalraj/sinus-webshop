@@ -13,7 +13,7 @@
           <p>{{ userInfo.address.zip }}</p>
         </section>
         <section v-else>
-          
+          <BaseForm @sendFormInfo="updateUserDetails" :userCurrentDetails="userInfo"/>
         </section>
       </section>
       <button @click="getAllOrders">Show Order History</button>
@@ -74,6 +74,8 @@
 </template>
 
 <script>
+import BaseForm from "@/components/BaseForm";
+
 export default {
   data() {
     return {
@@ -81,6 +83,7 @@ export default {
       showForm:false
     };
   },
+  components:{BaseForm},
   computed: {
     userInfo() {
       return this.$store.getters.getUserDetails;
@@ -93,6 +96,10 @@ export default {
     },
   },
   methods: {
+    updateUserDetails(userDetails){
+      console.log("Edit mode:",userDetails)
+      this.$store.dispatch("updateUserDetails",userDetails)
+    },
     orderedProduct(productId) {
       return this.allProducts.find((item) => item.id == productId);
     },

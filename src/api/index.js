@@ -75,3 +75,7 @@ export function clearToken() {
     axios.defaults.headers.common["Authorization"] = "";
 }
 
+export async function updateUserData(userNewDetails){
+    return await axios.patch('/me',userNewDetails)
+}
+

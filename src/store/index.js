@@ -128,6 +128,7 @@ export default new Vuex.Store({
         },
 
         async [Actions.REGISTER_USER](context, newUserDetails) {
+            console.log("new user details: ", newUserDetails)
             await API.register(newUserDetails).then((response) => {
                 context.commit(
                     Mutations.AUTHENTICATE_LOGIN,
@@ -207,6 +208,16 @@ export default new Vuex.Store({
             console.log("Api orderhistory info:", response);
             context.commit("updateOrderHistory", response.data);
         },
+
+        async updateUserDetails(context,userUpdatedDetails){
+            const response = await API.updateUserData(userUpdatedDetails);
+            console.log("Update api response",response)
+            if(response=="Profile updated"){
+                // const res = await API.authenticate(userUpdatedDetails.email,userUpdatedDetails.password)
+               await Actions.AUTHENTICATE(userUpdatedDetails.email,userUpdatedDetails.password)
+                // context.commit("updateUserData",userUpdatedDetails)
+            }
+        }
     },
 
 
