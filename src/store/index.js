@@ -232,8 +232,13 @@ export default new Vuex.Store({
         allProducts(state) {
             return state.products;
         },
+
         getAddress(state) {
             return state.userData.address;
         },
+        itemsCount(state){
+            return state.cartData.reduce((prev, curr) => prev + Number(curr.quantity), 0 )
+        }
     },
 });
+
