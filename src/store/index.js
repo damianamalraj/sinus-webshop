@@ -19,6 +19,7 @@ export default new Vuex.Store({
         skateboards: [],
         clothes: [],
         accessories: [],
+        updateStatus: "false"
     },
 
     mutations: {
@@ -108,6 +109,10 @@ export default new Vuex.Store({
 
         removeFromCart(state, id){
             state.cartData = state.cartData.filter(item => item.id != id)
+        },
+
+        userDataUpdated(state, status){
+            state.updateStatus = status
         }
 
     },
@@ -212,10 +217,9 @@ export default new Vuex.Store({
         async updateUserDetails(context,userUpdatedDetails){
             const response = await API.updateUserData(userUpdatedDetails);
             console.log("Update api response",response)
-            if(response=="Profile updated"){
-                // const res = await API.authenticate(userUpdatedDetails.email,userUpdatedDetails.password)
+            if(response.data.message=="Profile updated"){
                await Actions.AUTHENTICATE(userUpdatedDetails.email,userUpdatedDetails.password)
-                // context.commit("updateUserData",userUpdatedDetails)
+                context.commit("userDataUpdated", "true")
             }
         }
     },
