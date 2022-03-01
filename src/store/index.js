@@ -19,6 +19,9 @@ export default new Vuex.Store({
         skateboards: [],
         clothes: [],
         accessories: [],
+        userAddress: {},
+        loggedIn: false,
+        order: [],
     },
 
     mutations: {
@@ -89,7 +92,6 @@ export default new Vuex.Store({
             state.page = 2;
         },
 
-
         sendToCart(state, product) {
             state.cartData.push(product);
         },
@@ -98,18 +100,24 @@ export default new Vuex.Store({
             state.userOrderHistory = data;
         },
 
-        replaceCartData(state, data){
-            state.cartData = data
+        replaceCartData(state, data) {
+            state.cartData = data;
         },
 
-        pushToCart(state, data){
-            state.cartData.push(data)
+        pushToCart(state, data) {
+            state.cartData.push(data);
         },
 
-        removeFromCart(state, id){
-            state.cartData = state.cartData.filter(item => item.id != id)
-        }
-
+        removeFromCart(state, id) {
+            state.cartData = state.cartData.filter((item) => item.id != id);
+        },
+        saveUserData(state, res) {
+            state.userData = res;
+            state.loggedIn = true;
+        },
+        setOrder(state, id) {
+            state.order.push(id);
+        },
     },
 
     actions: {
@@ -135,7 +143,6 @@ export default new Vuex.Store({
                 );
                 console.log(response.data.user);
             });
-
         },
 
         async getItems(context) {
@@ -180,8 +187,6 @@ export default new Vuex.Store({
             console.log(res);
         },
 
-    
-
         async getItem(context, id) {
             const res = await API.fetchData(id);
             context.commit("saveSingleData", res.data.post);
@@ -197,8 +202,6 @@ export default new Vuex.Store({
                 context.commit("saveMoreData", res.data);
                 console.log(res.data);
                 console.log(context.state.page);
-
-
             }
         },
 
@@ -207,8 +210,17 @@ export default new Vuex.Store({
             console.log("Api orderhistory info:", response);
             context.commit("updateOrderHistory", response.data);
         },
+        async getUserData(context) {
+            const res = await API.getUserData();
+            context.commit("saveUserData", res.data);
+            console.log("User Data: ", res.data);
+        },
+        async sendOrder(context, order) {
+            const res = await API.sendOrder(order);
+            console.log(res);
+            console.log("orers that i did" + order);
+        },
     },
-
 
     getters: {
         getUserDetails(state) {
@@ -220,9 +232,13 @@ export default new Vuex.Store({
         allProducts(state) {
             return state.products;
         },
+
+        getAddress(state) {
+            return state.userData.address;
+        },
         itemsCount(state){
             return state.cartData.reduce((prev, curr) => prev + Number(curr.quantity), 0 )
         }
-    }
-})
+    },
+});
 
