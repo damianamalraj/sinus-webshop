@@ -113,6 +113,7 @@ export default new Vuex.Store({
 
         userDataUpdated(state, status){
             state.updateStatus = status
+            console.log("commit value:",state.updateStatus)
         }
 
     },
@@ -216,10 +217,12 @@ export default new Vuex.Store({
 
         async updateUserDetails(context,userUpdatedDetails){
             const response = await API.updateUserData(userUpdatedDetails);
-            console.log("Update api response",response)
             if(response.data.message=="Profile updated"){
-               await Actions.AUTHENTICATE(userUpdatedDetails.email,userUpdatedDetails.password)
-                context.commit("userDataUpdated", "true")
+                console.log("Update api response",response)
+                await context.dispatch(Actions.AUTHENTICATE, {
+                    email: userUpdatedDetails.email,
+                    password: userUpdatedDetails.password,
+                  });
             }
         }
     },

@@ -118,9 +118,9 @@ export default {
   methods: {
     updateUserDetails(userDetails) {
       this.$store.dispatch("updateUserDetails", userDetails);
-      // if(this.statusUpdated=="true"){
+      if(this.statusUpdated){
         this.showModal = true
-      // }
+      }
     },
     redirect(){
       this.showModal = false
