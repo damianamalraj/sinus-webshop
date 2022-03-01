@@ -1,82 +1,96 @@
 <template>
-  <div>
-   <div v-if="getProducts.length > 0" class="small-container cart-page">
-     <table>
+    <div>
+        <div v-if="getProducts.length > 0" class="small-container cart-page">
+            <table>
+                <tr>
+                    <th>PRODUCT</th>
+                    <th>QUANTITY</th>
+                    <th>SUBTOTAL</th>
+                </tr>
 
-       <tr> 
-          <th>PRODUCT</th>
-          <th>QUANTITY</th>
-          <th>SUBTOTAL</th>
-       </tr>
-      
-       <tr v-for="product in getProducts" :key="product.id">
-        <td>
-          <div class="cart-info">
-            <img :src="'http://localhost:5001/images/' + product.imgFile" alt="">
-            <div>
-              <p> {{ product.title}} </p>
-              <small> {{ product.price}} </small>
-              <br>
-              <a href="#" @click="()=>{removeItem(product.id)}">Remove</a>
-            </div>
-          </div>
-        </td>
-        <td><input class="total" type="number" min="1" :value="product.quantity" @input="(e) => {changeQuantity(e, product.id)} "
-         >  </td>
-        <td class="total"> {{ product.price * product.quantity }} KR </td>
-      </tr>
-     
-    </table>
+                <tr v-for="product in getProducts" :key="product.id">
+                    <td>
+                        <div class="cart-info">
+                            <img
+                                :src="
+                                    'http://localhost:5001/images/' +
+                                    product.imgFile
+                                "
+                                alt=""
+                            />
+                            <div>
+                                <p>{{ product.title }}</p>
+                                <small> {{ product.price }} </small>
+                                <br />
+                                <a
+                                    href="#"
+                                    @click="
+                                        () => {
+                                            removeItem(product.id);
+                                        }
+                                    "
+                                    >Remove</a
+                                >
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <input
+                            class="total"
+                            type="number"
+                            min="1"
+                            :value="product.quantity"
+                            @input="
+                                (e) => {
+                                    changeQuantity(e, product.id);
+                                }
+                            "
+                        />
+                    </td>
+                    <td class="total">
+                        {{ product.price * product.quantity }} KR
+                    </td>
+                </tr>
+            </table>
 
-      <div class="total-price">
-        <table>
-          <tr>
-
-            <td class="total" >Total</td>
-            <td class="total" > SEK {{ total}} </td>
-
-        
-          </tr>
-          <router-link to="/checkout"
+            <div class="total-price">
+                <table>
+                    <tr>
+                        <td class="total">Total</td>
+                        <td class="total">SEK {{ total }}</td>
+                    </tr>
+                    <router-link to="/checkout"
                         ><button>To Checkout</button></router-link
                     >
-        </table>
-      </div>
-    </div>
+                </table>
+            </div>
+        </div>
 
-    <div v-else>
-      <h1> There is no product here </h1>
+        <div v-else>
+            <h1>There is no product here</h1>
+        </div>
     </div>
-
-    
-  </div>
 </template>
 
 <script>
 export default {
-
-  data(){
-    return{
-      products: [],
-      total: 0
-      
-    }
-  },
+    data() {
+        return {
+            products: [],
+            total: 0,
+        };
+    },
 
     computed: {
-
         getProducts() {
             return this.$store.state.cartData;
         },
     },
 
-     mounted(){
-
-       this.$store.state.cartData.forEach((product) => {
-          this.total = this.total + product.price * product.quantity;
-        
+    mounted() {
+        this.$store.state.cartData.forEach((product) => {
+            this.total = this.total + product.price * product.quantity;
         });
-
     },
 
     methods: {
@@ -88,16 +102,18 @@ export default {
             return products;
         },
 
-
         changeQuantity(e, id) {
             let products = this.$store.state.cartData;
+            this.total = 0;
             products.forEach((product) => {
                 if (product.id == id) {
                     product.quantity = e.target.value;
                 }
             });
             this.products = products;
-            window.localStorage.setItem("products", JSON.stringify(products));
+            this.products.forEach((product) => {
+                this.total = this.total + product.price * product.quantity;
+            });
         },
 
         removeItem(id) {
