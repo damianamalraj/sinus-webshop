@@ -80,7 +80,7 @@ export default {
     },
 
     cartItemsQuantity() {
-      return this.$store.state.cartListItems.length;
+      return this.$store.getters.itemsCount;
     },
 
     hasUserDetails() {

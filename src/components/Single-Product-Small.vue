@@ -124,6 +124,7 @@ export default {
             width: 3.5rem;
             height: 2.5rem;
             
+
         }
     }
 }
