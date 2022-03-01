@@ -31,7 +31,10 @@
             <SingleProductSmall :product="product" />
             <SingleProductSmall :product="product" />
         </div>
+
+        
     </div>
+
 </template>
 
 <script>
@@ -77,6 +80,7 @@ export default {
                 let product = {
                     ...this.product,
                     quantity: 1
+                    
                 }
                 this.$store.commit("pushToCart", product)
             }
@@ -90,8 +94,8 @@ export default {
 img {
     border: 1px solid black;
     border-radius: 8px;
-    width: 300px;
-    height: 300px;
+    width: 350px;
+    height: 350px;
     padding: 0.5rem;
     text-align: start;
     display: flex;

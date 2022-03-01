@@ -1,6 +1,6 @@
 <template>
   <div>
-   <div class="small-container cart-page">
+   <div v-if="getProducts.length > 0" class="small-container cart-page">
      <table>
 
        <tr> 
@@ -21,26 +21,31 @@
             </div>
           </div>
         </td>
-        <td><input class="total" type="number" min="0" :value="product.quantity" @input="(e) => {changeQuantity(e, product.id)} "
+        <td><input class="total" type="number" min="1" :value="product.quantity" @input="(e) => {changeQuantity(e, product.id)} "
          >  </td>
         <td class="total"> {{ product.price * product.quantity }} KR </td>
       </tr>
      
     </table>
 
-    <div class="total-price">
-      <table>
-        <tr>
+      <div class="total-price">
+        <table>
+          <tr>
 
-          <td class="total" >Total</td>
-          <td class="total" > SEK {{ getTotalPrice()}} </td>
+            <td class="total" >Total</td>
+            <td class="total" > SEK {{ getTotalPrice()}} </td>
 
-       
-        </tr>
-        <Button> To Checkout</Button>
-      </table>
+        
+          </tr>
+          <Button> To Checkout</Button>
+        </table>
+      </div>
     </div>
+
+    <div v-else>
+      <h1> There is no product here </h1>
     </div>
+
     
   </div>
 </template>
@@ -51,16 +56,14 @@ export default {
 
   data(){
     return{
-      products: []
+      products: [],
       
     }
   },
 
+
   computed:{
 
-    getData(){
-      return this.$store.state.cartData
-    },
 
     getProducts(){
       return this.$store.state.cartData
@@ -70,13 +73,13 @@ export default {
 
   methods:{
 
-    getCartData(){
+    /* getCartData(){
       let products = window.localStorage.getItem('products')
       products = JSON.parse(products)
       this.products = products
       console.log(products);
       return products
-    },
+    }, */
 
     getTotalPrice(){
       let total = 0
