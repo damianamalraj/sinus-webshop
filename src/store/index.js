@@ -31,6 +31,9 @@ export default new Vuex.Store({
         [Mutations.LOGIN_FAILED](state) {
             state.loginError = true;
         },
+        [Mutations.LOGIN_FAILED](state) {
+            state.loginError = true;
+        },
         clearUserData(state) {
             state.userDetails = {};
             API.clearToken;
@@ -42,11 +45,6 @@ export default new Vuex.Store({
         getAllItems(state, res) {
             state.products = res.data;
         },
-
-        [Mutations.LOGIN_FAILED](state) {
-            state.loginError = true;
-        },
-
         saveSingleData(state, data) {
             state.singleProduct = data;
         },

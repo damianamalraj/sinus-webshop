@@ -32,7 +32,7 @@
                 <option value="5">XXL</option>
             </select>
 
-           <button @click="addToCart">
+            <button @click="addToCart">
                 <img src="../assets/add_shopping_cart.svg" alt="" />
             </button>
         </section>
@@ -47,8 +47,7 @@ export default {
             return this.$store.state.singleProduct},
     },
     methods: {  
-        
-        addToCart(){
+           addToCart(){
             let cartProducts = this.$store.state.cartData
 
             let foundProduct = cartProducts.find(item => item.id == this.product.id)
@@ -58,8 +57,7 @@ export default {
                     if(item.id == this.product.id){
                         return { ...item, quantity: item.quantity + 1 }
                     }else{
-                        return item
-                    }
+                        return item }
                 })
                 this.$store.commit("replaceCartData", cartProducts)
 
@@ -70,10 +68,8 @@ export default {
                 }
                 this.$store.commit("pushToCart", product)
             }
-       
       }
     }
-
 };
 </script>
 
@@ -85,8 +81,8 @@ export default {
 .single-product {
     border: 1px solid black;
     border-radius: 8px;
-    width: 250px;
-    height: 400px;
+    width: 270px;
+    height: 420px;
     padding: 0.5rem;
     text-align: start;
     display: flex;
@@ -125,8 +121,10 @@ export default {
         justify-content: space-between;
         select,
         button {
-            width: 2rem;
-            height: 3rem;
+            width: 3.5rem;
+            height: 2.5rem;
+            
+
         }
     }
 }
