@@ -28,6 +28,9 @@ export default new Vuex.Store({
         [Mutations.LOGIN_FAILED](state) {
             state.loginError = true;
         },
+        [Mutations.LOGIN_FAILED](state) {
+            state.loginError = true;
+        },
         clearUserData(state) {
             state.userDetails = {};
             API.clearToken;
@@ -39,11 +42,6 @@ export default new Vuex.Store({
         getAllItems(state, res) {
             state.products = res.data;
         },
-
-        [Mutations.LOGIN_FAILED](state) {
-            state.loginError = true;
-        },
-
         saveSingleData(state, data) {
             state.singleProduct = data;
         },
@@ -88,8 +86,6 @@ export default new Vuex.Store({
         resetPageNumber(state) {
             state.page = 2;
         },
-
-
         sendToCart(state, product) {
             state.cartData.push(product);
         },
@@ -197,8 +193,6 @@ export default new Vuex.Store({
                 context.commit("saveMoreData", res.data);
                 console.log(res.data);
                 console.log(context.state.page);
-
-
             }
         },
 
@@ -208,7 +202,6 @@ export default new Vuex.Store({
             context.commit("updateOrderHistory", response.data);
         },
     },
-
 
     getters: {
         getUserDetails(state) {
