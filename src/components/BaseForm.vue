@@ -7,9 +7,9 @@
             type="text"
             name="username"
             id="username"
-            v-model="newUserDetails.name"
+            v-model="showUserInfo.name"
             required
-            value="userCurrentDetails.name"
+            :disabled="updateView == 1"
           />
         </span>
         <span>
@@ -18,9 +18,8 @@
             type="email"
             name="newemail"
             id="newemail"
-            v-model="newUserDetails.email"
+            v-model="showUserInfo.email"
             required
-            value="userCurrentDetails.email"
           />
         </span>
         <span>
@@ -29,7 +28,7 @@
             type="password"
             name="newpassword"
             id="newpassword"
-            v-model="newUserDetails.password"
+            v-model="showUserInfo.password"
             required
           />
         </span>
@@ -40,9 +39,8 @@
             type="text"
             name="street"
             id="street"
-            v-model="newUserDetails.address.street"
+            v-model="showUserInfo.address.street"
             required
-            value="userCurrentDetails.address.street"
           />
         </span>
         <span>
@@ -51,9 +49,8 @@
             type="text"
             name="city"
             id="city"
-            v-model="newUserDetails.address.city"
+            v-model="showUserInfo.address.city"
             required
-             value="userCurrentDetails.address.city"
           />
         </span>
         <span>
@@ -62,9 +59,8 @@
             type="number"
             name="zip"
             id="zip"
-            v-model="newUserDetails.address.zip"
+            v-model="showUserInfo.address.zip"
             required
-             value="userCurrentDetails.address.zip"
           />
         </span>
         <p v-if="!noError">{{ errorsList }}</p>
@@ -81,7 +77,7 @@
 export default {
   data() {
     return {
-      newUserDetails: {
+      showUserInfo: {
         email: "",
         password: "",
         name: "",
@@ -99,24 +95,29 @@ export default {
   props:{
     userCurrentDetails:{}
   },
-  // computed: {
-  //   showUserInfo(){
-  //     if(this.userCurrentDetails){
-  //       this.newUserDetails=this.userCurrentDetails
-  //     }
-  //     return null
-  //   }
-  // },
+  created(){
+    if(this.userCurrentDetails){
+      this.showUserInfo = this.userCurrentDetails
+    }
+  },
+  computed: {
+    updateView(){
+      if(this.userCurrentDetails){
+        return 1
+      }
+      return 0
+    }
+  },
   methods: {
     validateAndSend() {
       this.validate();
       if (this.validatedLogin) {
-        this.$emit('sendFormInfo',this.newUserDetails)
+        this.$emit('sendFormInfo',this.showUserInfo)
       }
     },
     validate() {
       this.errorsList = [];
-      if (!/^[a-zA-Z]+$/.test(this.username || this.street || this.city)) {
+      if (!/^[a-zA-Z]+$/.test(this.showUserInfo.username || this.showUserInfo.street || this.showUserInfo.city)) {
         this.errorsList.push(
           "Name, Street, City should contain only characters"
         );
