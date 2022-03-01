@@ -25,11 +25,11 @@
         </div>
 
         <div class="product-list-view">
-            <SingleProductSmall :product="product" />
-            <SingleProductSmall :product="product" />
-            <SingleProductSmall :product="product" />
-            <SingleProductSmall :product="product" />
-            <SingleProductSmall :product="product" />
+            <SingleProductSmall :product="savedProducts[0]" />
+            <SingleProductSmall :product="savedProducts[1]" />
+            <SingleProductSmall :product="savedProducts[2]" />
+            <SingleProductSmall :product="savedProducts[6]" />
+            <SingleProductSmall :product="savedProducts[9]" />
         </div>
 
         
@@ -54,6 +54,10 @@ export default {
         product() {
             return this.$store.state.singleProduct;
         },
+    },
+
+    created(){
+        this.savedProducts = this.$store.state.products
     },
 
     mounted() {

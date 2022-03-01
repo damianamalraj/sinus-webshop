@@ -33,7 +33,7 @@
           <tr>
 
             <td class="total" >Total</td>
-            <td class="total" > SEK {{ getTotalPrice()}} </td>
+            <td class="total" > SEK {{ total}} </td>
 
         
           </tr>
@@ -58,6 +58,7 @@ export default {
   data(){
     return{
       products: [],
+      total: 0
       
     }
   },
@@ -69,6 +70,15 @@ export default {
         },
     },
 
+     mounted(){
+
+       this.$store.state.cartData.forEach((product) => {
+          this.total = this.total + product.price * product.quantity;
+        
+        });
+
+    },
+
     methods: {
         getCartData() {
             let products = window.localStorage.getItem("products");
@@ -78,13 +88,6 @@ export default {
             return products;
         },
 
-        getTotalPrice() {
-            let total = 0;
-            this.products.forEach((product) => {
-                total = total + product.price * product.quantity;
-            });
-            return total;
-        },
 
         changeQuantity(e, id) {
             let products = this.$store.state.cartData;
