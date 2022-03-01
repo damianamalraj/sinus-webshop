@@ -15,9 +15,22 @@
                 </div>
                 <div class="address">
                     <h2>Address</h2>
-                    <input type="text" placeholder="Street" />
-                    <input type="text" placeholder="City" />
-                    <input type="text" placeholder="Zipcode" />
+                    <input
+                        v-model="getAddress.street"
+                        type="text"
+                        placeholder="Street"
+                    />
+                    <input
+                        v-model="getAddress.city"
+                        type="text"
+                        placeholder="City"
+                    />
+                    <input
+                        v-model="getAddress.zip"
+                        type="text"
+                        placeholder="Zipcode"
+                    />
+                    {{ getAddress }}
                 </div>
             </section>
             <hr />
@@ -45,7 +58,7 @@
                             />
                         </div>
                     </section>
-                    <button>CHECKOUT</button>
+                    <button @click="sendOrder">CHECKOUT</button>
                 </div>
             </section>
         </div>
@@ -53,7 +66,49 @@
 </template>
 
 <script>
-export default {};
+export default {
+    data() {
+        return {
+            address: {
+                street: "",
+                city: "",
+                zip: "",
+            },
+            order: [],
+        };
+    },
+    created() {
+        this.$store.dispatch("getUserData");
+    },
+
+    computed: {
+        getAddress: {
+            get() {
+                if (this.$store.state.loggedIn) {
+                    return this.$store.getters.getAddress;
+                } else {
+                    return this.address;
+                }
+            },
+        },
+        getProducts() {
+            return this.$store.state.cartData;
+        },
+    },
+    methods: {
+        sendOrder() {
+            this.$store.state.cartData.forEach((el) => {
+                for (let i = 0; i < el.quantity; i++) {
+                    this.order.push(el.id);
+                }
+            });
+            this.$store.dispatch("sendOrder", {
+                items: this.order,
+                shippingAddress: this.getAddress,
+            });
+        },
+    },
+};
 </script>
 
 <style lang="scss" scoped>
