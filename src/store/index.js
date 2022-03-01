@@ -220,6 +220,9 @@ export default new Vuex.Store({
         allProducts(state) {
             return state.products;
         },
-    },
+        itemsCount(state){
+            return state.cartData.reduce((prev, curr) => prev + Number(curr.quantity), 0 )
+        }
+    }
 })
 
