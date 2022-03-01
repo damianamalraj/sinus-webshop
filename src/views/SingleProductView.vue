@@ -25,13 +25,16 @@
         </div>
 
         <div class="product-list-view">
-            <SingleProductSmall :product="product" />
-            <SingleProductSmall :product="product" />
-            <SingleProductSmall :product="product" />
-            <SingleProductSmall :product="product" />
-            <SingleProductSmall :product="product" />
+            <SingleProductSmall :product="savedProducts[0]" />
+            <SingleProductSmall :product="savedProducts[1]" />
+            <SingleProductSmall :product="savedProducts[2]" />
+            <SingleProductSmall :product="savedProducts[6]" />
+            <SingleProductSmall :product="savedProducts[9]" />
         </div>
+
+        
     </div>
+
 </template>
 
 <script>
@@ -51,6 +54,10 @@ export default {
         product() {
             return this.$store.state.singleProduct;
         },
+    },
+
+    created(){
+        this.savedProducts = this.$store.state.products
     },
 
     mounted() {
@@ -77,6 +84,7 @@ export default {
                 let product = {
                     ...this.product,
                     quantity: 1
+                    
                 }
                 this.$store.commit("pushToCart", product)
             }
@@ -90,8 +98,8 @@ export default {
 img {
     border: 1px solid black;
     border-radius: 8px;
-    width: 300px;
-    height: 300px;
+    width: 350px;
+    height: 350px;
     padding: 0.5rem;
     text-align: start;
     display: flex;

@@ -14,7 +14,22 @@
 
     <div class="headerRight">
       <div>
-        <input placeholder="SEARCH YOUR PRODUCT" type="text" />
+        <input placeholder="SEARCH YOUR PRODUCT" type="text" v-on:keyup.enter="handleSearch"/>
+
+        <div class="search-list" style="position:relative;" v-if="showSearchList">
+            <div style="position: absolute; width: 100%;">
+                <ul style="color:white; position: relative;">
+                    <li v-for="product in searchProducts" :key="product.id" class="search">
+                     <router-link :to="'/singleproduct/' + product.id" class="searchList">{{product.title}} </router-link> 
+                      </li>
+                </ul>
+            </div>
+            <div style="position: absolute; top: -5px; right: -5px; background-color: white; border-radius:50%; border: 1px solid black; padding: 5px;"
+            @click="showSearchList=false" >
+              X
+            </div>
+            
+          </div>
       </div>
 
       <div class="contact">Contact us</div>
@@ -54,6 +69,8 @@ export default {
   data() {
     return {
       total: 0,
+      showSearchList: false,
+      searchProducts: []
     };
   },
 
@@ -63,7 +80,7 @@ export default {
     },
 
     cartItemsQuantity() {
-      return this.$store.state.cartListItems.length;
+      return this.$store.getters.itemsCount;
     },
 
     hasUserDetails() {
@@ -85,15 +102,29 @@ export default {
       this.$store.commit('clearUserData')
       this.$router.push({ name: "Home" });
       this.loginStatus = "Login"
-    }
+    },
+    handleSearch(e){  
+      this.showSearchList = true
 
-
+      const allProducts = this.$store.state.products 
+      this.searchProducts = allProducts.filter(item => item.title.toLowerCase() == e.target.value.toLowerCase())
+    },
   }
 
 }
 </script>
 
 <style >
+
+  .search {
+    list-style: none;
+    text-decoration: none;
+    background-color: white;
+  }
+  .searchList {
+      text-decoration: none;
+      width: 100%;
+  }
 
   img{
     font-size: 1.5rem;
@@ -105,6 +136,8 @@ export default {
   text-decoration: none;
   font-size: 1.2rem;
   font-weight: bold;
+  color: white;
+  
 }
 
 input {
@@ -117,7 +150,7 @@ input {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  background-color: rgb(180, 224, 180);
+  background-color: gray;
   padding: 1rem;
   height: 3rem;
   padding: 1.2rem;

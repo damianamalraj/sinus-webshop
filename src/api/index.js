@@ -66,9 +66,8 @@ export async function fetchData(id) {
     return await axios.get(`/items/${id}`);
 }
 
-
-export async function OrderHistoryData(){
-    return await axios.get('/orders')
+export async function OrderHistoryData() {
+    return await axios.get("/orders");
 }
 
 export function clearToken() {
@@ -79,3 +78,6 @@ export async function updateUserData(userNewDetails){
     return await axios.patch('/me',userNewDetails)
 }
 
+export async function sendOrder(order) {
+    return await axios.post("/orders", order);
+}
