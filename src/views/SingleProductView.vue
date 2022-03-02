@@ -25,16 +25,9 @@
         </div>
 
         <div class="product-list-view">
-            <SingleProductSmall :product="savedProducts[0]" />
-            <SingleProductSmall :product="savedProducts[1]" />
-            <SingleProductSmall :product="savedProducts[2]" />
-            <SingleProductSmall :product="savedProducts[6]" />
-            <SingleProductSmall :product="savedProducts[9]" />
-        </div>
-
-        
+            <SingleProductSmall :product="relatedProduct" v-for="relatedProduct in relatedProducts" :key="relatedProduct"/> 
+        </div>   
     </div>
-
 </template>
 
 <script>
@@ -47,8 +40,9 @@ export default {
     },
     data() {
         return {
-            savedProducts: [],
-        };
+            relatedProducts: []
+
+        }
     },
     computed: {
         product() {
@@ -56,12 +50,19 @@ export default {
         },
     },
 
-    created(){
+   /*  created(){
         this.savedProducts = this.$store.state.products
-    },
+    }, */
 
     mounted() {
         this.$store.dispatch("getItem", this.$route.params.id);
+
+        let allProducts = this.$store.state.products
+        
+        for(let i = 0; i < 5; i++ ){  
+            this.relatedProducts.push(allProducts[Math.floor(Math.random() * allProducts.length) - 1])
+        }
+
     },
 
     methods: {

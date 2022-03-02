@@ -7,19 +7,19 @@
         <div class="limitedAddition">
             <div class="card">
                 <div>
-                    <img src="../assets/bild1.jpeg" alt="Jeans" style="width:100%"></div>
+                    <img src="../assets/bild1.jpeg" alt="skate" style="width:100%"></div>
                 <div>
                     <h1> skateboard</h1>
                
-                     <p>Just in time for the holidays, Polo Ralph Lauren presents its Limited Edition Polo Bear 
+                     <p class="limitP">Just in time for the holidays, Polo Ralph Lauren presents its Limited Edition Polo Bear 
                     Skateboard Deck Collection, 7 Days, 7 Decks..</p>
                 </div>
             </div>
             <div class="card">
-                <img src="../assets/bild1.jpeg" alt="Jeans" style="width:100%">
+                <img src="../assets/bild1.jpeg" alt="skate" style="width:100%">
                 <h1> clothes</h1>
                 
-                <p>SJust in time for the holidays, Polo Ralph Lauren presents its Limited Edition Polo Bear 
+                <p class="limitP">SJust in time for the holidays, Polo Ralph Lauren presents its Limited Edition Polo Bear 
                     Skateboard Deck Collection, 7 Days, 7 Decks...</p>
             </div>
         </div>
@@ -28,13 +28,6 @@
             Vår skateboardavdelning uppdateras varje vecka med nya brädor, hjul, truckar & tillbehör. Vi handplockar vårt sortiment för 
             att alltid ha ett brett utbud för alla typ av åkarning street, park, transition & bowl!
              Målet är att vi ska tillhandahålla allt du behöver för att köpa skateboard oavsett om du är nybörjare eller en duktig åkare.</p>
-        <!-- <div class="homepage">
-            <SingleProductSmall :product='product'/>
-            <SingleProductSmall :product='product'/>
-            <SingleProductSmall :product='product'/>
-            <SingleProductSmall :product='product'/>
-            <SingleProductSmall :product='product'/>
-        </div> -->
 
         <div class="images">
             <img src="../assets/bild1.jpeg" alt="">
@@ -55,11 +48,11 @@
 </template>
 
 <script>
-// import SingleProductSmall from '../components/Single-Product-Small.vue';
+
 
 export default {
     name: "Home",
-    // components: {SingleProductSmall},
+   
 
     computed: {
         product() {
@@ -76,8 +69,12 @@ export default {
     flex-direction: row;
     margin: 2rem;
 }
+.limitP {
+    line-height: 150%;
+}
     .card {
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    box-shadow: 0 15px 15px teal;
+    border: 1px solid green;
     max-width: 400px;
     margin: auto;
     text-align: center;
@@ -128,6 +125,8 @@ export default {
         justify-content: space-between;
         margin: 3rem;
         position: relative;
+        box-shadow: 0 15px 15px teal;
+        border: 1px solid green;
         img {
             margin: 1rem;
         }

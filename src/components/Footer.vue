@@ -19,7 +19,7 @@ export default {};
 <style lang="scss" scoped>
 .footer {
     padding-right: 1rem;
-    background-color: gray;
+    background-color: teal;
 }
 
 .footer div {
@@ -28,5 +28,10 @@ export default {};
     gap: 2rem;
     color: white;
     width: 100%;
+}
+p {
+    font-size: 1.5rem;
+    font-weight: bold;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 </style>

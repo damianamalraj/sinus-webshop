@@ -12,6 +12,7 @@ import SkateboardsView from "../views/SkateboardsView.vue";
 import tack from "../views/tack.vue";
 import SignUpView from "../views/SignUpView.vue";
 import MyAccountView from "../views/MyAccountView.vue";
+import Contact from "../views/Contact.vue";
 
 Vue.use(VueRouter);
 
@@ -76,6 +77,11 @@ const routes = [
         path: "/myaccount",
         name: "MyAccount",
         component: MyAccountView,
+    },
+    {
+        path: "/contact",
+        name: "Contact",
+        component: Contact,
     },
 ];
 
