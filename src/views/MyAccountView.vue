@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper">
-    <div  :class="{ fade: showModal }">
+    <div :class="{ fade: showModal }">
       <div v-if="userInfo">
         <section class="details-section">
           <button @click="showForm = true">EDIT</button>
@@ -52,16 +52,16 @@
                   <td>
                     <img
                       :src="
-                        'http://localhost:5001/images/' +
-                        orderedProduct(item.ProductId).imgFile
+                        'http://localhost:5001/images/' + item.product.imgFile
                       "
-                      alt=""
+                      alt="preview"
                     />
                   </td>
+
                   <td>
-                    Ordered Product: {{ orderedProduct(item.ProductId).title }}
-                    {{ orderedProduct(item.ProductId).category }}
-                    {{ orderedProduct(item.ProductId).shortDesc }}
+                    {{ item.product.title }}
+                    {{ item.product.category}}
+                    {{ item.product.shortDesc }}
                   </td>
                   <td>{{ item.amount }}</td>
                   <td>{{ item.price }}</td>
@@ -83,7 +83,7 @@
     <div class="modal" v-if="showModal">
       <h2>Updated successfully!!!</h2>
       <h3>Please continue shopping</h3>
-      <button @click="redirect" class = "button-bg">Close</button>
+      <button @click="redirect" class="button-bg">Close</button>
     </div>
   </div>
 </template>
@@ -91,12 +91,12 @@
 <script>
 import BaseForm from "@/components/BaseForm";
 
-  export default {
+export default {
   data() {
     return {
       showOrders: false,
       showForm: false,
-      showModal:false
+      showModal: false,
     };
   },
   components: { BaseForm },
@@ -105,32 +105,28 @@ import BaseForm from "@/components/BaseForm";
       return this.$store.getters.getUserDetails;
     },
     allOrders() {
-      return this.$store.getters.getOrderHistory;
+      return this.$store.getters.getorderedProduct;
     },
     allProducts() {
       return this.$store.getters.allProducts;
     },
-    statusUpdated(){
+    statusUpdated() {
       return this.$store.state.updateStatus;
-    }
+    },
   },
   methods: {
     async updateUserDetails(userDetails) {
       await this.$store.dispatch("updateUserDetails", userDetails);
-      if(this.statusUpdated){
-        this.showModal = true
+      if (this.statusUpdated) {
+        this.showModal = true;
       }
     },
-    redirect(){
-      this.showModal = false
+    redirect() {
+      this.showModal = false;
       this.$router.push({ name: "Home" });
     },
-    orderedProduct(productId) {
-      return this.allProducts.find((item) => item.id == productId);
-    },
-    getAllOrders() {
-      this.$store.dispatch("fetchAllOrders");
-      this.$store.dispatch("getItems");
+    async getAllOrders() {
+      await this.$store.dispatch("fetchAllOrders");
       this.showOrders = true;
     },
   },
@@ -212,7 +208,7 @@ table {
 .fade {
   opacity: 30%;
 }
-.wrapper{
+.wrapper {
   margin-bottom: 50px;
 }
 </style>

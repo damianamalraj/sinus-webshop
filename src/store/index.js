@@ -23,6 +23,7 @@ export default new Vuex.Store({
         userAddress: {},
         loggedIn: false,
         order: [],
+        productsObject:{}
     },
 
     mutations: {
@@ -48,6 +49,7 @@ export default new Vuex.Store({
         },
         saveSingleData(state, data) {
             state.singleProduct = data;
+            Vue.set(state.productsObject, data.id, data)
         },
         addToCart(state, product) {
             state.cartData.push(product);
@@ -214,6 +216,7 @@ export default new Vuex.Store({
             const response = await API.OrderHistoryData();
             console.log("Api orderhistory info:", response);
             context.commit("updateOrderHistory", response.data);
+            response.data.forEach(order => order.items.forEach(item => context.dispatch('getItem',item.ProductId)))
         },
 
         async updateUserDetails(context,userUpdatedDetails){
@@ -257,6 +260,22 @@ export default new Vuex.Store({
         },
         itemsCount(state){
             return state.cartData.reduce((prev, curr) => prev + Number(curr.quantity), 0 )
+        },
+        getorderedProduct(state){
+            let updatedOrders = [];
+      for (let order of state.userOrderHistory) {
+        let items = [];
+        for (let item of order.items) {
+          const updatedItem = {
+            ...item,
+            product: state.productsObject[item.ProductId],
+          };
+          items.push(updatedItem);
+        }
+        const newOrder = { ...order, items };
+        updatedOrders.push(newOrder);
+      }
+      return updatedOrders;
         }
     },
 });
