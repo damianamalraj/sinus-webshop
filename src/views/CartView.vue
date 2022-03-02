@@ -57,7 +57,7 @@
                 <table>
                     <tr>
                         <td class="total">Total</td>
-                        <td class="total">SEK {{ total }}</td>
+                        <td class="total">SEK {{ totalPrice }}</td>
                     </tr>
                     <router-link to="/checkout"
                         ><button>To Checkout</button></router-link
@@ -85,22 +85,15 @@ export default {
         getProducts() {
             return this.$store.state.cartData;
         },
+
+        totalPrice(){
+          return this.$store.state.cartData.reduce((prev, curr) => prev + (curr.price * curr.quantity), 0)
+        }
     },
 
-    mounted() {
-        this.$store.state.cartData.forEach((product) => {
-            this.total = this.total + product.price * product.quantity;
-        });
-    },
+    
 
     methods: {
-        getCartData() {
-            let products = window.localStorage.getItem("products");
-            products = JSON.parse(products);
-            this.products = products;
-            console.log(products);
-            return products;
-        },
 
         changeQuantity(e, id) {
             let products = this.$store.state.cartData;
