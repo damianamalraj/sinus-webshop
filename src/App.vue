@@ -61,17 +61,21 @@ body {
 }
 
 button {
-    padding: 0.5rem 1.7rem;
-    font-size: 1rem;
+    padding: 0.8rem;
+    font-size: 1.3rem;
+    font-weight: bold;
     border-radius: 3px;
     cursor: pointer;
-    border: 2px solid rgb(22, 23, 24);
+    border: 1px solid rgb(22, 23, 24);
     margin: 10px 0px;
-    background-color: #333;
+    background-color:teal;
     color: white;
+    box-shadow: 5px 3px 9px 1px rgb(37, 96, 96);
+    margin-bottom: 2rem;
 }
 button:hover {
-    background-color: #7cc5a4;
-    color: #222;
+    background-color: white;
+    color: teal;
+    border: 1px solid black;
 }
 </style>

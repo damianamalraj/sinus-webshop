@@ -14,7 +14,8 @@
 
     <div class="headerRight">
       <div>
-        <input placeholder="SEARCH YOUR PRODUCT" type="text" v-on:keyup.enter="handleSearch"/>
+        <input placeholder="SEARCH YOUR PRODUCT" type="text" v-on:keyup.enter="handleSearch" class="input"/>
+        <img src="../assets/search.png" alt="">
 
         <div class="search-list" style="position:relative;" v-if="showSearchList">
             <div style="position: absolute; width: 100%;">
@@ -32,7 +33,7 @@
           </div>
       </div>
 
-      <div class="contact">Contact us</div>
+      <router-link to="/contact" class="contactUs"> <div class="contact" > Contact us</div> </router-link>
 
       <div>
         <button v-if="hasUserDetails" @click="logout" class="login">Logout</button>
@@ -41,11 +42,11 @@
         </router-link>
       </div>
 
-      <div>
+     <!--  <div>
         <router-link to="/wishList">
           <img class="contact" src="../assets/heart.svg" alt="" />
         </router-link>
-      </div>
+      </div> -->
 
       <div>
         <router-link to="/myaccount">
@@ -116,6 +117,7 @@ export default {
 
 <style >
 
+
   .search {
     list-style: none;
     text-decoration: none;
@@ -134,32 +136,54 @@ export default {
 .login,
 .contact {
   text-decoration: none;
-  font-size: 1.2rem;
+  font-size: 1.9rem;
   font-weight: bold;
   color: white;
+  font-family: 🇩🇿 ;
+  text-decoration: none;
   
 }
-
-input {
-  width: 17rem;
-  height: 1rem;
-  text-align: center;
+.contactUs {
+  text-decoration: none;
 }
+.input {
+  width: 40rem;
+  height: 1.9rem;
+  text-align: center;
+  border: 3px solid white;
+  font-size: 20px;
+  border-radius:50px;
+  box-shadow: 5px 3px 9px 1px rgb(45, 43, 43);
+  margin-right:3rem ;
+  
+}
+ .input:hover {
+    background-color: transparent;
+  transition: transform 250ms ease-in-out;
+  color: white;
+ }
+ ::placeholder {
+   color: black;
+   font-family: 🇦🇫 ;
+   
+ }
 
 .header {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  background-color: gray;
+  background-color: teal;
   padding: 1rem;
-  height: 3rem;
+  height: 4rem;
   padding: 1.2rem;
+  
 }
 
 .headerLeft {
   display: flex;
   flex-direction: row;
   gap: 1rem;
+  
 }
 
 .headerRight {

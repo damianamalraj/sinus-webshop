@@ -78,8 +78,13 @@ export default {
     text-decoration: none;
     color: #333;
 }
+.single-product:hover {
+   background-color: rgb(143, 201, 201);
+   color: white;
+    }
 .single-product {
-    border: 1px solid black;
+    box-shadow: 0 5px 12px green;
+    border: 1px solid green;
     border-radius: 8px;
     width: 270px;
     height: 420px;
@@ -88,6 +93,8 @@ export default {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+
+   
     
 
     span {
@@ -96,6 +103,10 @@ export default {
     h3,
     p {
         margin: 0;
+    }
+    h3{
+        font-size: 1.8rem;
+        font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     }
 
     .bild {
@@ -123,8 +134,10 @@ export default {
         button {
             width: 3.5rem;
             height: 2.5rem;
-            
 
+        }
+        button:hover, select:hover {
+         background-color:rgb(85, 41, 41);   
         }
     }
 }

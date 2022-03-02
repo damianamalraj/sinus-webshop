@@ -148,14 +148,14 @@ th {
     text-align: left;
     padding: 1.5rem;
     color: white;
-    background: gray;
+    background: teal;
     font-weight: bold;
 }
 td input {
     width: 90px;
     height: 30px;
     padding: 2px;
-    border: 3px solid black;
+    border: 3px solid teal;
 }
 
 td a {
@@ -184,7 +184,7 @@ th:last-child {
     text-align: right;
 }
 button {
-    background: gray;
+    background: teal;
     color: white;
     padding: 0.5rem;
     width: 250px;
