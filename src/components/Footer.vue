@@ -1,7 +1,11 @@
 <template>
     <div class="footer">
         <div>
-            <p>Logo</p>
+            <img
+                class="logo"
+                src="http://localhost:5001/images/sinus-logo-portrait.svg"
+                alt="logo"
+            />
             <p>Om Oss</p>
             <p>Hjälp</p>
             <p>Faq</p>
@@ -19,14 +23,22 @@ export default {};
 <style lang="scss" scoped>
 .footer {
     padding-right: 1rem;
-    background-color: gray;
-}
+    background-color: #555;
 
-.footer div {
-    display: flex;
-    justify-content: flex-end;
-    gap: 2rem;
-    color: white;
-    width: 100%;
+    div {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        gap: 1.5rem;
+        color: white;
+        width: 100%;
+        p {
+            text-transform: uppercase;
+        }
+
+        .logo {
+            height: 2rem;
+        }
+    }
 }
 </style>
