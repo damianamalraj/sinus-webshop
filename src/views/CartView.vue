@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="cart-view">
         <div v-if="getProducts.length > 0" class="small-container cart-page">
             <table>
                 <tr>
@@ -11,14 +11,16 @@
                 <tr v-for="product in getProducts" :key="product.id">
                     <td>
                         <div class="cart-info">
-                            <img
-                                :src="
-                                    'http://localhost:5001/images/' +
-                                    product.imgFile
-                                "
-                                alt=""
-                            />
-                            <div>
+                            <div class="bild">
+                                <img
+                                    :src="
+                                        'http://localhost:5001/images/' +
+                                        product.imgFile
+                                    "
+                                    alt=""
+                                />
+                            </div>
+                            <div class="info">
                                 <p>{{ product.title }}</p>
                                 <small> {{ product.price }} </small>
                                 <br />
@@ -86,15 +88,15 @@ export default {
             return this.$store.state.cartData;
         },
 
-        totalPrice(){
-          return this.$store.state.cartData.reduce((prev, curr) => prev + (curr.price * curr.quantity), 0)
-        }
+        totalPrice() {
+            return this.$store.state.cartData.reduce(
+                (prev, curr) => prev + curr.price * curr.quantity,
+                0
+            );
+        },
     },
 
-    
-
     methods: {
-
         changeQuantity(e, id) {
             let products = this.$store.state.cartData;
             this.total = 0;
@@ -117,6 +119,9 @@ export default {
 </script>
 
 <style scoped>
+.cart-view {
+    min-height: 100vh;
+}
 .cart-page {
     margin-right: 5rem;
     margin-left: 5rem;
@@ -156,9 +161,19 @@ td a {
     font-size: 12px;
     text-decoration: none;
 }
+
+.bild {
+    height: 5rem;
+    width: 10rem;
+}
 td img {
     width: 90px;
     height: 90px;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    overflow: hidden;
+
     margin-right: 10px;
 }
 .total-price {
@@ -190,5 +205,8 @@ button {
 .total {
     font-size: 1.2rem;
     font-weight: bold;
+}
+.info {
+    text-align: start;
 }
 </style>
