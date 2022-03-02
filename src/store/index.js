@@ -19,6 +19,7 @@ export default new Vuex.Store({
         skateboards: [],
         clothes: [],
         accessories: [],
+        updateStatus: false,
         userAddress: {},
         loggedIn: false,
         order: [],
@@ -106,6 +107,11 @@ export default new Vuex.Store({
             state.cartData.push(data);
         },
 
+        userDataUpdated(state, status){
+            state.updateStatus = status
+            console.log("commit value:",state.updateStatus)
+        },
+
         removeFromCart(state, id) {
             state.cartData = state.cartData.filter((item) => item.id != id);
         },
@@ -134,6 +140,7 @@ export default new Vuex.Store({
         },
 
         async [Actions.REGISTER_USER](context, newUserDetails) {
+            console.log("new user details: ", newUserDetails)
             await API.register(newUserDetails).then((response) => {
                 context.commit(
                     Mutations.AUTHENTICATE_LOGIN,
@@ -208,6 +215,20 @@ export default new Vuex.Store({
             console.log("Api orderhistory info:", response);
             context.commit("updateOrderHistory", response.data);
         },
+
+        async updateUserDetails(context,userUpdatedDetails){
+            const response = await API.updateUserData(userUpdatedDetails);
+            if(response.data.message=="Profile updated"){
+                console.log("Update api response",response)
+            context.commit("userDataUpdated", true);
+
+                await context.dispatch(Actions.AUTHENTICATE, {
+                    email: userUpdatedDetails.email,
+                    password: userUpdatedDetails.password,
+                  });
+            }
+        },
+
         async getUserData(context) {
             const res = await API.getUserData();
             context.commit("saveUserData", res.data);
