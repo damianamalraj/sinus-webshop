@@ -67,7 +67,6 @@
                   <td>{{ item.price }}</td>
                 </tr>
               </table>
-              <!-- <li>  Quantity : {{ orderedProduct(item.ProductId) }} <br /> </li> -->
             </section>
           </section>
           <span v-else>
@@ -92,7 +91,7 @@
 <script>
 import BaseForm from "@/components/BaseForm";
 
-export default {
+  export default {
   data() {
     return {
       showOrders: false,
@@ -116,8 +115,8 @@ export default {
     }
   },
   methods: {
-    updateUserDetails(userDetails) {
-      this.$store.dispatch("updateUserDetails", userDetails);
+    async updateUserDetails(userDetails) {
+      await this.$store.dispatch("updateUserDetails", userDetails);
       if(this.statusUpdated){
         this.showModal = true
       }

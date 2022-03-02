@@ -67,8 +67,6 @@
         <button>
           <slot name="action-name">Done</slot>
         </button>
-        <p>{{userCurrentDetails}}</p>
-        <!-- <p>{{registeredUser}}</p> -->
       </form>
   </div>
 </template>

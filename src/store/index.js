@@ -220,6 +220,8 @@ export default new Vuex.Store({
             const response = await API.updateUserData(userUpdatedDetails);
             if(response.data.message=="Profile updated"){
                 console.log("Update api response",response)
+            context.commit("userDataUpdated", true);
+
                 await context.dispatch(Actions.AUTHENTICATE, {
                     email: userUpdatedDetails.email,
                     password: userUpdatedDetails.password,
