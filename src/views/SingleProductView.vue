@@ -10,7 +10,7 @@
                 </div>
             </div>
 
-            <div>
+            <div class="info">
                 <section>
                     <h2>
                         {{ product.title }}
@@ -25,8 +25,12 @@
         </div>
 
         <div class="product-list-view">
-            <SingleProductSmall :product="relatedProduct" v-for="relatedProduct in relatedProducts" :key="relatedProduct"/> 
-        </div>   
+            <SingleProductSmall
+                :product="relatedProduct"
+                v-for="relatedProduct in relatedProducts"
+                :key="relatedProduct"
+            />
+        </div>
     </div>
 </template>
 
@@ -40,9 +44,8 @@ export default {
     },
     data() {
         return {
-            relatedProducts: []
-
-        }
+            relatedProducts: [],
+        };
     },
     computed: {
         product() {
@@ -50,52 +53,61 @@ export default {
         },
     },
 
-   /*  created(){
+    /*  created(){
         this.savedProducts = this.$store.state.products
     }, */
 
     mounted() {
         this.$store.dispatch("getItem", this.$route.params.id);
 
-        let allProducts = this.$store.state.products
-        
-        for(let i = 0; i < 5; i++ ){  
-            this.relatedProducts.push(allProducts[Math.floor(Math.random() * allProducts.length) - 1])
-        }
+        let allProducts = this.$store.state.products;
 
+        for (let i = 0; i < 5; i++) {
+            this.relatedProducts.push(
+                allProducts[Math.floor(Math.random() * allProducts.length) - 1]
+            );
+        }
     },
 
     methods: {
-        addToCart(){
-            let cartProducts = this.$store.state.cartData
+        addToCart() {
+            let cartProducts = this.$store.state.cartData;
 
-            let foundProduct = cartProducts.find(item => item.id == this.product.id)
+            let foundProduct = cartProducts.find(
+                (item) => item.id == this.product.id
+            );
 
-            if(foundProduct){
-                cartProducts = cartProducts.map(item => {
-                    if(item.id == this.product.id){
-                        return { ...item, quantity: item.quantity + 1 }
-                    }else{
-                        return item
+            if (foundProduct) {
+                cartProducts = cartProducts.map((item) => {
+                    if (item.id == this.product.id) {
+                        return { ...item, quantity: item.quantity + 1 };
+                    } else {
+                        return item;
                     }
-                })
-                this.$store.commit("replaceCartData", cartProducts)
-
-            }else{
+                });
+                this.$store.commit("replaceCartData", cartProducts);
+            } else {
                 let product = {
                     ...this.product,
-                    quantity: 1
-                    
-                }
-                this.$store.commit("pushToCart", product)
+                    quantity: 1,
+                };
+                this.$store.commit("pushToCart", product);
             }
-       
-      }
+        },
     },
 };
 </script>
 
 <style scoped>
+.bild {
+    margin-bottom: 2rem;
+    height: 30rem;
+    width: 40rem;
+}
+
+.info {
+    width: 30%;
+}
 img {
     border: 1px solid black;
     border-radius: 8px;
@@ -107,6 +119,10 @@ img {
     flex-direction: column;
     justify-content: space-between;
     margin-bottom: 1rem;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    overflow: hidden;
 }
 
 .product {
