@@ -13,8 +13,8 @@
                 ><button>Accessories</button></router-link
             >
         </div>
-        <router-view />
-        <Footer class="footer" />
+        <router-view  class="main-class"/>
+        <Footer />
     </div>
 </template>
 
@@ -31,10 +31,9 @@ export default {
 };
 </script>
 <style lang="scss">
-body {
+* {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
 }
 #app {
     font-family: Avenir, Helvetica, Arial, sans-serif;
@@ -61,21 +60,9 @@ body {
 }
 
 button {
-    padding: 0.8rem;
-    font-size: 1.3rem;
-    font-weight: bold;
-    border-radius: 3px;
-    cursor: pointer;
-    border: 1px solid rgb(22, 23, 24);
-    margin: 10px 0px;
-    background-color:teal;
-    color: white;
-    box-shadow: 5px 3px 9px 1px rgb(37, 96, 96);
-    margin-bottom: 2rem;
+    background-color: #333;
 }
-button:hover {
-    background-color: white;
-    color: teal;
-    border: 1px solid black;
+.main-class{
+    min-height: 55vh;
 }
 </style>

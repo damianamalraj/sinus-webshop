@@ -60,7 +60,7 @@
 
                   <td>
                     {{ item.product.title }}
-                    {{ item.product.category}}
+                    {{ item.product.category }}
                     {{ item.product.shortDesc }}
                   </td>
                   <td>{{ item.amount }}</td>

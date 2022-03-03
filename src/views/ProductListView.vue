@@ -37,13 +37,12 @@ export default {
 
 <style lang="scss" scoped>
 .product-list-view {
-    width: 100%;
+    max-width: 100%;
 
     .product-list {
         display: grid;
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: repeat(5, 1fr);
         gap: 1rem;
-       /*  margin: auto; */
     }
     .list {
         margin: auto;
