@@ -11,7 +11,7 @@
                         id="username"
                         v-model="showUserInfo.name"
                         required
-                        :disabled="updateView == 1"
+                        
                     />
                 </div>
                 <div>
@@ -112,14 +112,7 @@ export default {
             this.showUserInfo = this.userCurrentDetails;
         }
     },
-    computed: {
-        updateView() {
-            if (this.userCurrentDetails) {
-                return 1;
-            }
-            return 0;
-        },
-    },
+  
     methods: {
         validateAndSend() {
             this.validate();

@@ -28,7 +28,7 @@
             <SingleProductSmall
                 :product="relatedProduct"
                 v-for="relatedProduct in relatedProducts"
-                :key="relatedProduct"
+                :key="relatedProduct.id"
             />
         </div>
     </div>
@@ -53,20 +53,16 @@ export default {
         },
     },
 
-    /*  created(){
-        this.savedProducts = this.$store.state.products
-    }, */
+
 
     mounted() {
         this.$store.dispatch("getItem", this.$route.params.id);
 
         let allProducts = this.$store.state.products;
 
-        for (let i = 0; i < 5; i++) {
-            this.relatedProducts.push(
-                allProducts[Math.floor(Math.random() * allProducts.length) - 1]
-            );
-        }
+        allProducts.sort( () => Math.random()-0.5) 
+
+        this.relatedProducts= allProducts.filter( (_, index) => index < 5) 
     },
 
     methods: {
