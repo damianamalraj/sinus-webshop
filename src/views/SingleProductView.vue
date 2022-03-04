@@ -25,11 +25,12 @@
         </div>
 
         <div class="product-list-view">
-            <SingleProductSmall
-                :product="relatedProduct"
+            <div
                 v-for="relatedProduct in relatedProducts"
                 :key="relatedProduct.id"
-            />
+            >
+                <SingleProductSmall :product="relatedProduct" />
+            </div>
         </div>
     </div>
 </template>
@@ -53,16 +54,14 @@ export default {
         },
     },
 
-
-
     mounted() {
         this.$store.dispatch("getItem", this.$route.params.id);
-
         let allProducts = this.$store.state.products;
-
-        allProducts.sort( () => Math.random()-0.5) 
-
-        this.relatedProducts= allProducts.filter( (_, index) => index < 5) 
+        allProducts.sort(() => Math.random() - 0.5);
+        this.relatedProducts = allProducts.filter((_, index) => index < 5);
+    },
+    updated() {
+        this.$store.dispatch("getItem", this.$route.params.id);
     },
 
     methods: {

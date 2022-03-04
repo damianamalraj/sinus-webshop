@@ -104,7 +104,6 @@ export default {
     }
     h3 {
         font-size: 1.8rem;
-        font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
     }
 
     .bild {

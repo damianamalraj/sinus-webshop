@@ -27,7 +27,7 @@
                 <button @click="getAllOrders">Show Order History</button>
                 <section class="orders-section" v-if="showOrders">
                     <h2>MY ORDERS</h2>
-                    <section v-if="allOrders.length">
+                    <section class="orders" v-if="allOrders.length && show">
                         <section
                             v-for="order in allOrders"
                             :key="order.id"
@@ -53,13 +53,15 @@
                                     :key="item.ProductId"
                                 >
                                     <td>
-                                        <img
-                                            :src="
-                                                'http://localhost:5001/images/' +
-                                                item.product.imgFile
-                                            "
-                                            alt="preview"
-                                        />
+                                        <div class="bild">
+                                            <img
+                                                :src="
+                                                    'http://localhost:5001/images/' +
+                                                    item.product.imgFile
+                                                "
+                                                alt="preview"
+                                            />
+                                        </div>
                                     </td>
 
                                     <td>
@@ -72,6 +74,9 @@
                                 </tr>
                             </table>
                         </section>
+                    </section>
+                    <section class="loader" v-else-if="show == false">
+                        <img src="@/assets/spinning-circles.svg" alt="loader" />
                     </section>
                     <span v-else>
                         <h3>
@@ -105,9 +110,15 @@ export default {
             showOrders: false,
             showForm: false,
             showModal: false,
+            show: false,
         };
     },
     components: { BaseForm },
+    created() {
+        setTimeout(() => {
+            this.show = true;
+        }, 3000);
+    },
     computed: {
         userInfo() {
             return this.$store.getters.getUserDetails;
@@ -144,6 +155,39 @@ export default {
 <style scoped lang="scss">
 .wrapper {
     min-height: 100vh;
+
+    .orders-section {
+        background-color: white;
+        .orders {
+            width: 70%;
+            margin: auto;
+            .single-order {
+                padding: 1rem;
+                margin-bottom: 1rem;
+                border-radius: 8px;
+                background-color: rgb(228, 219, 219);
+            }
+        }
+
+        .bild {
+            height: 5rem;
+
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: contain;
+                overflow: hidden;
+                margin-right: 10px;
+            }
+        }
+    }
+
+    .loader {
+        margin-top: 10rem;
+        width: 10rem;
+        margin: auto;
+        text-align: center;
+    }
 }
 .form-container {
     width: 100%;

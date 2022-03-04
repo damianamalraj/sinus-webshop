@@ -20,7 +20,7 @@ export default new Vuex.Store({
         clothes: [],
         accessories: [],
         updateStatus: false,
-        userAddress: {},
+        userData: {},
         loggedIn: false,
         order: [],
         productsObject: {},
@@ -106,17 +106,14 @@ export default new Vuex.Store({
             state.cartData.push(data);
         },
 
-
-        userDataUpdated(state, status){
-            state.updateStatus = status
-            
+        userDataUpdated(state, status) {
+            state.updateStatus = status;
         },
 
         removeFromCart(state, id) {
             state.cartData = state.cartData.filter((item) => item.id != id);
         },
 
-        // var finns userData i state ??
         saveUserData(state, res) {
             state.userData = res;
             state.loggedIn = true;
@@ -124,10 +121,9 @@ export default new Vuex.Store({
         setOrder(state, id) {
             state.order.push(id);
         },
-        clearCart(state){
-            state.cartData = []
-
-        }
+        clearCart(state) {
+            state.cartData = [];
+        },
     },
 
     actions: {
@@ -151,20 +147,17 @@ export default new Vuex.Store({
                     Mutations.AUTHENTICATE_LOGIN,
                     response.data.user
                 );
-                
             });
         },
 
         async getItems(context) {
             const res = await API.getData();
             context.commit("saveProducts", res.data);
-            
         },
 
         async getSkateboards(context) {
             const res = await API.getSkateboards();
             context.commit("saveSkateboards", res.data);
-            
         },
         async getMoreSkateboards(context) {
             const res = await API.getMoreSkateboards(context.state.page);
@@ -190,6 +183,14 @@ export default new Vuex.Store({
             const res = await API.getAccessories();
             context.commit("saveAccessories", res.data);
         },
+        async getMoreAccessories(context) {
+            const res = await API.getMoreAccessories(context.state.page);
+
+            if (context.state.page <= 3) {
+                context.commit("loadMore");
+                context.commit("saveMoreAccessories", res.data);
+            }
+        },
 
         async getItem(context, id) {
             const res = await API.fetchData(id);
@@ -202,7 +203,6 @@ export default new Vuex.Store({
             if (context.state.page <= 4) {
                 context.commit("loadMore");
                 context.commit("saveMoreData", res.data);
-                
             }
         },
 
@@ -219,8 +219,8 @@ export default new Vuex.Store({
         async updateUserDetails(context, userUpdatedDetails) {
             const response = await API.updateUserData(userUpdatedDetails);
 
-            if(response.data.message=="Profile updated"){
-            context.commit("userDataUpdated", true);
+            if (response.data.message == "Profile updated") {
+                context.commit("userDataUpdated", true);
 
                 await context.dispatch(Actions.AUTHENTICATE, {
                     email: userUpdatedDetails.email,
@@ -233,7 +233,7 @@ export default new Vuex.Store({
             const res = await API.getUserData();
             context.commit("saveUserData", res.data);
         },
-        async sendOrder(order) {
+        async sendOrder(context, order) {
             await API.sendOrder(order);
         },
     },
