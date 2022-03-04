@@ -195,10 +195,6 @@ export default {
             font-size: 1rem;
         }
 
-        ::placeholder {
-            font-family: 🇦🇫;
-        }
-
         button {
             height: 2rem;
             padding: 0 1rem;
@@ -215,12 +211,12 @@ export default {
 
     .searchList {
         text-decoration: none;
-        color: black;
+        color: white;
     }
 
-    .search{
-      background-color: rgb(96, 141, 141);
-      list-style: none;
+    .search {
+        background-color: rgb(31, 82, 82);
+        list-style: none;
     }
 
     .quantity {

@@ -44,8 +44,9 @@ export default {};
 .main {
     padding: 0;
     margin: 0;
-    font-family: Arial, Helvetica, sans-serif;
+
     color: rgb(48, 46, 46);
+    min-height: 100vh;
 }
 .container {
     display: flex;

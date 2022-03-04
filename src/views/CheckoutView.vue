@@ -1,10 +1,10 @@
 <template>
     <div class="checkout-view">
-        <h1>KASSA</h1>
+        <h1>Checkout</h1>
         <div class="checkout">
             <section>
                 <div class="total">
-                    <h2>Totalt</h2>
+                    <h2>Total:</h2>
 
                     <div>
                         <h3>Your total price is</h3>
@@ -12,8 +12,43 @@
                         <h3>{{ total }}kr</h3>
                     </div>
                 </div>
+
+                <div class="payment">
+                    <h2>Payment method:</h2>
+                    <div class="payment-options">
+                        <div>
+                            <input
+                                id="faktura"
+                                type="radio"
+                                name="payment"
+                                value="faktura"
+                                checked
+                            />
+                            <label for="faktora">Invoice</label>
+                        </div>
+
+                        <div>
+                            <input
+                                id="klarna"
+                                type="radio"
+                                name="payment"
+                                value="klarna"
+                            />
+                            <label for="klarna">Klarna</label>
+                        </div>
+                        <div>
+                            <input
+                                id="Swish"
+                                type="radio"
+                                name="payment"
+                                value="Swish"
+                            />
+                            <label for="Swish">Swish</label>
+                        </div>
+                    </div>
+                </div>
                 <div class="address">
-                    <h2>Address</h2>
+                    <h2>Address:</h2>
                     <form @submit.prevent="sendOrder">
                         <input
                             required
@@ -89,13 +124,26 @@ export default {
                 shippingAddress: this.getAddress,
             });
             this.$router.push("/tack");
-            this.$store.commit('clearCart')
+            this.$store.commit("clearCart");
         },
     },
 };
 </script>
 
 <style lang="scss" scoped>
+.payment {
+    margin: 2rem 0 1rem 0;
+    text-align: start;
+
+    .payment-options {
+        div {
+            padding: 0.5rem 0;
+            input {
+                margin-right: 0.5rem;
+            }
+        }
+    }
+}
 .checkout-view {
     display: flex;
     text-align: start;
@@ -103,6 +151,7 @@ export default {
     flex-direction: column;
     padding: 1rem;
     text-align: center;
+    min-height: 100vh;
     .checkout {
         display: flex;
         width: 50%;
@@ -111,7 +160,7 @@ export default {
 
         section {
             width: 100%;
-           
+
             .total {
                 text-align: start;
             }
@@ -120,8 +169,9 @@ export default {
                 justify-content: space-between;
                 align-items: center;
                 width: 100%;
-                padding: 0.5rem;
+                padding: 3rem 1rem;
                 background-color: #f1f1f1;
+                border-radius: 8px;
             }
 
             .address {

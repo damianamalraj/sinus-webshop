@@ -9,8 +9,8 @@
             <router-link to="/contact">Om Oss</router-link>
             <router-link to="/contact">Hjälp</router-link>
             <p>Faq</p>
-            <router-link to="/checkout"><img src="../assets/deliver.svg" alt="" /></router-link>
-            
+            <img src="../assets/deliver.svg" alt="" />
+
             <img src="../assets/thumb.svg" alt="" />
             <img src="../assets/whatsapp.svg" alt="" />
         </div>
@@ -23,6 +23,9 @@ export default {};
 
 <style lang="scss" scoped>
 .footer {
+    a {
+        color: white;
+    }
     padding-right: 1rem;
     background-color: teal;
 
