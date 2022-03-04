@@ -89,6 +89,7 @@ export default {
                 shippingAddress: this.getAddress,
             });
             this.$router.push("/tack");
+            this.$store.commit('clearCart')
         },
     },
 };
@@ -101,7 +102,6 @@ export default {
     max-width: 200vh;
     flex-direction: column;
     padding: 1rem;
-    height: 70vh;
     text-align: center;
     .checkout {
         display: flex;
@@ -111,9 +111,7 @@ export default {
 
         section {
             width: 100%;
-            div {
-                height: 50%;
-            }
+           
             .total {
                 text-align: start;
             }
@@ -142,7 +140,7 @@ export default {
                     padding: 1rem;
 
                     button {
-                        height: 3rem;
+                        // height: 3rem;
                     }
                 }
             }
