@@ -127,12 +127,6 @@ export default {
         },
     },
 
-    mounted() {
-        this.total = window.localStorage.getItem("products") ? JSON.parse(window.localStorage.getItem("products")).length : 0;
-
-        // return this.$store.getters.getUserDetails;
-    },
-
     methods: {
         logout() {
             this.$store.commit("clearUserData");

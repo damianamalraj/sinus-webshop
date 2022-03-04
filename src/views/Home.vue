@@ -6,13 +6,13 @@
         </div>
         <div class="limitedAddition">
             <div class="card">
-                <div>
+                <router-link to="/skateboards">
                     <img
                         src="../assets/bild1.jpeg"
                         alt="skate"
                         style="width: 100%"
                     />
-                </div>
+                </router-link>
                 <div>
                     <h1>skateboard</h1>
 
@@ -23,7 +23,7 @@
                     </p>
                 </div>
             </div>
-            <div class="card">
+            <router-link to="/clothes" class="card">
                 <img
                     src="../assets/bild1.jpeg"
                     alt="skate"
@@ -36,7 +36,7 @@
                     its Limited Edition Polo Bear Skateboard Deck Collection, 7
                     Days, 7 Decks...
                 </p>
-            </div>
+            </router-link>
         </div>
         <h2>About us</h2>
         <p>

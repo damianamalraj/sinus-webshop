@@ -94,7 +94,7 @@ export default {
     .form-container {
         display: flex;
         justify-content: center;
-        height: 50vh;
+       
         form {
             background-color: #f1f1f1;
             border-radius: 8px;
