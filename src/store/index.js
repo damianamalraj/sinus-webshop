@@ -23,7 +23,7 @@ export default new Vuex.Store({
         userAddress: {},
         loggedIn: false,
         order: [],
-        productsObject:{}
+        productsObject: {},
     },
 
     mutations: {
@@ -46,7 +46,7 @@ export default new Vuex.Store({
         },
         saveSingleData(state, data) {
             state.singleProduct = data;
-            Vue.set(state.productsObject, data.id, data)
+            Vue.set(state.productsObject, data.id, data);
         },
         addToCart(state, product) {
             state.cartData.push(product);
@@ -106,6 +106,7 @@ export default new Vuex.Store({
             state.cartData.push(data);
         },
 
+
         userDataUpdated(state, status){
             state.updateStatus = status
             
@@ -145,7 +146,6 @@ export default new Vuex.Store({
         },
 
         async [Actions.REGISTER_USER](context, newUserDetails) {
-            
             await API.register(newUserDetails).then((response) => {
                 context.commit(
                     Mutations.AUTHENTICATE_LOGIN,
@@ -201,7 +201,6 @@ export default new Vuex.Store({
 
             if (context.state.page <= 4) {
                 context.commit("loadMore");
-
                 context.commit("saveMoreData", res.data);
                 
             }
@@ -210,18 +209,23 @@ export default new Vuex.Store({
         async fetchAllOrders(context) {
             const response = await API.OrderHistoryData();
             context.commit("updateOrderHistory", response.data);
-            response.data.forEach(order => order.items.forEach(item => context.dispatch('getItem',item.ProductId)))
+            response.data.forEach((order) =>
+                order.items.forEach((item) =>
+                    context.dispatch("getItem", item.ProductId)
+                )
+            );
         },
 
-        async updateUserDetails(context,userUpdatedDetails){
+        async updateUserDetails(context, userUpdatedDetails) {
             const response = await API.updateUserData(userUpdatedDetails);
+
             if(response.data.message=="Profile updated"){
             context.commit("userDataUpdated", true);
 
                 await context.dispatch(Actions.AUTHENTICATE, {
                     email: userUpdatedDetails.email,
                     password: userUpdatedDetails.password,
-                  });
+                });
             }
         },
 
@@ -248,25 +252,27 @@ export default new Vuex.Store({
         getAddress(state) {
             return state.userData.address;
         },
-        itemsCount(state){
-            return state.cartData.reduce((prev, curr) => prev + Number(curr.quantity), 0 )
+        itemsCount(state) {
+            return state.cartData.reduce(
+                (prev, curr) => prev + Number(curr.quantity),
+                0
+            );
         },
-        getorderedProduct(state){
+        getorderedProduct(state) {
             let updatedOrders = [];
-      for (let order of state.userOrderHistory) {
-        let items = [];
-        for (let item of order.items) {
-          const updatedItem = {
-            ...item,
-            product: state.productsObject[item.ProductId],
-          };
-          items.push(updatedItem);
-        }
-        const newOrder = { ...order, items };
-        updatedOrders.push(newOrder);
-      }
-      return updatedOrders;
-        }
+            for (let order of state.userOrderHistory) {
+                let items = [];
+                for (let item of order.items) {
+                    const updatedItem = {
+                        ...item,
+                        product: state.productsObject[item.ProductId],
+                    };
+                    items.push(updatedItem);
+                }
+                const newOrder = { ...order, items };
+                updatedOrders.push(newOrder);
+            }
+            return updatedOrders;
+        },
     },
 });
-
