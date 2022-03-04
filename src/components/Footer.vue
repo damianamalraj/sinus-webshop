@@ -6,10 +6,11 @@
                 src="http://localhost:5001/images/sinus-logo-portrait.svg"
                 alt="logo"
             />
-            <p>Om Oss</p>
-            <p>Hjälp</p>
+            <router-link to="/contact">Om Oss</router-link>
+            <router-link to="/contact">Hjälp</router-link>
             <p>Faq</p>
             <img src="../assets/deliver.svg" alt="" />
+
             <img src="../assets/thumb.svg" alt="" />
             <img src="../assets/whatsapp.svg" alt="" />
         </div>
@@ -22,6 +23,9 @@ export default {};
 
 <style lang="scss" scoped>
 .footer {
+    a {
+        color: white;
+    }
     padding-right: 1rem;
     background-color: teal;
 

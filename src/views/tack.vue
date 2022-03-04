@@ -1,8 +1,8 @@
 <template>
     <div class="tack">
-        <h1>Tack för beställning</h1>
-        <router-link to="productList">
-            <button>Handla mer</button>
+        <h1>Thanks for the purchase</h1>
+        <router-link to="products">
+            <button>Buy more</button>
         </router-link>
     </div>
 </template>

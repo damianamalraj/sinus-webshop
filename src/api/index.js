@@ -53,11 +53,14 @@ export async function getMoreClothes(page) {
     );
 }
 export async function getAccessories() {
-    return await axios.get("items?category=totebag&category=wheel", {});
+    return await axios.get(
+        "items?category=totebag&category=wheel&category=cap",
+        {}
+    );
 }
 export async function getMoreAccessories(page) {
     return await axios.get(
-        `items?category=totebag&category=wheel&page=${page}`,
+        `items?category=totebag&category=wheel&category=cap&page=${page}`,
         {}
     );
 }
@@ -74,8 +77,8 @@ export function clearToken() {
     axios.defaults.headers.common["Authorization"] = "";
 }
 
-export async function updateUserData(userNewDetails){
-    return await axios.patch('/me',userNewDetails)
+export async function updateUserData(userNewDetails) {
+    return await axios.patch("/me", userNewDetails);
 }
 
 export async function sendOrder(order) {

@@ -37,12 +37,13 @@ export default {
 
 <style lang="scss" scoped>
 .skateboards-list-view {
-    width: 100%;
+    max-width: 80vw;
+    margin: auto;
 
     .skateboards-list {
         display: grid;
-        grid-template-columns: repeat(5, 1fr);
-        gap: 1rem;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 2rem;
         margin: auto;
     }
     .list {

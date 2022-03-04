@@ -2,19 +2,21 @@
     <div>
         <div class="homeStyle">
             <img src="../assets/home.jpeg" alt="" />
-            <div class="centered">Limited Addition!! Skynda er !!</div>
+            <div class="centered">Limited Addition!!</div>
         </div>
         <div class="limitedAddition">
             <div class="card">
+                <router-link to="/skateboards">
+                    <div class="bild">
+                        <img
+                            src="http://localhost:5001/images/sinus-skateboard-fire.png"
+                            alt="skate"
+                            style="width: 100%"
+                        />
+                    </div>
+                </router-link>
                 <div>
-                    <img
-                        src="../assets/bild1.jpeg"
-                        alt="skate"
-                        style="width: 100%"
-                    />
-                </div>
-                <div>
-                    <h1>skateboard</h1>
+                    <h1>Skateboard</h1>
 
                     <p class="limitP">
                         Just in time for the holidays, Polo Ralph Lauren
@@ -23,20 +25,22 @@
                     </p>
                 </div>
             </div>
-            <div class="card">
-                <img
-                    src="../assets/bild1.jpeg"
-                    alt="skate"
-                    style="width: 100%"
-                />
-                <h1>clothes</h1>
+            <router-link to="/clothes" class="card">
+                <div class="bild">
+                    <img
+                        src="http://localhost:5001/images/sinus-totebag-gretaedition.png"
+                        alt="skate"
+                        style="width: 100%"
+                    />
+                </div>
+                <h1>Clothes</h1>
 
                 <p class="limitP">
                     SJust in time for the holidays, Polo Ralph Lauren presents
                     its Limited Edition Polo Bear Skateboard Deck Collection, 7
                     Days, 7 Decks...
                 </p>
-            </div>
+            </router-link>
         </div>
         <h2>About us</h2>
         <p>
@@ -52,13 +56,13 @@
             <img src="../assets/bild2.jpeg" alt="" />
             <img src="../assets/bild3.jpeg" alt="" />
             <div class="buynow">
-                <router-link to="/productList"
-                    ><button>Buy Now!!</button></router-link
+                <router-link to="/products"
+                    ><button>Buy Now!</button></router-link
                 >
             </div>
         </div>
 
-        <p class="fewCompanies">Few companies we work with:</p>
+        <p class="fewCompanies">Companies we work with:</p>
         <div class="fonticon">
             <i class="fas fa-band-aid"></i>
             <i class="fas fa-cat"></i>
@@ -86,19 +90,29 @@ export default {
     width: 100%;
     display: flex;
     flex-direction: row;
+    .card {
+        box-shadow: 0 15px 15px teal;
+        border: 1px solid green;
+        max-width: 500px;
+
+        margin: 5rem auto;
+        text-align: center;
+
+        display: flex;
+        flex-direction: column;
+        .bild {
+            height: 30rem;
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: contain;
+                overflow: hidden;
+            }
+        }
+    }
 }
 .limitP {
     line-height: 150%;
-}
-.card {
-    box-shadow: 0 15px 15px teal;
-    border: 1px solid green;
-    max-width: 400px;
-    margin: auto;
-    text-align: center;
-    font-family: arial;
-    display: flex;
-    flex-direction: column;
 }
 
 .homeStyle {

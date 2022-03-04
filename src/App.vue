@@ -2,7 +2,7 @@
     <div id="app">
         <Header />
         <div id="nav">
-            <router-link to="/productList"
+            <router-link to="/products"
                 ><button>All Products</button></router-link
             >
             <router-link to="/skateboards"
@@ -13,7 +13,7 @@
                 ><button>Accessories</button></router-link
             >
         </div>
-        <router-view  class="main-class"/>
+        <router-view class="main-class" />
         <Footer />
     </div>
 </template>
@@ -31,12 +31,13 @@ export default {
 };
 </script>
 <style lang="scss">
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
 * {
     margin: 0;
     padding: 0;
+    font-family: "Roboto", sans-serif;
 }
 #app {
-    font-family: Avenir, Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
@@ -62,7 +63,7 @@ export default {
 button {
     background-color: #333;
 }
-.main-class{
+.main-class {
     min-height: 55vh;
 }
 </style>
