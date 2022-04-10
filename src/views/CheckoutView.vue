@@ -93,6 +93,7 @@ export default {
     },
     mounted() {
         this.$store.dispatch("getUserData");
+        // $FEEDBACK: Move this to a getter
         this.$store.state.cartData.forEach((product) => {
             this.total = this.total + product.price * product.quantity;
         });

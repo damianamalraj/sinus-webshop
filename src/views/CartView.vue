@@ -88,6 +88,7 @@ export default {
             return this.$store.state.cartData;
         },
 
+        // $FEEDBACK: Move this to a getter
         totalPrice() {
             return this.$store.state.cartData.reduce(
                 (prev, curr) => prev + curr.price * curr.quantity,

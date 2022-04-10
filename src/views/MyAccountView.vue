@@ -110,11 +110,12 @@ export default {
             showOrders: false,
             showForm: false,
             showModal: false,
-            show: false,
+            show: false, // $QUESTION: show what?
         };
     },
     components: { BaseForm },
     created() {
+      // $QUESTION: Why a delay?
         setTimeout(() => {
             this.show = true;
         }, 3000);

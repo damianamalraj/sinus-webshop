@@ -1,6 +1,7 @@
 <template>
     <div class="footer">
         <div>
+          <!-- $TIPS: Move 'http://localhost:5001' to an environment variable  -->
             <img
                 class="logo"
                 src="http://localhost:5001/images/sinus-logo-portrait.svg"

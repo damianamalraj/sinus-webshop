@@ -8,6 +8,7 @@
             <div class="card">
                 <router-link to="/skateboards">
                     <div class="bild">
+                      <!-- $FEEDBACK: No inline styling -->
                         <img
                             src="http://localhost:5001/images/sinus-skateboard-fire.png"
                             alt="skate"

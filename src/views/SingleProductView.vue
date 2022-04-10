@@ -55,12 +55,14 @@ export default {
     },
 
     mounted() {
+      // $QUESTION: What if we have already fetched this product?
         this.$store.dispatch("getItem", this.$route.params.id);
         let allProducts = this.$store.state.products;
         allProducts.sort(() => Math.random() - 0.5);
         this.relatedProducts = allProducts.filter((_, index) => index < 5);
     },
     updated() {
+      // $QUESTION: What if we have already fetched this product?
         this.$store.dispatch("getItem", this.$route.params.id);
     },
 
@@ -71,7 +73,7 @@ export default {
             let foundProduct = cartProducts.find(
                 (item) => item.id == this.product.id
             );
-
+            // $FEEDBACK: This logic is better for the store
             if (foundProduct) {
                 cartProducts = cartProducts.map((item) => {
                     if (item.id == this.product.id) {
